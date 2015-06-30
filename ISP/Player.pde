@@ -7,7 +7,19 @@ class Player{
   }
   
   void display(){
-    ellipse(xCor,yCor,30,30);
+    fill(255);
+    ellipse(xCor,yCor,50,50);
   }
   
+  void move(){
+    float destX = mouseX;
+    float destY = mouseY;
+    float speedX = (xCor - destX) / 15;
+    float speedY= (yCor - destY) / 15;
+    float speed = sqrt(speedX*speedX + speedY*speedY);
+    speedX = (4*speedX)/speed;
+    speedY = (4*speedY)/speed;
+    xCor -= speedX;
+    yCor -= speedY;
+  }
 }
