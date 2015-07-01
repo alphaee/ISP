@@ -1,7 +1,16 @@
 # ISP
 **Developed by Young Kim, Dan Kim, Franklin Wang**
 
+*To-Do*
+- Implement Joystick control into the game itself
+- Create patterns for enemies that have not entered into the detection radius
+- Images/Background images need to be done
+
 *Update Log*
+
+7/1/15
+- Added detection radius for enemies
+- Fixed bug for controlling by accounting for translation 
 
 6/30/15
 - Developed a way to control a player with a joystick.
