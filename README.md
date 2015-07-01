@@ -1,7 +1,7 @@
 # ISP
-Young Kim, Dan Kim, Franklin Wang
+Developed by Young Kim, Dan Kim, Franklin Wang
 
-
+*Update Log*
 
 6/30/15
 - Developed a way to control a player with a joystick.
