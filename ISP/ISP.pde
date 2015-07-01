@@ -11,7 +11,8 @@ int spawnTime;
 void setup(){
   orientation(LANDSCAPE);
   size(displayWidth,displayHeight);
-  XSIZE = (int)(displayWidth*1.5);
+  
+  XSIZE = (int)(displayWidth*1.5); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.5);
   
   hero = new Player();
@@ -23,14 +24,12 @@ void setup(){
 void draw(){
   background(180);
   
-  updatePlayerCors();
+  updatePlayerCors(); //update coordinates before applying translations 
   
   translate(XSIZE/3 - pxCor, YSIZE/3 - pyCor);
-  stroke(204, 102, 0); 
-  fill(180);
-  rect(0, 0, XSIZE, YSIZE);
-  stroke(0);
-  hero.display();
+  
+  createBoundary();
+  
   spawnEnemies();
   displayAll();
   hero.move();
@@ -47,6 +46,13 @@ void updatePlayerCors(){
   println("pyCor: " + pyCor);
 }
 
+void createBoundary(){
+  stroke(204, 102, 0); 
+  fill(180);
+  rect(0, 0, XSIZE, YSIZE);
+  stroke(0);
+}
+
 void spawnEnemies(){
   if(counter >=spawnTime){
     Enemy temp = new Enemy();
@@ -57,6 +63,7 @@ void spawnEnemies(){
 }
 
 void displayAll(){
+  hero.display();
   for(Enemy e : enemies)
     e.display();
 }
