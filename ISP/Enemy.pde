@@ -17,10 +17,10 @@ class Enemy{
   }
   
   boolean detect(){
-      if( dist(xCor,yCor,pxCor,pyCor) < YSIZE/5 ){
-        return true;
-      }
-      return false;
+    if( dist(xCor,yCor,pxCor,pyCor) < YSIZE/5 ){
+      return true;
+    }
+    return false;
   }
   
   void chase(){ //nearly identical to Player class' "move()" method

@@ -8,8 +8,10 @@ class Joystick {
   float stickXCor;
   float stickYCor;
 
-  int outerRadius;
+  int outerRadius; //these are actually diameters
   int stickRadius;
+  
+  
   
   boolean pause;
 
@@ -23,13 +25,16 @@ class Joystick {
   }
 
   void display() {
-    fill(255);
+    noFill();
+    strokeWeight(10);
     ellipse(xCor - XCHANGE, yCor - YCHANGE, outerRadius, outerRadius);
     if(pause)
       pause();
     else
       limitStick();
+    strokeWeight(5);
     ellipse(stickXCor - XCHANGE, stickYCor - YCHANGE, stickRadius, stickRadius);
+    strokeWeight(1);
   }
   
   void pause(){ //when player lifts his hand from the joystick
@@ -52,7 +57,7 @@ class Joystick {
   }
   
   float calcDistance(){
-    return sqrt((stickXCor-xCor)*(stickXCor-xCor) + (stickYCor-yCor)*(stickYCor-yCor));
+    return sqrt((stickXCor-xCor)*(stickXCor-xCor) + (stickYCor-yCor)*(stickYCor-yCor)) / (outerRadius/2); //distance between stick circle and outer circle divided by the maximum distance; gives you proportion
   }
   
   void limitStick() {

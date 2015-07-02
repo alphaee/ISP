@@ -17,12 +17,21 @@ float controlAngle;
 float controlDistance;
 
 //MISC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+int state;
+/*
+  STATE 0: HOMESCREEN
+  STATE 1: GAME
+  STATE 2: GAME OVER
+*/
+
 int counter; 
 int spawnTime; 
 
 void setup(){
   orientation(LANDSCAPE);
   size(displayWidth,displayHeight);
+  
+  state = 1;
   
   XSIZE = (int)(displayWidth*1.5); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.5);
@@ -41,29 +50,32 @@ void setup(){
 }
 
 void draw(){
-  background(180);
-  
-  updatePlayerCors(); //update coordinates before applying translations
-  
-  translate(XCHANGE, YCHANGE);
-  
-  createBoundary();
-  
-  spawnEnemies();
-  displayAll();
-  
-  if(mousePressed){
-    thumbCircle.pause = false;
-    controlAngle = thumbCircle.calcAngle();
-    controlDistance = thumbCircle.calcDistance();
+  switch(state){
+    case 0:
+      break;
+    
+    case 1:
+      background(0);
+      
+      updatePlayerCors(); //update coordinates before applying translations
+      //also updates XCHANGE & YCHANGE
+      
+      translate(XCHANGE, YCHANGE);
+      
+      createBoundary();
+      
+      spawnEnemies();
+      displayAll();
+      
+      touchDetection();
+      
+      hero.move();
+      checkDeath();
+      break;
+      
+    case 2:
+      break;
   }
-  else{
-    thumbCircle.pause = true;
-    controlAngle = 0;
-    controlDistance = 0;
-  }
-  
-  hero.move();
 }
 
 boolean sketchFullScreen() { //Necessary to start in full screen
@@ -94,9 +106,37 @@ void spawnEnemies(){
   counter++;*/
 }
 
+void touchDetection(){
+  if(mousePressed){
+    thumbCircle.pause = false;
+    controlAngle = thumbCircle.calcAngle();
+    controlDistance = thumbCircle.calcDistance();
+  }
+  else{
+    fill(0, 153, 204, 126);
+    rect(-XCHANGE,-YCHANGE,displayWidth,displayHeight);
+    fill(15);
+    textSize(displayHeight/6);
+    textAlign(CENTER,CENTER);
+    text("Play to Resume!",displayWidth/2-XCHANGE,displayHeight/4-YCHANGE);
+    thumbCircle.pause = true;
+    controlAngle = 0;
+    controlDistance = 0;
+    noTint();
+  }
+}
+
 void displayAll(){
   thumbCircle.display();
   hero.display();
   for(Enemy e : enemies)
     e.display();
+}
+
+void checkDeath(){
+  for(Enemy e: enemies){
+    if(hero.isDead(e))
+      println("DEAD");
+      //state = 2;
+  }
 }

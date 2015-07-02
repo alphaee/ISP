@@ -19,63 +19,67 @@ class Player{
     return false; 
   }
   
+  boolean isDead(Enemy e){
+    return( dist(xCor,yCor,e.xCor,e.yCor) <  3);
+  }
+  
   void move(){
     if( !checkBounds() ){ //if we are inbounds
-      xCor += cos(controlAngle)*.07*controlDistance;
-      yCor += sin(controlAngle)*.07*controlDistance;
+      xCor += cos(controlAngle)*8.0*controlDistance;
+      yCor += sin(controlAngle)*8.0*controlDistance;
     }
     else{ //accounts for out of bounds
       
-      if((xCor <= 0)&&(yCor <= 0)){
-        if(cos(controlAngle)*.07*controlDistance >= 0)
-          xCor += cos(controlAngle)*.07*controlDistance;
-        if(sin(controlAngle)*.07*controlDistance >= 0)
-          yCor += sin(controlAngle)*.07*controlDistance;
+      if((xCor <= 0)&&(yCor <= 0)){ //corner cases
+        if(cos(controlAngle)*8.0*controlDistance >= 0)
+          xCor += cos(controlAngle)*8.0*controlDistance;
+        if(sin(controlAngle)*8.0*controlDistance >= 0)
+          yCor += sin(controlAngle)*8.0*controlDistance;
       }
       
       else if((xCor <= 0)&&(yCor >= YSIZE)){
-        if(cos(controlAngle)*.07*controlDistance >= 0)
-          xCor += cos(controlAngle)*.07*controlDistance;
-        if(sin(controlAngle)*.07*controlDistance <= 0)
-          yCor += sin(controlAngle)*.07*controlDistance;
+        if(cos(controlAngle)*8.0*controlDistance >= 0)
+          xCor += cos(controlAngle)*8.0*controlDistance;
+        if(sin(controlAngle)*8.0*controlDistance <= 0)
+          yCor += sin(controlAngle)*8.0*controlDistance;
       }
       
       else if((xCor >= XSIZE)&&(yCor <= 0)){
-        if(cos(controlAngle)*.07*controlDistance <= 0)
-          xCor += cos(controlAngle)*.07*controlDistance;
-        if(sin(controlAngle)*.07*controlDistance >= 0)
-          yCor += sin(controlAngle)*.07*controlDistance;
+        if(cos(controlAngle)*8.0*controlDistance <= 0)
+          xCor += cos(controlAngle)*8.0*controlDistance;
+        if(sin(controlAngle)*8.0*controlDistance >= 0)
+          yCor += sin(controlAngle)*8.0*controlDistance;
       }
       
       else if((xCor >= XSIZE)&&(yCor >= YSIZE)){
-        if(cos(controlAngle)*.07*controlDistance <= 0)
-          xCor += cos(controlAngle)*.07*controlDistance;
-        if(sin(controlAngle)*.07*controlDistance <= 0)
-          yCor += sin(controlAngle)*.07*controlDistance;
+        if(cos(controlAngle)*8.0*controlDistance <= 0)
+          xCor += cos(controlAngle)*8.0*controlDistance;
+        if(sin(controlAngle)*8.0*controlDistance <= 0)
+          yCor += sin(controlAngle)*8.0*controlDistance;
       }
       
       else if(xCor <= 0){
-        yCor += sin(controlAngle)*.07*controlDistance;
-        if(cos(controlAngle)*.07*controlDistance >= 0)
-          xCor += cos(controlAngle)*.07*controlDistance;
+        yCor += sin(controlAngle)*8.0*controlDistance;
+        if(cos(controlAngle)*8.0*controlDistance >= 0)
+          xCor += cos(controlAngle)*8.0*controlDistance;
       }
       
       else if(xCor >= XSIZE){
-        yCor += sin(controlAngle)*.07*controlDistance;
-        if(cos(controlAngle)*.07*controlDistance <= 0)
-          xCor += cos(controlAngle)*.07*controlDistance;
+        yCor += sin(controlAngle)*8.0*controlDistance;
+        if(cos(controlAngle)*8.0*controlDistance <= 0)
+          xCor += cos(controlAngle)*8.0*controlDistance;
       }
       
       else if(yCor <= 0){
-        xCor += cos(controlAngle)*.07*controlDistance;
-        if(sin(controlAngle)*.07*controlDistance >= 0)
-          yCor += sin(controlAngle)*.07*controlDistance;
+        xCor += cos(controlAngle)*8.0*controlDistance;
+        if(sin(controlAngle)*8.0*controlDistance >= 0)
+          yCor += sin(controlAngle)*8.0*controlDistance;
       }
       
       else{
-        xCor += cos(controlAngle)*.07*controlDistance;
-        if(sin(controlAngle)*.07*controlDistance <= 0)
-          yCor += sin(controlAngle)*.07*controlDistance;
+        xCor += cos(controlAngle)*8.0*controlDistance;
+        if(sin(controlAngle)*8.0*controlDistance <= 0)
+          yCor += sin(controlAngle)*8.0*controlDistance;
       }
       
     }
