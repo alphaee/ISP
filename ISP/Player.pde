@@ -23,22 +23,60 @@ class Player{
     if( !checkBounds() ){ //if we are inbounds
       xCor += cos(controlAngle)*.07*controlDistance;
       yCor += sin(controlAngle)*.07*controlDistance;
-    /*
-      float destX = mouseX - XSIZE/3 + pxCor; //account for the translating done in ISP
-      float destY = mouseY - YSIZE/3 + pyCor; 
-      
-      float speedX = (xCor - destX); 
-      float speedY = (yCor - destY);
-      
-      float speed = sqrt(speedX*speedX + speedY*speedY); //distance formula 
-      
-      speedX = (8 * speedX)/speed; //CHANGE THIS CONSTANT TO INCREASE SPEED
-      speedY = (8 * speedY)/speed;
-      
-      xCor -= speedX;
-      yCor -= speedY;*/
     }
     else{ //accounts for out of bounds
+      
+      if((xCor <= 0)&&(yCor <= 0)){
+        if(cos(controlAngle)*.07*controlDistance >= 0)
+          xCor += cos(controlAngle)*.07*controlDistance;
+        if(sin(controlAngle)*.07*controlDistance >= 0)
+          yCor += sin(controlAngle)*.07*controlDistance;
+      }
+      
+      else if((xCor <= 0)&&(yCor >= YSIZE)){
+        if(cos(controlAngle)*.07*controlDistance >= 0)
+          xCor += cos(controlAngle)*.07*controlDistance;
+        if(sin(controlAngle)*.07*controlDistance <= 0)
+          yCor += sin(controlAngle)*.07*controlDistance;
+      }
+      
+      else if((xCor >= XSIZE)&&(yCor <= 0)){
+        if(cos(controlAngle)*.07*controlDistance <= 0)
+          xCor += cos(controlAngle)*.07*controlDistance;
+        if(sin(controlAngle)*.07*controlDistance >= 0)
+          yCor += sin(controlAngle)*.07*controlDistance;
+      }
+      
+      else if((xCor >= XSIZE)&&(yCor >= YSIZE)){
+        if(cos(controlAngle)*.07*controlDistance <= 0)
+          xCor += cos(controlAngle)*.07*controlDistance;
+        if(sin(controlAngle)*.07*controlDistance <= 0)
+          yCor += sin(controlAngle)*.07*controlDistance;
+      }
+      
+      else if(xCor <= 0){
+        yCor += sin(controlAngle)*.07*controlDistance;
+        if(cos(controlAngle)*.07*controlDistance >= 0)
+          xCor += cos(controlAngle)*.07*controlDistance;
+      }
+      
+      else if(xCor >= XSIZE){
+        yCor += sin(controlAngle)*.07*controlDistance;
+        if(cos(controlAngle)*.07*controlDistance <= 0)
+          xCor += cos(controlAngle)*.07*controlDistance;
+      }
+      
+      else if(yCor <= 0){
+        xCor += cos(controlAngle)*.07*controlDistance;
+        if(sin(controlAngle)*.07*controlDistance >= 0)
+          yCor += sin(controlAngle)*.07*controlDistance;
+      }
+      
+      else{
+        xCor += cos(controlAngle)*.07*controlDistance;
+        if(sin(controlAngle)*.07*controlDistance <= 0)
+          yCor += sin(controlAngle)*.07*controlDistance;
+      }
       
     }
   }
