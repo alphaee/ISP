@@ -52,8 +52,16 @@ void draw(){
   spawnEnemies();
   displayAll();
   
-  controlAngle = thumbCircle.calcAngle();
-  controlDistance = thumbCircle.calcDistance();
+  if(mousePressed){
+    thumbCircle.pause = false;
+    controlAngle = thumbCircle.calcAngle();
+    controlDistance = thumbCircle.calcDistance();
+  }
+  else{
+    thumbCircle.pause = true;
+    controlAngle = 0;
+    controlDistance = 0;
+  }
   
   hero.move();
 }

@@ -10,6 +10,8 @@ class Joystick {
 
   int outerRadius;
   int stickRadius;
+  
+  boolean pause;
 
   Joystick() {
     xSize = displayWidth;
@@ -23,10 +25,18 @@ class Joystick {
   void display() {
     fill(255);
     ellipse(xCor - XCHANGE, yCor - YCHANGE, outerRadius, outerRadius);
-    limitStick();
+    if(pause)
+      pause();
+    else
+      limitStick();
     ellipse(stickXCor - XCHANGE, stickYCor - YCHANGE, stickRadius, stickRadius);
   }
-
+  
+  void pause(){ //when player lifts his hand from the joystick
+    stickXCor = xCor;
+    stickYCor = yCor;
+  }
+  
   float calcAngle() {
     float x = (mouseX - xCor);
     float y = (mouseY - yCor);    
