@@ -2,11 +2,17 @@
 **Developed by Young Kim, Dan Kim, Franklin Wang**
 
 *To-Do*
-- Create patterns for enemies that have not entered into the detection radius
-- Images/Background images need to be done
-- Fix error when you go out of bounds and get stuck
+- Implement different kinds of enemies.
+- Enemy Images/Background images need to be done
+- Import character sprite
 
 *Update Log*
+
+7/2/15
+- Added collision detection
+- Fixed error when you go out of bounds and get stuck
+- Made character sprite.(incomplete)
+- Implemented the first kind of enemy, the Chaser (incomplete)
 
 7/1/15
 - Added detection radius for enemies
