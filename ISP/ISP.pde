@@ -1,10 +1,22 @@
- //Young Kim, Dan Kim, Franklin Wang
-int XSIZE, YSIZE; //Constants
+//Young Kim, Dan Kim, Franklin Wang
+
+//FIXED CONSTANTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+int XSIZE, YSIZE;
+float XCHANGE, YCHANGE;
+
+//PLAYER VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Player hero;
 float pxCor, pyCor; //Player x-cor and y-cor
 
-Player hero;
+//ENEMY VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ArrayList<Enemy> enemies;
 
+//JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Joystick thumbCircle;
+float controlAngle;
+float controlDistance;
+
+//MISC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int counter; 
 int spawnTime; 
 
@@ -16,7 +28,14 @@ void setup(){
   YSIZE = (int)(displayHeight*1.5);
   
   hero = new Player();
+  thumbCircle = new Joystick();
+  
   enemies = new ArrayList<Enemy>();
+  
+  for(int i = 0; i < 10; i ++){ //FOR TESTING PURPOSES ONLY
+    Enemy temp = new Enemy();
+    enemies.add(temp);
+  }
   
   spawnTime = 25;
 }
@@ -24,14 +43,18 @@ void setup(){
 void draw(){
   background(180);
   
-  updatePlayerCors(); //update coordinates before applying translations 
+  updatePlayerCors(); //update coordinates before applying translations
   
-  translate(XSIZE/3 - pxCor, YSIZE/3 - pyCor);
+  translate(XCHANGE, YCHANGE);
   
   createBoundary();
   
   spawnEnemies();
   displayAll();
+  
+  controlAngle = thumbCircle.calcAngle();
+  controlDistance = thumbCircle.calcDistance();
+  
   hero.move();
 }
 
@@ -42,8 +65,8 @@ boolean sketchFullScreen() { //Necessary to start in full screen
 void updatePlayerCors(){
   pxCor = hero.xCor;
   pyCor = hero.yCor;
-  println("pxCor: " + pxCor);
-  println("pyCor: " + pyCor);
+  XCHANGE = XSIZE/3 - pxCor;
+  YCHANGE = YSIZE/3 - pyCor;
 }
 
 void createBoundary(){
@@ -54,20 +77,18 @@ void createBoundary(){
 }
 
 void spawnEnemies(){
+  /*
   if(counter >=spawnTime){
     Enemy temp = new Enemy();
     enemies.add(temp);
     counter = 0;
   }
-  counter++;
+  counter++;*/
 }
 
 void displayAll(){
+  thumbCircle.display();
   hero.display();
   for(Enemy e : enemies)
     e.display();
-}
-
-void mousePressed(){
-  hero.move();
 }
