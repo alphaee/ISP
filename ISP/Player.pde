@@ -20,7 +20,7 @@ class Player{
   }
   
   boolean isDead(Enemy e){
-    return( dist(xCor,yCor,e.xCor,e.yCor) <  22);
+    return( dist(xCor,yCor,e.xCor(),e.yCor()) <  22);
   }
   
   void move(){

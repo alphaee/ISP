@@ -42,7 +42,7 @@ void setup(){
   enemies = new ArrayList<Enemy>();
   
   for(int i = 0; i < 10; i ++){ //FOR TESTING PURPOSES ONLY
-    Enemy temp = new Enemy();
+    Chaser temp = new Chaser();
     enemies.add(temp);
   }
   
@@ -99,7 +99,7 @@ void createBoundary(){
 void spawnEnemies(){
   /*
   if(counter >=spawnTime){
-    Enemy temp = new Enemy();
+    Chaser temp = new Chaser();
     enemies.add(temp);
     counter = 0;
   }
