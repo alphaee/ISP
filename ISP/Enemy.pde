@@ -1,18 +1,13 @@
 interface Enemy {  
-
-  void display(); 
-
-  boolean detect();
-
-  void dying();
-
-  void merging();
-
-  boolean isAlive();
-
-  void attack();
-  
   float xCor();
   float yCor();
+
+  boolean detect();
+  void attack()
+  
+  boolean isAlive();
+  void dying();
+  
+  void display(); 
 }
 

@@ -24,9 +24,6 @@ int state;
   STATE 2: GAME OVER
 */
 
-int counter; 
-int spawnTime; 
-
 void setup(){
   orientation(LANDSCAPE);
   size(displayWidth,displayHeight);
@@ -51,20 +48,18 @@ void setup(){
 
 void draw(){
   switch(state){
-    case 0:
+    case 0: //HOMESCREEN
       break;
     
-    case 1:
+    case 1: //MAIN GAME
       background(0);
       
       updatePlayerCors(); //update coordinates before applying translations
       //also updates XCHANGE & YCHANGE
-      
       translate(XCHANGE, YCHANGE);
       
       createBoundary();
-      
-      spawnEnemies();
+ 
       displayAll();
       
       touchDetection();
@@ -73,7 +68,7 @@ void draw(){
       checkDeath();
       break;
       
-    case 2:
+    case 2: //GAME OVER
       break;
   }
 }
@@ -94,16 +89,6 @@ void createBoundary(){
   fill(180);
   rect(0, 0, XSIZE, YSIZE);
   stroke(0);
-}
-
-void spawnEnemies(){
-  /*
-  if(counter >=spawnTime){
-    Chaser temp = new Chaser();
-    enemies.add(temp);
-    counter = 0;
-  }
-  counter++;*/
 }
 
 void touchDetection(){
@@ -135,8 +120,9 @@ void displayAll(){
 
 void checkDeath(){
   for(Enemy e: enemies){
-    if(hero.isDead(e))
+    if(hero.isDead(e)){
       text("Dead!",displayWidth/2-XCHANGE,displayHeight/4-YCHANGE);
       //state = 2;
+    }
   }
 }
