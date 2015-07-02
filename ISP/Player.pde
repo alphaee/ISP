@@ -1,14 +1,19 @@
 class Player{
   float xCor, yCor;
+  PImage img;
   
   Player(){
     xCor = XSIZE/2;
     yCor = YSIZE/2;
+    
+    img = loadImage("Hero.png");
+    imageMode(CENTER);
+    img.resize(40,80);
   }
   
   void display(){
     fill(255);
-    ellipse(xCor,yCor,50,50);
+    image(img,xCor,yCor);
   }
   
   boolean checkBounds(){

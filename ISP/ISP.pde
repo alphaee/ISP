@@ -42,8 +42,6 @@ void setup(){
     Chaser temp = new Chaser();
     enemies.add(temp);
   }
-  
-  spawnTime = 25;
 }
 
 void draw(){

@@ -3,7 +3,7 @@ interface Enemy {
   float yCor();
 
   boolean detect();
-  void attack()
+  void attack();
   
   boolean isAlive();
   void dying();
