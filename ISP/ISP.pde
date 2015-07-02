@@ -136,7 +136,7 @@ void displayAll(){
 void checkDeath(){
   for(Enemy e: enemies){
     if(hero.isDead(e))
-      println("DEAD");
+      text("Dead!",displayWidth/2-XCHANGE,displayHeight/4-YCHANGE);
       //state = 2;
   }
 }
