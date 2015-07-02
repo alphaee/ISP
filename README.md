@@ -3,7 +3,7 @@
 
 *To-Do*
 - Implement different kinds of enemies.
-- Enemy Images/Background images need to be done
+- Enemy images/Background images need to be done
 - Import character sprite
 
 *Update Log*
