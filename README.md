@@ -4,14 +4,13 @@
 *To-Do*
 - Implement different kinds of enemies.
 - Enemy images/Background images need to be done
-- Import character sprite
 
 *Update Log*
 
 7/2/15
 - Added collision detection
 - Fixed error when you go out of bounds and get stuck
-- Made character sprite
+- Made and imported character sprite
 - Implemented the first kind of enemy, the Chaser
 
 7/1/15
