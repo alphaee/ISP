@@ -4,6 +4,7 @@
 *To-Do*
 - Implement different kinds of enemies.
 - Enemy images/Background images need to be done
+- Animate character die and enemies merge and die
 
 *Update Log*
 
