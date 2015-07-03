@@ -13,7 +13,11 @@ class Player{
   
   void display(){
     fill(255);
-    image(img,xCor,yCor);
+    pushMatrix();
+    translate(xCor,yCor);
+    rotate(controlAngle + PI/2); //rotations are always done over the origin
+    image(img,0,0);
+    popMatrix();
   }
   
   boolean checkBounds(){
