@@ -8,6 +8,11 @@
 
 *Update Log*
 
+7/3/15
+- Character now faces the direction your "cursor" points
+- Enemies no longer attack during a game pause
+- Made slight changes to game pause screen
+
 7/2/15
 - Added collision detection
 - Fixed error when you go out of bounds and get stuck
