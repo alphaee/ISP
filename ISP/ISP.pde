@@ -60,7 +60,8 @@ void draw(){
  
       displayAll();
       
-      touchDetection();
+      if(touchDetection())
+        enemiesAttack();
       
       hero.move();
       checkDeath();
@@ -89,23 +90,25 @@ void createBoundary(){
   stroke(0);
 }
 
-void touchDetection(){
+boolean touchDetection(){
   if(mousePressed){
     thumbCircle.pause = false;
     controlAngle = thumbCircle.calcAngle();
     controlDistance = thumbCircle.calcDistance();
+    return true;
   }
   else{
-    fill(0, 153, 204, 126);
-    rect(-XCHANGE,-YCHANGE,displayWidth,displayHeight);
+    fill(0, 153, 204, 200);
+    rect(-XCHANGE,-YCHANGE+displayHeight/4,displayWidth,displayHeight/2);
     fill(15);
     textSize(displayHeight/6);
     textAlign(CENTER,CENTER);
-    text("Play to Resume!",displayWidth/2-XCHANGE,displayHeight/4-YCHANGE);
+    text("Play to Resume!",displayWidth/2-XCHANGE,displayHeight/2-YCHANGE);
     thumbCircle.pause = true;
     controlAngle = 0;
     controlDistance = 0;
     noTint();
+    return false;
   }
 }
 
@@ -114,6 +117,11 @@ void displayAll(){
   hero.display();
   for(Enemy e : enemies)
     e.display();
+}
+
+void enemiesAttack(){
+  for(Enemy e : enemies)
+    e.attack();
 }
 
 void checkDeath(){

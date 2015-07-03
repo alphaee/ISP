@@ -17,15 +17,17 @@ class Chaser implements Enemy{
   }
   
   void attack(){ //nearly identical to Player class' "move()" method
-    float speedX = (xCor - pxCor) / 50;
-    float speedY= (yCor - pyCor) / 50;
-    
-    float speed = sqrt(speedX*speedX + speedY*speedY);
-    
-    speedX = (2*speedX)/speed;
-    speedY = (2*speedY)/speed;
-    xCor -= speedX;
-    yCor -= speedY;
+    if(detect()){
+      float speedX = (xCor - pxCor) / 50;
+      float speedY= (yCor - pyCor) / 50;
+      
+      float speed = sqrt(speedX*speedX + speedY*speedY);
+      
+      speedX = (2*speedX)/speed;
+      speedY = (2*speedY)/speed;
+      xCor -= speedX;
+      yCor -= speedY;
+    }
   }
   
   boolean isAlive(){
@@ -37,8 +39,5 @@ class Chaser implements Enemy{
   void display(){
     fill(0);
     ellipse(xCor,yCor,50,80);
-    
-    if(detect())
-      attack();
   }
 }
