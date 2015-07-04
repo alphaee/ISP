@@ -12,6 +12,7 @@
 - Character now faces the direction your "cursor" points
 - Enemies no longer attack during a game pause
 - Made slight changes to game pause screen
+- Basic homescreen
 
 7/2/15
 - Added collision detection
