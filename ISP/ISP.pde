@@ -28,8 +28,6 @@ void setup(){
   orientation(LANDSCAPE);
   size(displayWidth,displayHeight);
   
-  state = 1;
-  
   XSIZE = (int)(displayWidth*1.5); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.5);
   
@@ -47,6 +45,16 @@ void setup(){
 void draw(){
   switch(state){
     case 0: //HOMESCREEN
+      background(0);
+      textSize(displayHeight/6);
+      textAlign(CENTER,CENTER);
+      text("I.S.P",displayWidth/2,displayHeight/4);
+      textSize(displayHeight/15);
+      text("DanTheMan, CDelano, and Franklin",displayWidth/2,displayHeight/2);
+      text("(Click to Continue!)", displayWidth/2, 3*displayHeight/4);
+      if(mousePressed){
+        state = 1;
+      }
       break;
     
     case 1: //MAIN GAME

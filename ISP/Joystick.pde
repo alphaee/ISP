@@ -26,6 +26,7 @@ class Joystick {
 
   void display() {
     noFill();
+    stroke(255,233,26);
     strokeWeight(10);
     ellipse(xCor - XCHANGE, yCor - YCHANGE, outerRadius, outerRadius);
     if(pause)
@@ -35,6 +36,7 @@ class Joystick {
     strokeWeight(5);
     ellipse(stickXCor - XCHANGE, stickYCor - YCHANGE, stickRadius, stickRadius);
     strokeWeight(1);
+    stroke(0);
   }
   
   void pause(){ //when player lifts his hand from the joystick
