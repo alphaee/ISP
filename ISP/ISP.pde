@@ -37,7 +37,8 @@ void setup(){
   enemies = new ArrayList<Enemy>();
   
   for(int i = 0; i < 10; i ++){ //FOR TESTING PURPOSES ONLY
-    Chaser temp = new Chaser();
+    //Chaser temp = new Chaser();
+    BackAndForth temp = new BackAndForth();
     enemies.add(temp);
   }
 }
