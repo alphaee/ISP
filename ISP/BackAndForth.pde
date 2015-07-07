@@ -67,25 +67,6 @@ class BackAndForth implements Enemy {
   }
        
   void display() {//display() should only display
-  /*
-    //get the last circle we added to the tail
-    CircleClass last = (CircleClass) circlesTrail.get(circlesTrail.size() - 1);
-    
-    //get its center coordinates
-    float x = last.x;
-    float y = last.y;
-    
-    if (direction%4 == 0)
-      x-=step;
-    else if (direction%4 == 1)
-      x+=step;
-    else if (direction%4 == 2)
-      y-=step;
-    else
-      y+=step;
-    */                    
-    // add a new circle at the new location
-    //circlesTrail.add( new CircleClass( x, y) );
     circlesTrail.add(createShape(ELLIPSE, xCor, yCor, 50, 80));
                         
     // if we have more than 10 circles remove oldest one
@@ -94,37 +75,12 @@ class BackAndForth implements Enemy {
     }
     
     // draw all the circles (we assumed they'll have been erased by the main draw() function
-    for( int i = circlesTrail.size()-1; i >= 0; i = i - 1){  
+    // each newer circle gets more opaque
+    for( int i = 0; i < circlesTrail.size(); i += 1){  
       PShape c = (PShape)circlesTrail.get(i);
-      stroke(0,(int)i*256/circlesTrail.size());
-      fill(255,(int)i*256/circlesTrail.size());
+      c.setStroke(color(0,0,0,(int)i*256.0/circlesTrail.size()));
+      c.setFill(color(250,241,68,(int)i*256.0/circlesTrail.size()));
       shape(c);
     }
   }
 }
-/**
- *  CircleClass: a simple container to hold the location of 
- *  the center of the circle, and the frameCount when it 
- *  appears on the applet, as the frameCount is used to
- *  define the rate at which the circles "breathes".
- *
-class CircleClass {
-
-        public float      x;
-        public float      y;
-        public int  frameCount;
-        
-        CircleClass( float xx, float yy){//, int fc ) {
-                
-                x = xx;
-                y = yy;
-                //frameCount = fc;
-        }
-
-        public void draw() {
-                float radius1 = 50;// + 30 * p.sin( frameCount * 0.05f );
-                float radius2 = 80;// + 30 * p.sin( frameCount * 0.05f );
-                ellipse( x, y, radius1, radius2 );            
-        }
-}
-*/
