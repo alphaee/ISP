@@ -7,7 +7,7 @@ class BackAndForth implements Enemy {
   BackAndForth() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-    direction = (int) random(4);
+    direction = (int) random(4f);
     step = 5;// May Change to increase speed
   }
 
@@ -20,15 +20,37 @@ class BackAndForth implements Enemy {
   }
 
   boolean detect() {
-    if (xCor>=XSIZE)
-      direction = 0;//left
-    else if (xCor<=0)
-      direction = 1;//right
-    else if (yCor>=YSIZE)
-      direction = 2;//up 
-    else if (yCor<=0)
-      direction = 3;//down
+    if (xCor>=XSIZE){
+      //direction = 0;//left
+      direction = (int) random(3f);
+      if (direction > 0){
+        direction += 1; //only 0,2, or 3
+      }
       return true;
+    }
+    else if (xCor<=0){
+     // direction = 1;//right
+     direction = (int) random(3f);
+     direction+=1; //only 1,2, or 3
+     return true;
+    }
+    else if (yCor>=YSIZE){
+      //direction = 2;//up
+      direction = (int) random(3f); // only 0, 1, 2
+      print(direction);
+      return true;
+    }
+    else if (yCor<=0){
+      //direction = 3;//down
+      direction = (int) random(3f);
+      if (direction == 2){
+        direction+=1; // only 0,1, or 3
+      }
+      print(direction);
+      return true;
+    }
+      return true;
+     
   }
 
   void attack() {
