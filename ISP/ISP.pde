@@ -60,7 +60,6 @@ void draw(){
     
     case 1: //MAIN GAME
       background(0);
-      
       updatePlayerCors(); //update coordinates before applying translations
       //also updates XCHANGE & YCHANGE
       translate(XCHANGE, YCHANGE);
