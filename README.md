@@ -8,6 +8,10 @@
 
 *Update Log*
 
+7/6/15
+- New enemy created called Back and Forth
+- Enemy Interface commented
+
 7/3/15
 - Character now faces the direction your "cursor" points
 - Enemies no longer attack during a game pause
