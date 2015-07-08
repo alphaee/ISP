@@ -1,4 +1,4 @@
-class Bouncer implements Enemy{
+class Bouncer implements Enemy {
   float xCor, yCor;
 
   Bouncer() {
@@ -47,9 +47,12 @@ class Bouncer implements Enemy{
 
   void dying() {
   }
+  void event(Enemy e) {
+  }
 
   void display() {
     fill(0);
     ellipse(xCor, yCor, 50, 80);
   }
 }
+

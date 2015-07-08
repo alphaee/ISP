@@ -13,4 +13,6 @@ interface Enemy {
   void display(); //Draws the character with image import
   
   void act(); //Contains the display and attack fxns
+  
+  void event(Enemy e);
 }

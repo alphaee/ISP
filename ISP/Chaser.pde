@@ -48,8 +48,12 @@ class Chaser implements Enemy {
   void dying() {
   }
 
+  void event(Enemy e) {
+  }
+
   void display() {
     fill(0);
     ellipse(xCor, yCor, 50, 80);
   }
 }
+
