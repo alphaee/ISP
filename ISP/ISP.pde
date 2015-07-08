@@ -9,7 +9,14 @@ Player hero;
 float pxCor, pyCor; //Player x-cor and y-cor
 
 //ENEMY VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-ArrayList<Enemy> enemies;
+ArrayList<Enemy>[] enemies; 
+final int arraySize = 3;
+/*
+  Indices:
+    0: Chasers
+    1: Back&Forth-s
+    2: Bouncers
+*/
 
 //JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Joystick thumbCircle;
@@ -28,18 +35,23 @@ void setup(){
   orientation(LANDSCAPE);
   size(displayWidth,displayHeight, P3D);
   
-  XSIZE = (int)(displayWidth*1.5); //You want the gamebox size to be larger than the size of the screen
-  YSIZE = (int)(displayHeight*1.5);
+  XSIZE = (int)(displayWidth*1.4); //You want the gamebox size to be larger than the size of the screen
+  YSIZE = (int)(displayHeight*1.4);
   
   hero = new Player();
   thumbCircle = new Joystick();
   
-  enemies = new ArrayList<Enemy>();
+  enemies = (ArrayList<Enemy>[])new ArrayList[arraySize];
+  
+  for(int i = 0 ; i < arraySize ; i ++){
+    enemies[i] = new ArrayList<Enemy>();
+  }
   
   for(int i = 0; i < 10; i ++){ //FOR TESTING PURPOSES ONLY
-    //Chaser temp = new Chaser();
-    BackAndForth temp = new BackAndForth();
-    enemies.add(temp);
+    Chaser temp = new Chaser();
+    enemies[0].add(temp);
+    BackAndForth temp2 = new BackAndForth();
+    enemies[1].add(temp2);
   }
 }
 
@@ -87,8 +99,8 @@ boolean sketchFullScreen() { //Necessary to start in full screen
 void updatePlayerCors(){
   pxCor = hero.xCor;
   pyCor = hero.yCor;
-  XCHANGE = XSIZE/3 - pxCor;
-  YCHANGE = YSIZE/3 - pyCor;
+  XCHANGE = XSIZE/2.8 - pxCor;
+  YCHANGE = YSIZE/2.8 - pyCor;
 }
 
 void createBoundary(){
@@ -123,20 +135,27 @@ boolean touchDetection(){
 void displayAll(){
   thumbCircle.display();
   hero.display();
-  for(Enemy e : enemies)
-    e.display();
+  
+  for(int i = 0; i < arraySize; i ++) //2-D parsing
+    for(Enemy e : enemies[i])
+      e.display();
 }
 
 void enemiesAttack(){
-  for(Enemy e : enemies)
-    e.attack();
+  for(int i = 0; i < arraySize; i ++) //2-D parsing
+    for(Enemy e : enemies[i])
+      e.attack();
 }
 
+
+
 void checkDeath(){
-  for(Enemy e: enemies){
-    if(hero.isDead(e)){
-      text("Dead!",displayWidth/2-XCHANGE,displayHeight/4-YCHANGE);
-      //state = 2;
+  for(int i = 0; i < arraySize; i ++){ //2-D parsing
+    for(Enemy e : enemies[i]){
+      if(hero.isDead(e)){
+        text("Dead!",displayWidth/2-XCHANGE,displayHeight/4-YCHANGE);
+        //state = 2;
+      }
     }
   }
 }

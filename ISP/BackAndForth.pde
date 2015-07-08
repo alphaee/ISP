@@ -1,18 +1,18 @@
 class BackAndForth implements Enemy {  
-  final int noCircles = 10;
-  
   float xCor, yCor;
   int direction;
-  float step;
-  ArrayList<PShape> circlesTrail;
+  int step;
+  int radius; //radius of circle - temp
 
   BackAndForth() {
+    radius = 50;
+    
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
+    
     direction = (int)random(4f);
+    
     step = 5;// May Change to increase speed
-    circlesTrail = new ArrayList<PShape>(); //  trail of poison
-    circlesTrail.add(createShape(ELLIPSE, xCor, yCor, 50, 80));
   }
 
   float xCor() {
@@ -57,19 +57,49 @@ class BackAndForth implements Enemy {
 
   void attack() {
     detect();
-    //if ( xCor < 0 || xCor > width  || yCor < 0 || yCor > height){
-    //  direction = (int) random(4);
-    //}
-    if (direction % 4 == 0)
-      xCor -= step;
-    else if (direction % 4 == 1)
+    if (direction % 4 == 0) //left
+      xCor -= step;                                
+    else if (direction % 4 == 1) //right
       xCor += step;
-    else if (direction % 4 == 2)
+    else if (direction % 4 == 2) //up
       yCor -= step;
-    else
+    else //down
       yCor += step;
   }
-
+  
+  boolean collide(BackAndForth e){
+    if( dist( xCor, yCor, e.xCor(), e.yCor() ) < 30)
+      return true;
+    return false;
+  }
+  
+  void event(BackAndForth e){
+    
+    if(collide(e)){
+      
+      if(random(10) < 3){ //30% chance of merging
+        merge(e);
+      }
+      
+      else{ //if it doesn't merge, goes off border
+        if(xCor <= 0)
+          direction = 1;
+        else if(xCor >= XSIZE)
+          direction = 0;
+        else if(yCor <= 0)
+          direction = 3;
+        else if(yCor >= YSIZE)
+          direction = 4;
+      }
+      
+    }
+    
+  }
+  
+  void merge(BackAndForth e){
+    
+  }
+  
   boolean isAlive() {//Still needs work
     return true;
   }
@@ -87,21 +117,6 @@ class BackAndForth implements Enemy {
   }
        
   void display() {//display() should only display
-    circlesTrail.add(createShape(ELLIPSE, xCor, yCor, 50, 80));
-                        
-    // if we have more than 10 circles remove oldest one
-    if ( circlesTrail.size() > noCircles ){
-      circlesTrail.remove( 0 );
-    }
-    
-    // draw all the circles (we assumed they'll have been erased by the main draw() function
-    // each newer circle gets more opaque
-    
-    for(int i = 0; i < circlesTrail.size(); i++){  
-      PShape c = circlesTrail.get(i);
-      c.setStroke(color(0,0,0,(int)i*256.0/circlesTrail.size()));
-      c.setFill(color(250,241,68,(int)i*256.0/circlesTrail.size()));
-      shape(c);
-    }
+    ellipse(xCor, yCor, radius, radius);
   }
 }
