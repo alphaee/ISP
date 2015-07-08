@@ -49,7 +49,7 @@ void setup() {
 
   for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
-    enemies[0].add(temp);
+   // enemies[0].add(temp);
     BackAndForth temp2 = new BackAndForth();
     enemies[1].add(temp2);
   }
@@ -149,7 +149,7 @@ void enemiesAttack() {
 
 void enemiesCollide() {
   for (int i = 0; i < enemies[1].size(); i ++)
-    for (int j = i; j < enemies[1].size(); j ++)
+    for (int j = i+1; j < enemies[1].size(); j ++)
       enemies[1].get(i).event(enemies[1].get(j));
 }
 

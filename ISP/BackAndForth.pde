@@ -3,6 +3,7 @@ class BackAndForth implements Enemy {
   int direction;
   int step;
   int radius; //radius of circle - temp
+  boolean avoid;
 
   BackAndForth() {
     radius = 50;
@@ -11,6 +12,7 @@ class BackAndForth implements Enemy {
     yCor = random(0, YSIZE);
 
     direction = (int)random(4f);
+    avoid = false;
 
     step = 5;// May Change to increase speed
   }
@@ -48,6 +50,19 @@ class BackAndForth implements Enemy {
       }
       yCor+=step; // same as xCor-=step
     }
+
+    if (avoid) { 
+      if (xCor <= step) {
+        direction = 1;
+      } else if (xCor >= XSIZE-step) {
+        direction = 0;
+      } else if (yCor <= step) {
+        direction = 3;
+      } else if (yCor >= YSIZE-step) {
+        direction = 2;
+      }
+      avoid = false;
+    }
     return true;
   }
 
@@ -64,33 +79,15 @@ class BackAndForth implements Enemy {
   }
 
   boolean collide(Enemy e) {
-    if ( dist( xCor, yCor, e.xCor(), e.yCor() ) < 30) {
-      return true;
-    }
-    return false;
+    return dist( xCor, yCor, e.xCor(), e.yCor() ) < 30;
   }
 
   void event(Enemy e) {
-
     if (collide(e)) {
-
       if (random(10) < 3) { //30% chance of merging
         merge(e);
       } else { //if it doesn't merge, goes off border
-        print(0);
-        if (xCor <= 0) {
-          direction = 1;
-          xCor += step;
-        } else if (xCor >= XSIZE) {
-          direction = 0;
-          xCor -= step;
-        } else if (yCor <= 0) {
-          direction = 3;
-          yCor+=step;
-        } else if (yCor >= YSIZE) {
-          direction = 2;
-          yCor-=step;
-        }
+        avoid = true;
       }
     }
   }
@@ -114,6 +111,7 @@ class BackAndForth implements Enemy {
   }
 
   void display() {//display() should only display
+    fill(255);
     ellipse(xCor, yCor, radius, radius);
   }
 }
