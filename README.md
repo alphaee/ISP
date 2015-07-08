@@ -3,7 +3,6 @@
 
 *Github Pushing Instructions*
 ```
-
 git pull
 git add --all
 git commit -m "[insert message here]"
