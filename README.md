@@ -2,13 +2,13 @@
 **Developed by Young Kim, Dan Kim, Franklin Wang**
 
 *Github Pushing Instructions*
-'''
+```
 
 git pull
 git add --all
 git commit -m "[insert message here]"
 git push
-'''
+```
 
 *To-Do*
 - Implement different kinds of enemies.
