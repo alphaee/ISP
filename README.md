@@ -3,10 +3,14 @@
 
 *To-Do*
 - Implement different kinds of enemies.
+  -Back and Forth poison trail still buggy. Need to work on merging too.  
 - Enemy images/Background images need to be done
 - Animate character die and enemies merge and die
 
 *Update Log*
+
+7/7/15
+-Fixed Back and Forth movement.
 
 7/6/15
 - New enemy created called Back and Forth
