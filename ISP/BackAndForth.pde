@@ -26,19 +26,18 @@ class BackAndForth implements Enemy {
       if (direction > 0){
         direction += 1; //only 0,2, or 3
       }
-      return true;
+      xCor-=step; // to move away from the border so it doesn't get caught here again
     }
     else if (xCor<=0){
      // direction = 1;//right
      direction = (int) random(3f);
      direction+=1; //only 1,2, or 3
-     return true;
+     xCor+=step; // same as xCor-=step
     }
     else if (yCor>=YSIZE){
       //direction = 2;//up
       direction = (int) random(3f); // only 0, 1, 2
-      print(direction);
-      return true;
+      yCor-=step; // same as xCor-=step
     }
     else if (yCor<=0){
       //direction = 3;//down
@@ -46,8 +45,7 @@ class BackAndForth implements Enemy {
       if (direction == 2){
         direction+=1; // only 0,1, or 3
       }
-      print(direction);
-      return true;
+      yCor+=step; // same as xCor-=step
     }
       return true;
      
