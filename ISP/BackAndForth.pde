@@ -11,8 +11,7 @@ class BackAndForth implements Enemy {
     yCor = random(0, YSIZE);
     direction = (int) random(4);
     step = 5;// May Change to increase speed
-    circlesTrail = new ArrayList(); // leaves a trail of poison
-    //circlesTrail.add(new CircleClass(xCor,yCor));
+    circlesTrail = new ArrayList(); //  trail of poison
     circlesTrail.add(createShape(ELLIPSE, xCor, yCor, 50, 80));
   }
 
@@ -38,9 +37,9 @@ class BackAndForth implements Enemy {
 
   void attack() {
     detect();
-    if ( xCor < 0 || xCor > width  || yCor < 0 || yCor > height){
-      direction = (int) random(4);
-    }
+    //if ( xCor < 0 || xCor > width  || yCor < 0 || yCor > height){
+    //  direction = (int) random(4);
+    //}
     if (direction%4 == 0)
       xCor-=step;
     else if (direction%4 == 1)
