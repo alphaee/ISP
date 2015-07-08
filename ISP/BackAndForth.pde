@@ -1,17 +1,17 @@
 class BackAndForth implements Enemy {  
+  final int noCircles = 10;
+  
   float xCor, yCor;
   int direction;
   float step;
-  ArrayList circlesTrail;
-  final int noCircles = 10;
-
+  ArrayList<PShape> circlesTrail;
 
   BackAndForth() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-    direction = (int) random(4f);
+    direction = (int)random(4f);
     step = 5;// May Change to increase speed
-    circlesTrail = new ArrayList(); //  trail of poison
+    circlesTrail = new ArrayList<PShape>(); //  trail of poison
     circlesTrail.add(createShape(ELLIPSE, xCor, yCor, 50, 80));
   }
 
@@ -24,34 +24,34 @@ class BackAndForth implements Enemy {
   }
 
   boolean detect() {
-    if (xCor>=XSIZE){
+    if (xCor >= XSIZE){
       //direction = 0;//left
-      direction = (int) random(3f);
+      direction = (int)random(3f);
       if (direction > 0){
-        direction += 1; //only 0,2, or 3
+        direction ++; //only 0,2, or 3
       }
-      xCor-=step; // to move away from the border so it doesn't get caught here again
+      xCor -= step; // to move away from the border so it doesn't get caught here again
     }
-    else if (xCor<=0){
+    else if (xCor <= 0){
      // direction = 1;//right
-     direction = (int) random(3f);
-     direction+=1; //only 1,2, or 3
-     xCor+=step; // same as xCor-=step
+     direction = (int)random(3f);
+     direction ++; //only 1,2, or 3
+     xCor += step; // same as xCor-=step
     }
-    else if (yCor>=YSIZE){
+    else if (yCor >= YSIZE){
       //direction = 2;//up
-      direction = (int) random(3f); // only 0, 1, 2
-      yCor-=step; // same as xCor-=step
+      direction = (int)random(3f); // only 0, 1, 2
+      yCor -= step; // same as xCor-=step
     }
-    else if (yCor<=0){
+    else if (yCor <= 0){
       //direction = 3;//down
-      direction = (int) random(3f);
+      direction = (int)random(3f);
       if (direction == 2){
-        direction+=1; // only 0,1, or 3
+        direction ++; // only 0,1, or 3
       }
       yCor+=step; // same as xCor-=step
     }
-      return true;
+    return true;
      
   }
 
@@ -60,14 +60,14 @@ class BackAndForth implements Enemy {
     //if ( xCor < 0 || xCor > width  || yCor < 0 || yCor > height){
     //  direction = (int) random(4);
     //}
-    if (direction%4 == 0)
-      xCor-=step;
-    else if (direction%4 == 1)
-      xCor+=step;
-    else if (direction%4 == 2)
-      yCor-=step;
+    if (direction % 4 == 0)
+      xCor -= step;
+    else if (direction % 4 == 1)
+      xCor += step;
+    else if (direction % 4 == 2)
+      yCor -= step;
     else
-      yCor+=step;
+      yCor += step;
   }
 
   boolean isAlive() {//Still needs work
@@ -81,7 +81,8 @@ class BackAndForth implements Enemy {
     if (isAlive()) {
       display();
       attack();
-    } else
+    } 
+    else
       dying();
   }
        
@@ -95,8 +96,9 @@ class BackAndForth implements Enemy {
     
     // draw all the circles (we assumed they'll have been erased by the main draw() function
     // each newer circle gets more opaque
-    for( int i = 0; i < circlesTrail.size(); i += 1){  
-      PShape c = (PShape)circlesTrail.get(i);
+    
+    for(int i = 0; i < circlesTrail.size(); i++){  
+      PShape c = circlesTrail.get(i);
       c.setStroke(color(0,0,0,(int)i*256.0/circlesTrail.size()));
       c.setFill(color(250,241,68,(int)i*256.0/circlesTrail.size()));
       shape(c);

@@ -26,7 +26,7 @@ int state;
 
 void setup(){
   orientation(LANDSCAPE);
-  size(displayWidth,displayHeight);
+  size(displayWidth,displayHeight, P2D);
   
   XSIZE = (int)(displayWidth*1.5); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.5);

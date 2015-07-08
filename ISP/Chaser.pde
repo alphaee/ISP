@@ -22,7 +22,7 @@ class Chaser implements Enemy {
 
   void attack() { //nearly identical to Player class' "move()" method
     float speedX = (xCor - pxCor) / 50;
-    float speedY= (yCor - pyCor) / 50;
+    float speedY = (yCor - pyCor) / 50;
 
     float speed = sqrt(speedX*speedX + speedY*speedY);
 
