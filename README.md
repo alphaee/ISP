@@ -2,7 +2,7 @@
 **Developed by Young Kim, Dan Kim, Franklin Wang**
 
 *Github Pushing Instructions*
-```
+```bash
 git pull
 git add --all
 git commit -m "[insert message here]"
