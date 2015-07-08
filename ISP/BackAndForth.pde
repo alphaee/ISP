@@ -2,6 +2,8 @@ class BackAndForth implements Enemy {
   float xCor, yCor;
   int direction;
   float step;
+  ArrayList circlesTrail;
+  final int noCircles = 10;
 
 
   BackAndForth() {
@@ -9,6 +11,8 @@ class BackAndForth implements Enemy {
     yCor = random(0, YSIZE);
     direction = (int) random(4f);
     step = 5;// May Change to increase speed
+    circlesTrail = new ArrayList(); //  trail of poison
+    circlesTrail.add(createShape(ELLIPSE, xCor, yCor, 50, 80));
   }
 
   float xCor() {
@@ -53,6 +57,9 @@ class BackAndForth implements Enemy {
 
   void attack() {
     detect();
+    //if ( xCor < 0 || xCor > width  || yCor < 0 || yCor > height){
+    //  direction = (int) random(4);
+    //}
     if (direction%4 == 0)
       xCor-=step;
     else if (direction%4 == 1)
@@ -77,9 +84,22 @@ class BackAndForth implements Enemy {
     } else
       dying();
   }
-
+       
   void display() {//display() should only display
-    fill(255);
-    ellipse(xCor, yCor, 50, 80);
+    circlesTrail.add(createShape(ELLIPSE, xCor, yCor, 50, 80));
+                        
+    // if we have more than 10 circles remove oldest one
+    if ( circlesTrail.size() > noCircles ){
+      circlesTrail.remove( 0 );
+    }
+    
+    // draw all the circles (we assumed they'll have been erased by the main draw() function
+    // each newer circle gets more opaque
+    for( int i = 0; i < circlesTrail.size(); i += 1){  
+      PShape c = (PShape)circlesTrail.get(i);
+      c.setStroke(color(0,0,0,(int)i*256.0/circlesTrail.size()));
+      c.setFill(color(250,241,68,(int)i*256.0/circlesTrail.size()));
+      shape(c);
+    }
   }
 }
