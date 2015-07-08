@@ -1,6 +1,15 @@
 # ISP
 **Developed by Young Kim, Dan Kim, Franklin Wang**
 
+*Github Pushing Instructions*
+'''
+
+git pull
+git add --all
+git commit -m "[insert message here]"
+git push
+'''
+
 *To-Do*
 - Implement different kinds of enemies.
   -Back and Forth poison trail still buggy. Need to work on merging too.  
@@ -10,7 +19,7 @@
 *Update Log*
 
 7/7/15
--Fixed Back and Forth movement.
+- Fixed Back and Forth movement.
 
 7/6/15
 - New enemy created called Back and Forth
