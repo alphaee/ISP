@@ -11,11 +11,14 @@ git push
 
 *To-Do*
 - Implement different kinds of enemies.
-  -Back and Forth poison trail still buggy. Need to work on merging too.  
+  - Back and Forth poison trail still buggy. Need to work on merging too.  
 - Enemy images/Background images need to be done
 - Animate character die and enemies merge and die
 
 *Update Log*
+
+7/8/15
+- Added collision function for Back And Forth.
 
 7/7/15
 - Fixed Back and Forth movement.
