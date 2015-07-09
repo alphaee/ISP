@@ -11,7 +11,7 @@ git push
 
 *To-Do*
 - Implement different kinds of enemies.
-  - Back and Forth poison trail still buggy. Need to work on merging too.  
+  - Need to work on merging.  
 - Enemy images/Background images need to be done
 - Animate character die and enemies merge and die
 
