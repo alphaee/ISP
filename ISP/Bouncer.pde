@@ -5,6 +5,11 @@ class Bouncer implements Enemy {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
   }
+  
+   Bouncer(float x, float y) {
+    xCor = x;
+    yCor = y;
+  }
 
   float xCor() {
     return xCor;
@@ -47,7 +52,7 @@ class Bouncer implements Enemy {
 
   void dying() {
   }
-  void event(Enemy e) {
+  void event(Enemy e, int i, int j) {
   }
 
   void display() {

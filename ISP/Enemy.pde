@@ -14,5 +14,5 @@ interface Enemy {
   
   void act(); //Contains the display and attack fxns
   
-  void event(Enemy e);
+  void event(Enemy e, int i, int j);
 }

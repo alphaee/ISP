@@ -150,7 +150,7 @@ void enemiesAttack() {
 void enemiesCollide() {
   for (int i = 0; i < enemies[1].size(); i ++)
     for (int j = i+1; j < enemies[1].size(); j ++)
-      enemies[1].get(i).event(enemies[1].get(j));
+      enemies[1].get(i).event(enemies[1].get(j),i,j);
 }
 
 

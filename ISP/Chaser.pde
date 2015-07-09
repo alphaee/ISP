@@ -48,7 +48,7 @@ class Chaser implements Enemy {
   void dying() {
   }
 
-  void event(Enemy e) {
+  void event(Enemy e, int i, int j) {
   }
 
   void display() {

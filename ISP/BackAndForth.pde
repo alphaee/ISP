@@ -82,17 +82,21 @@ class BackAndForth implements Enemy {
     return dist( xCor, yCor, e.xCor(), e.yCor() ) < 30;
   }
 
-  void event(Enemy e) {
+  void event(Enemy e, int i, int j) {
     if (collide(e)) {
       if (random(10) < 3) { //30% chance of merging
-        merge(e);
+        merge(e, i, j);
       } else { //if it doesn't merge, goes off border
         avoid = true;
       }
     }
   }
 
-  void merge(Enemy e) {
+  void merge(Enemy e, int i, int j) {
+    Bouncer temp = new Bouncer(xCor, yCor);
+    enemies[2].add(temp);
+    enemies[1].remove(j);
+    enemies[1].remove(i);
   }
 
   boolean isAlive() {//Still needs work
