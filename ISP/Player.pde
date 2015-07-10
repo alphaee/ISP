@@ -8,7 +8,7 @@ class Player{
     
     img = loadImage("Hero.png");
     imageMode(CENTER);
-    img.resize(40,80);
+    img.resize(40,65);
   }
   
   void display(){
