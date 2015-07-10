@@ -12,9 +12,12 @@ git push
 *To-Do*  
 
 - Implement different kinds of enemies.
+- Different kinds of powerups.
 - Need to work on merging.  
 - Enemy images/Background images need to be done
 - Animate character die and enemies merge and die
+- Explosion animations
+- How to Play screen, Death Screen
 - Powerup Pictures, Reset/Back Pictures for the Death Screen
 
 *Update Log*
