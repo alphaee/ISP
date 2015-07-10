@@ -10,6 +10,12 @@ git push
 ```
 
 *To-Do*
+DAN SECTION
+- PowerUp Pictures
+- Reset / Back Logos for the Death Screen
+- Add Stuff Guys
+
+
 - Implement different kinds of enemies.
   - Need to work on merging.  
 - Enemy images/Background images need to be done
