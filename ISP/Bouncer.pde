@@ -1,14 +1,19 @@
 class Bouncer implements Enemy {
   float xCor, yCor;
+  float speedX, speedY;
 
   Bouncer() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
+    speedX = 7 - random( 14 );
+    speedY = 7 - random( 14 );
   }
   
    Bouncer(float x, float y) {
     xCor = x;
     yCor = y;
+    speedX = 7 - random( 14 );
+    speedY = 7 - random( 14 );
   }
 
   float xCor() {
@@ -19,22 +24,23 @@ class Bouncer implements Enemy {
   }
 
   boolean detect() {
-    if ( dist(xCor, yCor, pxCor, pyCor) < YSIZE/5 ) {
+    //if ( dist(xCor, yCor, pxCor, pyCor) < YSIZE/5 ) {
       return true;
-    }
-    return false;
+    //}
+    //return false;
   }
 
-  void attack() { //nearly identical to Player class' "move()" method
-    float speedX = (xCor - pxCor) / 50;
-    float speedY = (yCor - pyCor) / 50;
+  void attack() { 
 
     float speed = sqrt(speedX*speedX + speedY*speedY);
 
     speedX = (2*speedX)/speed;
     speedY = (2*speedY)/speed;
-    xCor -= speedX;
-    yCor -= speedY;
+    xCor += speedX;
+    yCor += speedY;
+    
+    if ( xCor < 0 || xCor > XSIZE ) speedX = -speedX;
+    if ( yCor < 0 || yCor > YSIZE ) speedY = -speedY;
   }
 
   boolean isAlive() {//Still needs work
@@ -44,7 +50,7 @@ class Bouncer implements Enemy {
   void act() {
     if (isAlive()) {
       display();
-      if (detect())
+      //if (detect())
         attack();
     } else
       dying();
@@ -56,8 +62,7 @@ class Bouncer implements Enemy {
   }
 
   void display() {
-    fill(0);
+    fill(100);
     ellipse(xCor, yCor, 50, 80);
   }
 }
-
