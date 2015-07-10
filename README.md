@@ -16,7 +16,6 @@ DAN SECTION
 - PowerUp Pictures
 - Reset / Back Logos for the Death Screen
 
-
 - Implement different kinds of enemies.
 - Need to work on merging.  
 - Enemy images/Background images need to be done
