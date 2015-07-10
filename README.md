@@ -11,15 +11,11 @@ git push
 
 *To-Do*  
 
-DAN SECTION  
-
-- PowerUp Pictures
-- Reset / Back Logos for the Death Screen
-
 - Implement different kinds of enemies.
 - Need to work on merging.  
 - Enemy images/Background images need to be done
 - Animate character die and enemies merge and die
+- Powerup Pictures, Reset/Back Pictures for the Death Screen
 
 *Update Log*
 
