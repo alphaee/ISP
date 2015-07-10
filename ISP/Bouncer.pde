@@ -5,15 +5,15 @@ class Bouncer implements Enemy {
   Bouncer() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-    speedX = 7 - random( 14 );
-    speedY = 7 - random( 14 );
+    speedX = 5 - random( 10 );
+    speedY = 5 - random( 10 );
   }
   
    Bouncer(float x, float y) {
     xCor = x;
     yCor = y;
-    speedX = 7 - random( 14 );
-    speedY = 7 - random( 14 );
+    speedX = 5 - random( 10 );
+    speedY = 5 - random( 10 );
   }
 
   float xCor() {
@@ -32,10 +32,10 @@ class Bouncer implements Enemy {
 
   void attack() { 
 
-    float speed = sqrt(speedX*speedX + speedY*speedY);
+    //float speed = sqrt(speedX*speedX + speedY*speedY);
 
-    speedX = (2*speedX)/speed;
-    speedY = (2*speedY)/speed;
+    //speedX = (2*speedX)/speed;
+    //speedY = (2*speedY)/speed;
     xCor += speedX;
     yCor += speedY;
     
