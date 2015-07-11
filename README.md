@@ -21,6 +21,9 @@ git push
 
 *Update Log*
 
+7/10/10
+- Finished movement for Bounder.
+
 7/9/10
 - Finished merging function for Back And Forth.
 
