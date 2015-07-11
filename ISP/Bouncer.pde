@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 class Bouncer implements Enemy {
   float xCor, yCor;
   float origSpeedX, origSpeedY;
@@ -29,23 +31,26 @@ class Bouncer implements Enemy {
   }
 
   boolean detect() {
-    //if ( dist(xCor, yCor, pxCor, pyCor) < YSIZE/5 ) {
       return true;
-    //}
-    //return false;
   }
 
   void attack() { // reflect when it hits the boundary with different speed
     xCor += speedX;
     yCor += speedY;
-    
-    float multiplier = random(0.5,2);
-    
+    //multiplier will change the speed every time it hits the boundary.
+    float multiplier;
+    // here, we always update the sign of origSpeed to current Speed so reflect works correctly.
     if ( xCor < 0 || xCor > XSIZE ) {
-      speedX = -origSpeedX * multiplier;
-      speedY = origSpeedY * multiplier;
+      origSpeedX = Math.signum(speedX)*abs(origSpeedX); // signum returns +1 if number is positive 
+      origSpeedY = Math.signum(speedY)*abs(origSpeedY); // -1 for negative and 0 for zero.
+      multiplier = random(0.5,2);
+      speedX = -origSpeedX * multiplier; // you don't want speed increasing to infinity or to 0 by chance
+      speedY = origSpeedY * multiplier; // so you save and modify the origSpeed.
     }
     if ( yCor < 0 || yCor > YSIZE ) {
+      origSpeedX = Math.signum(speedX)*abs(origSpeedX);
+      origSpeedY = Math.signum(speedY)*abs(origSpeedY);
+      multiplier = random(0.5,2);
       speedY = -origSpeedY * multiplier;
       speedX = origSpeedX * multiplier;
     }
