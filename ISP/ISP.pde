@@ -18,6 +18,9 @@ final int arraySize = 3;
  2: Bouncers
  */
 
+//POWERUP VARS
+ArrayList<Powerup> powerups;
+
 //JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Joystick thumbCircle;
 float controlAngle;
@@ -25,8 +28,8 @@ float controlDistance;
 
 //MISC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int state;
-/*
-  STATE 0: HOMESCREEN
+ /*
+ STATE 0: HOMESCREEN
  STATE 1: GAME
  STATE 2: GAME OVER
  */
@@ -42,16 +45,25 @@ void setup() {
   thumbCircle = new Joystick();
 
   enemies = (ArrayList<Enemy>[])new ArrayList[arraySize];
-
+  
   for (int i = 0; i < arraySize; i ++) {
     enemies[i] = new ArrayList<Enemy>();
   }
 
   for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
-   // enemies[0].add(temp);
+    //enemies[0].add(temp);
     BackAndForth temp2 = new BackAndForth();
-    enemies[1].add(temp2);
+    //enemies[1].add(temp2);
+    Bouncer temp3 = new Bouncer();
+    enemies[2].add(temp3);
+  }
+  
+  powerups = new ArrayList<Powerup>();
+  
+  for(int i = 0; i < 5; i ++){
+    Shield temp = new Shield();
+    powerups.add(temp);
   }
 }
 
@@ -75,15 +87,19 @@ void draw() {
     updatePlayerCors(); //update coordinates before applying translations
     //also updates XCHANGE & YCHANGE
     translate(XCHANGE, YCHANGE);
-
+    
     createBoundary();
-
+    
+    displayStuff();
+    
     displayAll();
 
     if (touchDetection()) {
       enemiesAttack();
       enemiesCollide();
+      checkPowerups();
     }
+    
     hero.move();
     checkDeath();
     break;
@@ -132,6 +148,13 @@ boolean touchDetection() {
   }
 }
 
+void displayStuff(){
+  fill(100);
+  textSize(displayHeight/15);
+  textAlign(CENTER, CENTER);
+  text("Shield: " + hero.shieldNum, pxCor + displayWidth/4, pyCor - displayHeight/4);
+}
+
 void displayAll() {
   thumbCircle.display();
   hero.display();
@@ -139,6 +162,9 @@ void displayAll() {
   for (int i = 0; i < arraySize; i ++) //2-D parsing
     for (Enemy e : enemies[i])
       e.display();
+  
+  for(Powerup p : powerups)
+    p.display();
 }
 
 void enemiesAttack() {
@@ -153,7 +179,16 @@ void enemiesCollide() {
       enemies[1].get(i).event(enemies[1].get(j),i,j);
 }
 
-
+void checkPowerups(){
+  for(int i = 0 ; i < powerups.size(); i ++){
+    if(powerups.get(i).detect()){
+      hero.addShield();
+      powerups.get(i).dying();
+      powerups.remove(i);
+      i--;
+    }
+  }
+}
 
 void checkDeath() {
   for (int i = 0; i < arraySize; i ++) { //2-D parsing
