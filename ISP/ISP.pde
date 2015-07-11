@@ -33,7 +33,7 @@ int state;
 
 void setup() {
   orientation(LANDSCAPE);
-  size(displayWidth, displayHeight, P3D);
+  size(displayWidth, displayHeight);
 
   XSIZE = (int)(displayWidth*1.4); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.4);
@@ -165,4 +165,3 @@ void checkDeath() {
     }
   }
 }
-

@@ -1,19 +1,24 @@
 class Bouncer implements Enemy {
   float xCor, yCor;
+  float origSpeedX, origSpeedY;
   float speedX, speedY;
 
   Bouncer() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-    speedX = 5 - random( 10 );
-    speedY = 5 - random( 10 );
+    origSpeedX = 5 - random( 10 );
+    origSpeedY = 5 - random( 10 );
+    speedX = origSpeedX;
+    speedY = origSpeedY;
   }
   
    Bouncer(float x, float y) {
     xCor = x;
     yCor = y;
-    speedX = 5 - random( 10 );
-    speedY = 5 - random( 10 );
+    origSpeedX = 5 - random( 10 );
+    origSpeedY = 5 - random( 10 );
+    speedX = origSpeedX;
+    speedY = origSpeedY;
   }
 
   float xCor() {
@@ -30,17 +35,20 @@ class Bouncer implements Enemy {
     //return false;
   }
 
-  void attack() { 
-
-    //float speed = sqrt(speedX*speedX + speedY*speedY);
-
-    //speedX = (2*speedX)/speed;
-    //speedY = (2*speedY)/speed;
+  void attack() { // reflect when it hits the boundary with different speed
     xCor += speedX;
     yCor += speedY;
     
-    if ( xCor < 0 || xCor > XSIZE ) speedX = -speedX;
-    if ( yCor < 0 || yCor > YSIZE ) speedY = -speedY;
+    float multiplier = random(0.5,2);
+    
+    if ( xCor < 0 || xCor > XSIZE ) {
+      speedX = -origSpeedX * multiplier;
+      speedY = origSpeedY * multiplier;
+    }
+    if ( yCor < 0 || yCor > YSIZE ) {
+      speedY = -origSpeedY * multiplier;
+      speedX = origSpeedX * multiplier;
+    }
   }
 
   boolean isAlive() {//Still needs work
