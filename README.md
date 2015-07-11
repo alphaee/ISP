@@ -13,7 +13,6 @@ git push
 
 - Implement different kinds of enemies.
 - Different kinds of powerups.
-- Need to work on merging.  
 - Enemy images/Background images need to be done
 - Animate character die and enemies merge and die
 - Explosion animations
@@ -21,6 +20,9 @@ git push
 - Powerup Pictures, Reset/Back Pictures for the Death Screen
 
 *Update Log*
+
+7/9/10
+- Finished merging function for Back And Forth.
 
 7/8/15
 - Added collision function for Back And Forth.
