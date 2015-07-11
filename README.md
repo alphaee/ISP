@@ -10,21 +10,23 @@ git push
 ```
 
 *To-Do*  
-
-- Implement different kinds of enemies.
-- Different kinds of powerups.
-- Enemy images/Background images need to be done
+- Tweaking Shield class and making it more fluid with the game
+- Figuring out why the application sometimes lags
+- Optimizing Code
 - Animate character die and enemies merge and die
 - Explosion animations
 - How to Play screen, Death Screen
 - Powerup Pictures, Reset/Back Pictures for the Death Screen
 
 *Update Log*
+7/11/15
+- Did work on the Powerup interface and finished the Shield Powerup class
+- Changed the way Player death works to account for Shield 
 
-7/10/10
-- Finished movement for Bounder.
+7/10/15
+- Finished movement for Bouncer.
 
-7/9/10
+7/9/15
 - Finished merging function for Back And Forth.
 
 7/8/15
