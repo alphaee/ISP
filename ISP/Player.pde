@@ -1,6 +1,5 @@
 class Player{
   float xCor, yCor;
-  int shieldNum;
   PImage img;
   
   Player(){
@@ -21,10 +20,6 @@ class Player{
     popMatrix();
   }
   
-  void addShield(){
-    shieldNum++;
-  }
-  
   boolean checkBounds(){
     if( xCor < 0 || xCor > XSIZE) 
       return true;
@@ -34,14 +29,7 @@ class Player{
   }
   
   boolean isDead(Enemy e){
-    if(dist(xCor,yCor,e.xCor(),e.yCor()) <  25){
-      if(shieldNum > 0){
-        shieldNum--;
-        return false;
-      }
-      return true;
-    }
-    return false;
+    return( dist(xCor,yCor,e.xCor(),e.yCor()) <  25 );
   }
   
   void move(){
