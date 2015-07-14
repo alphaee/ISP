@@ -87,6 +87,7 @@ void setup() {
 
   for (int i = 0; i < powerupSize; i ++) {
     powerups[i] = new ArrayList<Powerup>();
+
   }
   counter = 0;
   start = true;

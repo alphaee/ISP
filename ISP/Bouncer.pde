@@ -30,7 +30,7 @@ class Bouncer implements Enemy {
     return yCor;
   }
 
-  boolean detect() {
+  boolean detect() { 
       return true;
   }
 
@@ -38,22 +38,63 @@ class Bouncer implements Enemy {
     xCor += speedX;
     yCor += speedY;
     //multiplier will change the speed every time it hits the boundary.
-    float multiplier;
+    float multiplier, multiBefore;
+    multiplier = 1;
     // here, we always update the sign of origSpeed to current Speed so reflect works correctly.
     if ( xCor < 0 || xCor > XSIZE ) {
       origSpeedX = Math.signum(speedX)*abs(origSpeedX); // signum returns +1 if number is positive 
       origSpeedY = Math.signum(speedY)*abs(origSpeedY); // -1 for negative and 0 for zero.
-      multiplier = random(0.5,2);
+      multiBefore = multiplier;
+      multiplier = random(1.01,1.4);
       speedX = -origSpeedX * multiplier; // you don't want speed increasing to infinity or to 0 by chance
       speedY = origSpeedY * multiplier; // so you save and modify the origSpeed.
+      if (abs(origSpeedX*(multiplier-multiBefore)) > 3){// if it hits the boundary when the speedDiff is too great
+                     // we should manually move it inside the boundary so 
+                     // it doesn't get stuck
+        emergencyMoving();
+      }
     }
     if ( yCor < 0 || yCor > YSIZE ) {
       origSpeedX = Math.signum(speedX)*abs(origSpeedX);
       origSpeedY = Math.signum(speedY)*abs(origSpeedY);
-      multiplier = random(0.5,2);
+      multiBefore = multiplier;
+      multiplier = random(1.01,1.4);
       speedY = -origSpeedY * multiplier;
       speedX = origSpeedX * multiplier;
+      if (abs(origSpeedY*(multiplier-multiBefore)) > 3){
+        emergencyMoving();
+      }
     }
+  }
+  
+  void emergencyMoving(){
+    
+    if ( xCor < 0 ) {
+          //while ( xCor < 0 ){
+            //xCor+=5; 
+          //}
+          xCor = 15;
+      }
+      if (xCor > XSIZE){
+          //while (xCor > XSIZE){
+            //xCor-=10;
+          //}
+          xCor = XSIZE - 15;
+      }
+      if ( yCor < 0 ){
+          //while (yCor < 0){
+            //yCor+=10;
+          //}
+          yCor = 15;
+      }
+      if (yCor > YSIZE){
+          //while (yCor > YSIZE){
+            //yCor-=10;
+          //}
+          yCor = YSIZE - 15;
+      }
+      
+      
   }
 
   boolean isAlive() {//Still needs work
@@ -63,14 +104,15 @@ class Bouncer implements Enemy {
   void act() {
     if (isAlive()) {
       display();
-      //if (detect())
-        attack();
+      detect();
+      attack();
     } else
       dying();
   }
 
   void dying() {
   }
+  
   void event(Enemy e, int i, int j) {
   }
 
