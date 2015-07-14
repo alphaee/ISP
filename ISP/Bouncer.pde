@@ -45,7 +45,7 @@ class Bouncer implements Enemy {
       origSpeedX = Math.signum(speedX)*abs(origSpeedX); // signum returns +1 if number is positive 
       origSpeedY = Math.signum(speedY)*abs(origSpeedY); // -1 for negative and 0 for zero.
       multiBefore = multiplier;
-      multiplier = random(0.5,2);
+      multiplier = random(1.01,1.4);
       speedX = -origSpeedX * multiplier; // you don't want speed increasing to infinity or to 0 by chance
       speedY = origSpeedY * multiplier; // so you save and modify the origSpeed.
       if (abs(origSpeedX*(multiplier-multiBefore)) > 3){// if it hits the boundary when the speedDiff is too great
@@ -58,16 +58,17 @@ class Bouncer implements Enemy {
       origSpeedX = Math.signum(speedX)*abs(origSpeedX);
       origSpeedY = Math.signum(speedY)*abs(origSpeedY);
       multiBefore = multiplier;
-      multiplier = random(0.75,1.75);
+      multiplier = random(1.01,1.4);
       speedY = -origSpeedY * multiplier;
       speedX = origSpeedX * multiplier;
-      if (abs(origSpeedY*(multiplier-multiBefore)) > 3 && abs(speedY) > 5){
+      if (abs(origSpeedY*(multiplier-multiBefore)) > 3){
         emergencyMoving();
       }
     }
   }
   
   void emergencyMoving(){
+    
     if ( xCor < 0 ) {
           //while ( xCor < 0 ){
             //xCor+=5; 
@@ -92,6 +93,8 @@ class Bouncer implements Enemy {
           //}
           yCor = YSIZE - 15;
       }
+      
+      
   }
 
   boolean isAlive() {//Still needs work
