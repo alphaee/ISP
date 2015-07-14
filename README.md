@@ -17,6 +17,7 @@ git push
 - Explosion animations
 - How to Play screen, Death Screen
 - Powerup Pictures, Reset/Back Pictures for the Death Screen
+- BGM and SFX
 
 *Update Log*
 7/11/15
