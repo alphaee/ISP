@@ -31,18 +31,19 @@ class Mine implements Powerup {
       if (detect(e)) {
         exploded = true;
       }
-      if (exploding<=frameRate*30)
-        return true;
     }
+    if (exploding<=frameRate*10&&detect(e)&&activated)
+      return true;
+
     return false;
   }
 
   void display() {
-    if (activated&&exploding<=frameRate*30)
+    if (activated&&exploding<=frameRate*10)
       fill(#E80000);
     else 
       fill(#D8B8B8);
-    if (exploding<=frameRate*30)
+    if (exploding<=frameRate*10)
       ellipse(xCor, yCor, 50, 50);
   }
 }

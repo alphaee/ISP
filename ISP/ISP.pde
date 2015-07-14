@@ -1,4 +1,3 @@
-import java.io.*;
 //Young Kim, Dan Kim, Franklin Wang
 
 //FIXED CONSTANTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -54,9 +53,6 @@ int state;
  STATE 1: GAME
  STATE 2: GAME OVER
  */
- 
-int score;
- 
 int counter;
 
 boolean start;
@@ -78,7 +74,7 @@ void setup() {
     enemies[i] = new ArrayList<Enemy>();
   }
 
-  for (int i = 0; i < 5; i ++) { //FOR TESTING PURPOSES ONLY
+  for (int i = 0; i < 1; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
     //enemies[0].add(temp);
     BackAndForth temp2 = new BackAndForth();
@@ -91,7 +87,6 @@ void setup() {
 
   for (int i = 0; i < powerupSize; i ++) {
     powerups[i] = new ArrayList<Powerup>();
-
   }
   counter = 0;
   start = true;
@@ -127,20 +122,19 @@ void draw() {
     displayStuff();
 
     displayAll();
-    
-    if (start){
+
+    if (start) {
       countdown(startMillis);
-    }
-    else{
+    } else {
       if (touchDetection()) {
-          checkPowerupCounter();
-          checkEnemyCounter();
-          enemiesAttack();
-          enemiesCollide();
-          checkShield();
-          mineCollision();
-          iCounter++;
-          counter++;
+        checkPowerupCounter();
+        // checkEnemyCounter();
+        enemiesAttack();
+        enemiesCollide();
+        checkShield();
+        mineCollision();
+        iCounter++;
+        counter++;
       }
       hero.move();
       checkDeath();
@@ -149,21 +143,15 @@ void draw() {
 
   case 2: //GAME OVER
     background(0);
-    String[] scores  = {"a","b","c"};
-    try{
-      scores = highScores();
-    }
-    catch(Exception e){
-    }
     textSize(displayHeight/8);
     textAlign(CENTER, CENTER);
     fill(#32CCD8);
     text("High Scores", displayWidth/2, displayHeight/7);
     textSize(displayHeight/15);
     textAlign(LEFT);
-    text("1: " + scores[0], displayWidth/10, displayHeight/3);
-    text("2: " + scores[1], displayWidth/10, displayHeight/3+displayHeight/7);
-    text("3: " + scores[2], displayWidth/10, displayHeight/3+2*displayHeight/7);
+    text("1", displayWidth/10, displayHeight/3);
+    text("2", displayWidth/10, displayHeight/3+displayHeight/7);
+    text("3", displayWidth/10, displayHeight/3+2*displayHeight/7);
     text("You", displayWidth/10, displayHeight/3 + 3*displayHeight/7);
     fill(#D130A4);
     rect(displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
@@ -173,16 +161,16 @@ void draw() {
   }
 }
 
-void countdown(int t){
+void countdown(int t) {
   fill(0);
-  textAlign(CENTER,CENTER);
+  textAlign(CENTER, CENTER);
   textSize(50);
-  if(millis() - t < 1500)
-    text("3",pxCor,pyCor);
-  else if(millis() - t < 2500)
-    text("2",pxCor,pyCor);
-  else if(millis() - t < 3500)
-    text("1",pxCor,pyCor);
+  if (millis() - t < 1500)
+    text("3", pxCor, pyCor);
+  else if (millis() - t < 2500)
+    text("2", pxCor, pyCor);
+  else if (millis() - t < 3500)
+    text("1", pxCor, pyCor);
   else
     start = false;
 }
@@ -218,8 +206,7 @@ boolean touchDetection() {
     controlAngle = thumbCircle.calcAngle();
     controlDistance = thumbCircle.calcDistance();
     return true;
-  } 
-  else {
+  } else {
     fill(0, 153, 204, 200);
     rect(-XCHANGE, -YCHANGE+displayHeight/4, displayWidth, displayHeight/2);
     fill(15);
@@ -283,12 +270,14 @@ void mineCollision() {
       for (int k = 0; k < powerups[1].size (); k ++) {
         if (((Mine)powerups[1].get(k)).exploded)
           ((Mine)powerups[1].get(k)).exploding ++;
-        if (powerups[1].get(k).event(enemies[i].get(j))) {
-          enemies[i].remove(j);
-          j--;
-          if (j<0)
-            j=0;
-        }
+        if (enemies[i].size()>0)
+          if (powerups[1].get(k).event(enemies[i].get(j))) {
+            println(i, j, k);
+            enemies[i].remove(j);
+            j--;
+            if (j<0)
+              j=0;
+          }
       }
     }
   }
@@ -320,36 +309,10 @@ void checkDeath() {
   for (int i = 0; i < enemySize; i ++) { //2-D parsing
     for (Enemy e : enemies[i]) {
       if (hero.isDead(e)) {
-        try{
-          checkHighScores();
-        }
-        catch(Exception a){
-        }
         state = 2;
         setup();
       }
     }
   }
-}
-
-void checkHighScores() throws IOException{
-  String[] res = highScores();
-  int i = 2;
-  int index = -1;
-  while((i > 0)&&(score >= Integer.parseInt(res[i]))){
-    index = i;
-    i--;
-  }
-  if(index != -1){
-    res[index] = (int)score + "";
-    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("highScores.txt")));
-    for(int k = 0; k < res.length; k++)
-      out.println(res[k]);
-    out.close();
-  }
-}
-
-String[] highScores() throws FileNotFoundException{
-    return loadStrings("highScores.txt");
 }
 
