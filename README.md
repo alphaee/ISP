@@ -15,7 +15,7 @@ git push
 - Optimizing Code
 - Animate character die and enemies merge and die
 - Explosion animations
-- How to Play screen, Death Screen
+- How to Play screen
 - Powerup Pictures, Reset/Back Pictures for the Death Screen
 - BGM and SFX
 
@@ -23,6 +23,8 @@ git push
 7/14/15
 - Death Screen
 - Death lag
+- countdown at beginning of game
+- mine class completed
 
 
 7/11/15
