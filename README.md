@@ -20,6 +20,11 @@ git push
 - BGM and SFX
 
 *Update Log*
+7/14/15
+- Death Screen
+- Death lag
+
+
 7/11/15
 - Did work on the Powerup interface and finished the Shield Powerup class
 - Changed the way Player death works to account for Shield 
