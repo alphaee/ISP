@@ -53,8 +53,10 @@ int state;
  STATE 1: GAME
  STATE 2: GAME OVER
  */
-
 int counter;
+
+boolean start;
+int startMillis;
 
 void setup() {
   orientation(LANDSCAPE);
@@ -87,7 +89,8 @@ void setup() {
     powerups[i] = new ArrayList<Powerup>();
   }
   counter = 0;
-  state = 2;//testing
+  start = true;
+  startMillis = millis();
 }
 
 void draw() {
@@ -103,6 +106,8 @@ void draw() {
     text("(Click to Continue!)", displayWidth/2, 3*displayHeight/4);
     if (mousePressed) {
       state = 1;
+      start = true;
+      startMillis = millis();
     }
     break;
 
@@ -117,20 +122,24 @@ void draw() {
     displayStuff();
 
     displayAll();
-
-    if (touchDetection()) {
-      checkPowerupCounter();
-      checkEnemyCounter();
-      enemiesAttack();
-      enemiesCollide();
-      checkShield();
-      mineCollision();
-      iCounter++;
-      counter++;
+    
+    if (start){
+      countdown(startMillis);
     }
-
-    hero.move();
-    checkDeath();
+    else{
+      if (touchDetection()) {
+          checkPowerupCounter();
+          checkEnemyCounter();
+          enemiesAttack();
+          enemiesCollide();
+          checkShield();
+          mineCollision();
+          iCounter++;
+          counter++;
+      }
+      hero.move();
+      checkDeath();
+    }
     break;
 
   case 2: //GAME OVER
@@ -149,11 +158,22 @@ void draw() {
     rect(displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
     fill(#5BD832);
     rect(4*displayWidth/5-displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
-    //    if (mousePressed) {
-    //      state = 0;
-    //    }
     break;
   }
+}
+
+void countdown(int t){
+  fill(0);
+  textAlign(CENTER,CENTER);
+  textSize(50);
+  if(millis() - t < 1500)
+    text("3",pxCor,pyCor);
+  else if(millis() - t < 2500)
+    text("2",pxCor,pyCor);
+  else if(millis() - t < 3500)
+    text("1",pxCor,pyCor);
+  else
+    start = false;
 }
 
 void mouseReleased() {
@@ -187,7 +207,8 @@ boolean touchDetection() {
     controlAngle = thumbCircle.calcAngle();
     controlDistance = thumbCircle.calcDistance();
     return true;
-  } else {
+  } 
+  else {
     fill(0, 153, 204, 200);
     rect(-XCHANGE, -YCHANGE+displayHeight/4, displayWidth, displayHeight/2);
     fill(15);
