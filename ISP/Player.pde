@@ -22,7 +22,8 @@ class Player{
   }
   
   void addShield(){
-    shieldNum++;
+    if(shieldNum <= 3)
+      shieldNum++;
   }
   
   boolean checkBounds(){
