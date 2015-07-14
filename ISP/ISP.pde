@@ -7,10 +7,11 @@ float XCHANGE, YCHANGE;
 //PLAYER VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Player hero;
 float pxCor, pyCor; //Player x-cor and y-cor
+int iCounter; //Invincibility
 
 //ENEMY VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ArrayList<Enemy>[] enemies; 
-final int arraySize = 3;
+final int enemySize = 3;
 /*
   Indices:
  0: Chasers
@@ -18,8 +19,27 @@ final int arraySize = 3;
  2: Bouncers
  */
 
-//POWERUP VARS
-ArrayList<Powerup> powerups;
+final int chaserTime = (int)frameRate*15;
+
+final int backAndForthTime = (int)frameRate*5;
+
+final int bouncerTime = (int)frameRate*7;
+
+
+
+//POWERUP VARS------------------------------------
+ArrayList<Powerup>[] powerups;
+final int powerupSize = 2;
+
+/*
+  Indices:
+ 0: Shield
+ 1: Mine
+ */
+
+final int shieldTime = (int)frameRate*30;
+
+final int mineTime = (int)frameRate*20;
 
 //JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Joystick thumbCircle;
@@ -34,6 +54,8 @@ int state;
  STATE 2: GAME OVER
  */
 
+int counter;
+
 void setup() {
   orientation(LANDSCAPE);
   size(displayWidth, displayHeight);
@@ -44,13 +66,13 @@ void setup() {
   hero = new Player();
   thumbCircle = new Joystick();
 
-  enemies = (ArrayList<Enemy>[])new ArrayList[arraySize];
+  enemies = (ArrayList<Enemy>[])new ArrayList[enemySize];
 
-  for (int i = 0; i < arraySize; i ++) {
+  for (int i = 0; i < enemySize; i ++) {
     enemies[i] = new ArrayList<Enemy>();
   }
 
-  for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
+  for (int i = 0; i < 5; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
     //enemies[0].add(temp);
     BackAndForth temp2 = new BackAndForth();
@@ -59,13 +81,13 @@ void setup() {
     enemies[2].add(temp);
   }
 
-  powerups = new ArrayList<Powerup>();
+  powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
 
-  for (int i = 0; i < 5; i ++) {
-    //    Shield temp = new Shield();
-    Mine temp = new Mine();
-    powerups.add(temp);
+  for (int i = 0; i < powerupSize; i ++) {
+    powerups[i] = new ArrayList<Powerup>();
   }
+  counter = 0;
+  state = 2;//testing
 }
 
 void draw() {
@@ -74,6 +96,7 @@ void draw() {
     background(0);
     textSize(displayHeight/6);
     textAlign(CENTER, CENTER);
+    fill(#32CCD8);
     text("I.S.P", displayWidth/2, displayHeight/4);
     textSize(displayHeight/15);
     text("DanTheMan, CDelano, and Franklin", displayWidth/2, displayHeight/2);
@@ -96,10 +119,14 @@ void draw() {
     displayAll();
 
     if (touchDetection()) {
+      checkPowerupCounter();
+      checkEnemyCounter();
       enemiesAttack();
       enemiesCollide();
-      //      checkPowerups();
+      checkShield();
       mineCollision();
+      iCounter++;
+      counter++;
     }
 
     hero.move();
@@ -107,8 +134,33 @@ void draw() {
     break;
 
   case 2: //GAME OVER
+    background(0);
+    textSize(displayHeight/8);
+    textAlign(CENTER, CENTER);
+    fill(#32CCD8);
+    text("High Scores", displayWidth/2, displayHeight/7);
+    textSize(displayHeight/15);
+    textAlign(LEFT);
+    text("1", displayWidth/10, displayHeight/3);
+    text("2", displayWidth/10, displayHeight/3+displayHeight/7);
+    text("3", displayWidth/10, displayHeight/3+2*displayHeight/7);
+    text("You", displayWidth/10, displayHeight/3 + 3*displayHeight/7);
+    fill(#D130A4);
+    rect(displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
+    fill(#5BD832);
+    rect(4*displayWidth/5-displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
+    //    if (mousePressed) {
+    //      state = 0;
+    //    }
     break;
   }
+}
+
+void mouseReleased() {
+  if (get(mouseX, mouseY)==#D130A4)
+    state = 0;
+  if (get(mouseX, mouseY)==#5BD832)
+    state = 1;
 }
 
 boolean sketchFullScreen() { //Necessary to start in full screen
@@ -154,23 +206,24 @@ void displayStuff() {
   fill(100);
   textSize(displayHeight/15);
   textAlign(CENTER, CENTER);
-  text("Shield: " + hero.shieldNum, pxCor + displayWidth/4, pyCor - displayHeight/4);
+  text("Shield: " + hero.shieldNum, pxCor + 3*displayWidth/8, pyCor - 3*displayHeight/8);
 }
 
 void displayAll() {
   thumbCircle.display();
   hero.display();
 
-  for (int i = 0; i < arraySize; i ++) //2-D parsing
+  for (int i = 0; i < enemySize; i ++) //2-D parsing
     for (Enemy e : enemies[i])
       e.display();
 
-  for (Powerup p : powerups)
-    p.display();
+  for (int i = 0; i < powerupSize; i ++) //2-D parsing
+    for (Powerup p : powerups[i])
+      p.display();
 }
 
 void enemiesAttack() {
-  for (int i = 0; i < arraySize; i ++) //2-D parsing
+  for (int i = 0; i < enemySize; i ++) //2-D parsing
     for (Enemy e : enemies[i])
       e.attack();
 }
@@ -181,41 +234,62 @@ void enemiesCollide() {
       enemies[1].get(i).event(enemies[1].get(j), i, j);
 }
 
-void checkPowerups() {
-  for (int i = 0; i < powerups.size (); i ++) {
-    if (powerups.get(i).detect()) {
+void checkShield() {
+  for (int i = 0; i < powerups[0].size (); i ++) {
+    if (powerups[0].get(i).detect()) {
       hero.addShield();
-      powerups.get(i).dying();
-      powerups.remove(i);
+      powerups[0].get(i).dying();
+      powerups[0].remove(i);
       i--;
     }
   }
 }
 
 void mineCollision() {
-  for (int i = 0; i < arraySize; i ++) {
+  for (int i = 0; i < enemySize; i ++) {
     for (int j = 0; j < enemies[i].size (); j ++) {
-      for (int k = 0; k < powerups.size (); k ++) {
-        print("k",k);
-        print("j",j);
-        if(powerups.get(k).event(enemies[i].get(j))){
+      for (int k = 0; k < powerups[1].size (); k ++) {
+        //    print("k", k);
+        //        print("j", j);
+        if (powerups[1].get(k).event(enemies[i].get(j))) {
           enemies[i].remove(j);
           j--;
-          if(j<0)
-          j=0;
+          if (j<0)
+            j=0;
         }
       }
     }
   }
 }
 
+void checkPowerupCounter() {
+  if (counter%shieldTime==0) {
+    Shield temp = new Shield();
+    powerups[0].add(temp);
+  }
+  if (counter%mineTime==0) {
+    Mine temp = new Mine();
+    powerups[1].add(temp);
+  }
+}
+
+void checkEnemyCounter() {
+  if (counter%chaserTime==0) {
+    Chaser temp = new Chaser();
+    enemies[0].add(temp);
+  }
+  if (counter%backAndForthTime==0) {
+    BackAndForth temp = new BackAndForth();
+    enemies[1].add(temp);
+  }
+}
 
 void checkDeath() {
-  for (int i = 0; i < arraySize; i ++) { //2-D parsing
+  for (int i = 0; i < enemySize; i ++) { //2-D parsing
     for (Enemy e : enemies[i]) {
       if (hero.isDead(e)) {
-        text("Dead!", displayWidth/2-XCHANGE, displayHeight/4-YCHANGE);
-        //state = 2;
+        state = 2;
+        setup();
       }
     }
   }

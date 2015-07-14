@@ -34,7 +34,8 @@ class Player{
   }
   
   boolean isDead(Enemy e){
-    if(dist(xCor,yCor,e.xCor(),e.yCor()) <  25){
+    if(dist(xCor,yCor,e.xCor(),e.yCor()) <  25 &&  iCounter>frameRate/2){
+      iCounter = 0;
       if(shieldNum > 0){
         shieldNum--;
         return false;
