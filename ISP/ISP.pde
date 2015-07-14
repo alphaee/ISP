@@ -249,8 +249,8 @@ void mineCollision() {
   for (int i = 0; i < enemySize; i ++) {
     for (int j = 0; j < enemies[i].size (); j ++) {
       for (int k = 0; k < powerups[1].size (); k ++) {
-        //    print("k", k);
-        //        print("j", j);
+        if (((Mine)powerups[1].get(k)).exploded)
+          ((Mine)powerups[1].get(k)).exploding ++;
         if (powerups[1].get(k).event(enemies[i].get(j))) {
           enemies[i].remove(j);
           j--;
