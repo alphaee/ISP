@@ -28,7 +28,7 @@ float controlDistance;
 
 //MISC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int state;
- /*
+/*
  STATE 0: HOMESCREEN
  STATE 1: GAME
  STATE 2: GAME OVER
@@ -45,7 +45,7 @@ void setup() {
   thumbCircle = new Joystick();
 
   enemies = (ArrayList<Enemy>[])new ArrayList[arraySize];
-  
+
   for (int i = 0; i < arraySize; i ++) {
     enemies[i] = new ArrayList<Enemy>();
   }
@@ -56,13 +56,14 @@ void setup() {
     BackAndForth temp2 = new BackAndForth();
     //enemies[1].add(temp2);
     Bouncer temp3 = new Bouncer();
-    enemies[2].add(temp3);
+    enemies[2].add(temp);
   }
-  
+
   powerups = new ArrayList<Powerup>();
-  
-  for(int i = 0; i < 5; i ++){
-    Shield temp = new Shield();
+
+  for (int i = 0; i < 5; i ++) {
+    //    Shield temp = new Shield();
+    Mine temp = new Mine();
     powerups.add(temp);
   }
 }
@@ -87,19 +88,20 @@ void draw() {
     updatePlayerCors(); //update coordinates before applying translations
     //also updates XCHANGE & YCHANGE
     translate(XCHANGE, YCHANGE);
-    
+
     createBoundary();
-    
+
     displayStuff();
-    
+
     displayAll();
 
     if (touchDetection()) {
       enemiesAttack();
       enemiesCollide();
-      checkPowerups();
+      //      checkPowerups();
+      mineCollision();
     }
-    
+
     hero.move();
     checkDeath();
     break;
@@ -148,7 +150,7 @@ boolean touchDetection() {
   }
 }
 
-void displayStuff(){
+void displayStuff() {
   fill(100);
   textSize(displayHeight/15);
   textAlign(CENTER, CENTER);
@@ -162,8 +164,8 @@ void displayAll() {
   for (int i = 0; i < arraySize; i ++) //2-D parsing
     for (Enemy e : enemies[i])
       e.display();
-  
-  for(Powerup p : powerups)
+
+  for (Powerup p : powerups)
     p.display();
 }
 
@@ -174,14 +176,14 @@ void enemiesAttack() {
 }
 
 void enemiesCollide() {
-  for (int i = 0; i < enemies[1].size(); i ++)
-    for (int j = i+1; j < enemies[1].size(); j ++)
-      enemies[1].get(i).event(enemies[1].get(j),i,j);
+  for (int i = 0; i < enemies[1].size (); i ++)
+    for (int j = i+1; j < enemies[1].size (); j ++)
+      enemies[1].get(i).event(enemies[1].get(j), i, j);
 }
 
-void checkPowerups(){
-  for(int i = 0 ; i < powerups.size(); i ++){
-    if(powerups.get(i).detect()){
+void checkPowerups() {
+  for (int i = 0; i < powerups.size (); i ++) {
+    if (powerups.get(i).detect()) {
       hero.addShield();
       powerups.get(i).dying();
       powerups.remove(i);
@@ -189,6 +191,24 @@ void checkPowerups(){
     }
   }
 }
+
+void mineCollision() {
+  for (int i = 0; i < arraySize; i ++) {
+    for (int j = 0; j < enemies[i].size (); j ++) {
+      for (int k = 0; k < powerups.size (); k ++) {
+        print("k",k);
+        print("j",j);
+        if(powerups.get(k).event(enemies[i].get(j))){
+          enemies[i].remove(j);
+          j--;
+          if(j<0)
+          j=0;
+        }
+      }
+    }
+  }
+}
+
 
 void checkDeath() {
   for (int i = 0; i < arraySize; i ++) { //2-D parsing
@@ -200,3 +220,4 @@ void checkDeath() {
     }
   }
 }
+
