@@ -52,6 +52,8 @@ void setup() {
    // enemies[0].add(temp);
     BackAndForth temp2 = new BackAndForth();
     enemies[1].add(temp2);
+    Bouncer temp3 = new Bouncer();
+    enemies[2].add(temp3);
   }
 }
 
