@@ -74,13 +74,13 @@ void setup() {
     enemies[i] = new ArrayList<Enemy>();
   }
 
-  for (int i = 0; i < 1; i ++) { //FOR TESTING PURPOSES ONLY
+  for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
-    //enemies[0].add(temp);
+    enemies[0].add(temp);
     BackAndForth temp2 = new BackAndForth();
-    //enemies[1].add(temp2);
+    enemies[1].add(temp2);
     Bouncer temp3 = new Bouncer();
-    enemies[2].add(temp);
+    enemies[2].add(temp3);
   }
 
   powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
@@ -273,7 +273,7 @@ void mineCollision() {
         if (enemies[i].size()>0)
           if (powerups[1].get(k).event(enemies[i].get(j))) {
             println(i, j, k);
-            enemies[i].remove(j);
+            enemies[i].get(j).dying(i, j);
             j--;
             if (j<0)
               j=0;
@@ -315,4 +315,3 @@ void checkDeath() {
     }
   }
 }
-

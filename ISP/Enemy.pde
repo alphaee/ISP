@@ -8,7 +8,7 @@ interface Enemy {
   
   boolean isAlive();//Life detection
   
-  void dying(); //How the character dies ie. splitting into smaller or disappearing
+  void dying(int i, int j); //How the character dies ie. splitting into smaller or disappearing
   
   void display(); //Draws the character with image import
   
