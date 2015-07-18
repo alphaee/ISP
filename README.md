@@ -20,6 +20,7 @@ git push
 - BGM and SFX
 
 *Update Log*
+
 7/14/15
 - Death Screen
 - Death lag
