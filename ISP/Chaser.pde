@@ -43,11 +43,12 @@ class Chaser implements Enemy {
       display();
       if (detect())
         attack();
-    } else
-      dying();
+    } //else
+      //dying();
   }
 
-  void dying() {
+  void dying(int i, int j) {
+    enemies[i].remove(j);
   }
 
   void event(Enemy e, int i, int j) {
@@ -58,4 +59,3 @@ class Chaser implements Enemy {
     ellipse(xCor, yCor, 50, 80);
   }
 }
-

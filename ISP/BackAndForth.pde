@@ -16,6 +16,15 @@ class BackAndForth implements Enemy {
 
     step = 5;// May Change to increase speed
   }
+  
+  BackAndForth(float x, float y){
+    radius = 50;
+    xCor = x;
+    yCor = y;
+    direction = (int)random(4f);
+    avoid = false;
+    step = 5;// May Change to increase speed
+  }
 
   float xCor() {
     return xCor;
@@ -103,15 +112,16 @@ class BackAndForth implements Enemy {
     return true;
   }
 
-  void dying() {
+  void dying(int i, int j) {
+    enemies[i].remove(j);
   }
 
   void act() {
     if (isAlive()) {
       display();
       attack();
-    } else
-      dying();
+    } //else
+      //dying();
   }
 
   void display() {//display() should only display
@@ -119,4 +129,3 @@ class BackAndForth implements Enemy {
     ellipse(xCor, yCor, radius, radius);
   }
 }
-
