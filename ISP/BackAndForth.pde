@@ -4,6 +4,8 @@ class BackAndForth implements Enemy {
   int step;
   int radius; //radius of circle - temp
   boolean avoid;
+  
+  Animation moving;
 
   BackAndForth() {
     radius = 50;
@@ -14,6 +16,17 @@ class BackAndForth implements Enemy {
     direction = (int)random(4f);
     avoid = false;
 
+    step = 5;// May Change to increase speed
+    
+    moving = new Animation("MovingYellow", 13);
+  }
+  
+  BackAndForth(float x, float y){
+    radius = 50;
+    xCor = x;
+    yCor = y;
+    direction = (int)random(4f);
+    avoid = false;
     step = 5;// May Change to increase speed
   }
 
@@ -103,20 +116,47 @@ class BackAndForth implements Enemy {
     return true;
   }
 
-  void dying() {
+  void dying(int i, int j) {
+    enemies[i].remove(j);
   }
 
   void act() {
     if (isAlive()) {
       display();
       attack();
-    } else
-      dying();
+    } //else
+      //dying();
   }
 
   void display() {//display() should only display
-    fill(255);
-    ellipse(xCor, yCor, radius, radius);
+    //fill(255);
+    //ellipse(xCor, yCor, radius, radius);
+    moving.show(xCor, yCor);
   }
 }
 
+class Animation {
+  PImage[] images;
+  int imageCount;
+  int frame;
+  
+  Animation(String imagePrefix, int count){
+    imageCount = count;
+    images = new PImage[imageCount];
+    
+    for (int i = 0; i < imageCount; i++){
+      // Use nf() to number format 'i' into four digits
+      String filename = imagePrefix + nf(i, 4) + ".png";
+      images[i] = loadImage(filename);
+    }
+  }
+  
+  void show(float xpos, float ypos){
+    frame = (frame+1) % imageCount;
+    image(images[frame], xpos, ypos);
+  }
+  
+  int getWidth() {
+    return images[0].width;
+  }
+}
