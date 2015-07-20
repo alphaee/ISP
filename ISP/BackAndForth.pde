@@ -6,6 +6,7 @@ class BackAndForth implements Enemy {
   boolean avoid;
   
   Animation moving;
+  Animation dying;
 
   BackAndForth() {
     radius = 50;
@@ -19,6 +20,8 @@ class BackAndForth implements Enemy {
     step = 5;// May Change to increase speed
     
     moving = new Animation("MovingYellow", 13);
+    
+    dying = new Animation("DieYellow", 5);
   }
   
   BackAndForth(float x, float y){
@@ -28,6 +31,10 @@ class BackAndForth implements Enemy {
     direction = (int)random(4f);
     avoid = false;
     step = 5;// May Change to increase speed
+    
+    moving = new Animation("MovingYellow", 13);
+    
+    dying = new Animation("DieYellow", 5);
   }
 
   float xCor() {
@@ -118,6 +125,7 @@ class BackAndForth implements Enemy {
 
   void dying(int i, int j) {
     enemies[i].remove(j);
+    dying.show(xCor, yCor);
   }
 
   void act() {
@@ -148,7 +156,7 @@ class Animation {
       // Use nf() to number format 'i' into four digits
       String filename = imagePrefix + nf(i, 4) + ".png";
       PImage img = loadImage(filename);
-      img.resize(120,100);
+      img.resize(240,200);
       images[i] = img;
     }
   }
