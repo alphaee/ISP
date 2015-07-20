@@ -10,16 +10,16 @@ git push
 ```
 
 *To-Do*  
-- Tweaking Shield class and making it more fluid with the game
-- Figuring out why the application sometimes lags
-- Optimizing Code
 - Animate character die and enemies merge and die
 - Explosion animations
 - How to Play screen
 - Powerup Pictures, Reset/Back Pictures for the Death Screen
-- BGM and SFX
 
 *Update Log*
+
+7/20/15
+- Moved Countdown to above player
+- Started working on score
 
 7/14/15
 - Death Screen
