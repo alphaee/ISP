@@ -3,6 +3,7 @@
 //FIXED CONSTANTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int XSIZE, YSIZE;
 float XCHANGE, YCHANGE;
+final int fps = 60;
 
 //PLAYER VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Player hero;
@@ -19,11 +20,11 @@ final int enemySize = 3;
  2: Bouncers
  */
 
-final int chaserTime = (int)frameRate*15;
+final int chaserTime = (int)fps*15;
 
-final int backAndForthTime = (int)frameRate*5;
+final int backAndForthTime = (int)fps*5;
 
-final int bouncerTime = (int)frameRate*7;
+final int bouncerTime = (int)fps*7;
 
 
 
@@ -37,9 +38,9 @@ final int powerupSize = 2;
  1: Mine
  */
 
-final int shieldTime = (int)frameRate*30;
+final int shieldTime = (int)fps*30;
 
-final int mineTime = (int)frameRate*20;
+final int mineTime = (int)fps*20;
 
 //JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Joystick thumbCircle;
@@ -89,6 +90,7 @@ void setup() {
     powerups[i] = new ArrayList<Powerup>();
   }
   counter = 0;
+  frameRate(fps);
   start = true;
   startMillis = millis();
 }
