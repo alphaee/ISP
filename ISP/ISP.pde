@@ -59,7 +59,6 @@ boolean start;
 int startMillis;
 
 void setup() {
-  frameRate(60);
   orientation(LANDSCAPE);
   size(displayWidth, displayHeight);
 
