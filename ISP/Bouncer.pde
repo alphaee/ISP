@@ -106,11 +106,14 @@ class Bouncer implements Enemy {
       display();
       detect();
       attack();
-    } else
-      dying();
+    } //else
+      //dying();
   }
 
-  void dying() {
+  void dying(int i, int j) {
+    BackAndForth temp = new BackAndForth(xCor, yCor);
+    enemies[1].add(temp);
+    enemies[i].remove(j);
   }
   
   void event(Enemy e, int i, int j) {
