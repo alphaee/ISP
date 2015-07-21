@@ -274,7 +274,7 @@ void mineCollision() {
           ((Mine)powerups[1].get(k)).exploding ++;
         if (enemies[i].size()>0)
           if (powerups[1].get(k).event(enemies[i].get(j))) {
-            println(i, j, k);
+            //println(i, j, k);
             enemies[i].get(j).dying(i, j);
             j--;
             if (j<0)

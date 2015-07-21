@@ -3,7 +3,9 @@ class BackAndForth implements Enemy {
   int direction;
   int step;
   int radius; //radius of circle - temp
-  boolean avoid;
+  boolean avoid, isAlive;
+  int myPlace, inLife;
+  int tempFrameCount;
   
   Animation moving;
   Animation dying;
@@ -16,11 +18,12 @@ class BackAndForth implements Enemy {
 
     direction = (int)random(4f);
     avoid = false;
+    isAlive = true;
+    tempFrameCount = 0;
 
     step = 5;// May Change to increase speed
     
     moving = new Animation("MovingYellow", 13);
-    
     dying = new Animation("DieYellow", 5);
   }
   
@@ -30,6 +33,8 @@ class BackAndForth implements Enemy {
     yCor = y;
     direction = (int)random(4f);
     avoid = false;
+    isAlive = true;
+    tempFrameCount = 0;
     step = 5;// May Change to increase speed
     
     moving = new Animation("MovingYellow", 13);
@@ -124,16 +129,29 @@ class BackAndForth implements Enemy {
   }
 
   void dying(int i, int j) {
-    enemies[i].remove(j);
-    dying.show(xCor, yCor);
+    println(frameCount);
+    myPlace = i;
+    inLife = j;
+    if (isAlive){
+      tempFrameCount = frameCount;
+      isAlive = false;
+    }
+    else{
+      dying.show(xCor,yCor);
+      if (frameCount == tempFrameCount + 6){
+        enemies[i].remove(j);
+      }
+    }
   }
 
   void act() {
-    if (isAlive()) {
+    if (isAlive) {
       display();
       attack();
-    } //else
-      //dying();
+    } 
+    else{
+      dying(myPlace, inLife);
+    }
   }
 
   void display() {//display() should only display
