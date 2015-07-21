@@ -40,11 +40,7 @@ final int powerupSize = 2;
 
 final int shieldTime = (int)fps*30;
 
-<<<<<<< HEAD
 final int mineTime = (int)fps*15;
-=======
-final int mineTime = (int)fps*20;
->>>>>>> origin/animation
 
 //JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Joystick thumbCircle;
@@ -80,7 +76,6 @@ void setup() {
     enemies[i] = new ArrayList<Enemy>();
   }
 
-<<<<<<< HEAD
   for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
     enemies[0].add(temp);
@@ -88,15 +83,6 @@ void setup() {
     enemies[1].add(temp2);
     Bouncer temp3 = new Bouncer();
     enemies[2].add(temp3);
-=======
-  for (int i = 0; i < 30; i ++) { //FOR TESTING PURPOSES ONLY
-    //Chaser temp = new Chaser();
-    //enemies[0].add(temp);
-    BackAndForth temp2 = new BackAndForth();
-    enemies[1].add(temp2);
-    //Bouncer temp3 = new Bouncer();
-    //enemies[2].add(temp3);
->>>>>>> origin/animation
   }
 
   powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
@@ -294,11 +280,7 @@ void mineCollision() {
           ((Mine)powerups[1].get(k)).exploding ++;
         if (enemies[i].size()>0)
           if (powerups[1].get(k).event(enemies[i].get(j))) {
-<<<<<<< HEAD
-            println(i, j, k);
-=======
             //println(i, j, k);
->>>>>>> origin/animation
             enemies[i].get(j).dying(i, j);
             j--;
             if (j<0)
