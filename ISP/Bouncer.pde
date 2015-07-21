@@ -4,6 +4,9 @@ class Bouncer implements Enemy {
   float xCor, yCor;
   float origSpeedX, origSpeedY;
   float speedX, speedY;
+  boolean isAlive;
+  int myPlace, inLife;
+  int tempFrameCount;
 
   Bouncer() {
     xCor = random(0, XSIZE);
@@ -12,6 +15,8 @@ class Bouncer implements Enemy {
     origSpeedY = 5 - random( 10 );
     speedX = origSpeedX;
     speedY = origSpeedY;
+    isAlive = true;
+    tempFrameCount = 0;
   }
   
    Bouncer(float x, float y) {
@@ -21,6 +26,8 @@ class Bouncer implements Enemy {
     origSpeedY = 5 - random( 10 );
     speedX = origSpeedX;
     speedY = origSpeedY;
+    isAlive = true;
+    tempFrameCount = 0;
   }
 
   float xCor() {
@@ -102,19 +109,35 @@ class Bouncer implements Enemy {
   }
 
   void act() {
-    if (isAlive()) {
+    if (isAlive) {
       display();
       detect();
       attack();
-    } //else
-      //dying();
+    } 
+    else{
+      dying(myPlace, inLife);
+    }
   }
 
   void dying(int i, int j) {
-    BackAndForth temp = new BackAndForth(xCor, yCor);
-    enemies[1].add(temp);
-    enemies[i].remove(j);
-    score += 20;
+    println(frameCount);
+    myPlace = i;
+    inLife = j;
+    if (isAlive){
+      tempFrameCount = frameCount;
+      isAlive = false;
+      println("Im alive");
+    }
+    else{
+      println("Im dead");
+      if (frameCount == tempFrameCount + 10){
+        enemies[i].remove(j);
+        BackAndForth baby = new BackAndForth(xCor, yCor);
+        enemies[1].add(baby);
+        println("im hidden");
+        score += 20;
+      }
+    }
   }
   
   void event(Enemy e, int i, int j) {
