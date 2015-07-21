@@ -114,6 +114,7 @@ class Bouncer implements Enemy {
     BackAndForth temp = new BackAndForth(xCor, yCor);
     enemies[1].add(temp);
     enemies[i].remove(j);
+    score += 20;
   }
   
   void event(Enemy e, int i, int j) {

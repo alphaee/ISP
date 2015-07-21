@@ -42,16 +42,19 @@ class BackAndForth implements Enemy {
         direction ++; //only 0,2, or 3
       }
       xCor -= step; // to move away from the border so it doesn't get caught here again
-    } else if (xCor <= 0) {
+    } 
+    else if (xCor <= 0) {
       // direction = 1;//right
       direction = (int)random(3f);
       direction ++; //only 1,2, or 3
       xCor += step; // same as xCor-=step
-    } else if (yCor >= YSIZE) {
+    } 
+    else if (yCor >= YSIZE) {
       //direction = 2;//up
       direction = (int)random(3f); // only 0, 1, 2
       yCor -= step; // same as xCor-=step
-    } else if (yCor <= 0) {
+    } 
+    else if (yCor <= 0) {
       //direction = 3;//down
       direction = (int)random(3f);
       if (direction == 2) {
@@ -114,6 +117,7 @@ class BackAndForth implements Enemy {
 
   void dying(int i, int j) {
     enemies[i].remove(j);
+    score += 10;
   }
 
   void act() {

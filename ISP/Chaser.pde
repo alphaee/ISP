@@ -49,6 +49,7 @@ class Chaser implements Enemy {
 
   void dying(int i, int j) {
     enemies[i].remove(j);
+    score += 15;
   }
 
   void event(Enemy e, int i, int j) {
