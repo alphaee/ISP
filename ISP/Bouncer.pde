@@ -120,7 +120,6 @@ class Bouncer implements Enemy {
   }
 
   void dying(int i, int j) {
-    //println(millis());
     myPlace = i;
     inLife = j;
     if (isAlive){
