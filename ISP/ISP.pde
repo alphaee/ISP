@@ -1,3 +1,4 @@
+
 import java.io.*;
 //Young Kim, Dan Kim, Franklin Wang
 
@@ -27,9 +28,11 @@ final int backAndForthTime = (int)fps*5;
 
 final int bouncerTime = (int)fps*7;
 
+//ENEMY ANIMATIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Animation baf_moving;
+Animation baf_dying; 
 
-
-//POWERUP VARS------------------------------------
+//POWERUP VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ArrayList<Powerup>[] powerups;
 final int powerupSize = 3;
 
@@ -68,10 +71,9 @@ String scores[] = new String[3];
 void setup() {
   orientation(LANDSCAPE);
   size(displayWidth, displayHeight);
-
+  
   XSIZE = (int)(displayWidth*1.4); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.4);
-
   
   thumbCircle = new Joystick();
 
@@ -81,7 +83,8 @@ void setup() {
   
   frameRate(fps);
   
-  setup2();
+  baf_dying = new Animation("DieYellow", 5);
+  baf_moving = new Animation("MovingYellow", 13);
 }
 
 void setup2(){
@@ -101,7 +104,7 @@ void setup2(){
     BackAndForth temp2 = new BackAndForth();
     enemies[1].add(temp2);
     Bouncer temp3 = new Bouncer();
-    //enemies[2].add(temp3);
+    enemies[2].add(temp3);
   }
   
   counter = 0;
@@ -124,6 +127,7 @@ void draw() {
       text("(Click to Continue!)", displayWidth/2, 3*displayHeight/4);
       if (mousePressed) {
         state = 1;
+        setup2();
         start = true;
         startMillis = millis();
       }

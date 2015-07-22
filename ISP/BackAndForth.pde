@@ -7,9 +7,6 @@ class BackAndForth implements Enemy {
   int myPlace, inLife;
   int tempFrameCount;
   
-  Animation moving;
-  Animation dying;
-
   BackAndForth() {
     radius = 50;
 
@@ -21,10 +18,7 @@ class BackAndForth implements Enemy {
     isAlive = true;
     tempFrameCount = 0;
 
-    step = 5;// May Change to increase speed
-    
-    moving = new Animation("MovingYellow", 13);
-    dying = new Animation("DieYellow", 5);
+    step = 5;// may change to increase speed
   }
   
   BackAndForth(float x, float y){
@@ -35,11 +29,7 @@ class BackAndForth implements Enemy {
     avoid = false;
     isAlive = true;
     tempFrameCount = 0;
-    step = 5;// May Change to increase speed
-    
-    moving = new Animation("MovingYellow", 13);
-    
-    dying = new Animation("DieYellow", 5);
+    step = 5;// may change to increase speed
   }
 
   float xCor() {
@@ -141,7 +131,7 @@ class BackAndForth implements Enemy {
       println("I'm alive");
     }
     else{
-      dying.show(xCor,yCor);
+      baf_dying.show(xCor,yCor);
       println("I'm dead");
       if (millis() >= tempFrameCount + 20){
         enemies[i].remove(j);
@@ -164,7 +154,7 @@ class BackAndForth implements Enemy {
   void display() {//display() should only display
     //fill(255);
     //ellipse(xCor, yCor, radius, radius);
-    moving.show(xCor, yCor);
+    baf_moving.show(xCor, yCor);
   }
 }
 
