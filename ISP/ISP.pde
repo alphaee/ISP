@@ -97,13 +97,13 @@ void setup2(){
     powerups[i] = new ArrayList<Powerup>();
   }
   
-  for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
+  for (int i = 0; i < 30; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
-    //enemies[0].add(temp);
+    enemies[0].add(temp);
     BackAndForth temp2 = new BackAndForth();
     enemies[1].add(temp2);
-    Bouncer temp3 = new Bouncer();
-    enemies[2].add(temp3);
+    //Bouncer temp3 = new Bouncer();
+    //enemies[2].add(temp3);
   }
   
   counter = 0;
@@ -253,10 +253,6 @@ void displayStats() {
 }
 
 void displayAll() {
-  thumbCircle.display();
-  hero.display();
-  displayStats();
-
   for (int i = 0; i < enemySize; i ++) //2-D parsing
     for (Enemy e : enemies[i])
       e.display();
@@ -264,6 +260,10 @@ void displayAll() {
   for (int i = 0; i < powerupSize; i ++) //2-D parsing
     for (Powerup p : powerups[i])
       p.display();
+  
+  thumbCircle.display();
+  hero.display();
+  displayStats();
 }
 
 void enemiesAttack() {
