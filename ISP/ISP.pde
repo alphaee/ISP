@@ -329,12 +329,12 @@ void mineCollision() {
             if (j<0)
               j=0;
           }
-        if (curr.exploding>=fps*10) {
-          powerups[1].remove(k);
-          k--;
-          if (k<0)
-            k=0;
-        }
+//        if (curr.exploding>=fps*10) {
+//          powerups[1].remove(k);
+//          k--;
+//          if (k<0)
+//            k=0;
+//        }
       }
     }
   }

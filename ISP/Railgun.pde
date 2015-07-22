@@ -45,8 +45,10 @@ class Railgun implements Powerup {
 
     speedX = (2*speedX)/speed;
     speedY = (2*speedY)/speed;
+    
     xCor += speedX;
     yCor += speedY;
+  //  print(xCor,yCor);
   }
 
   void display() {
