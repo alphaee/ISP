@@ -17,8 +17,13 @@ git push
 - Implement animation (dying) for Back And Forth
 - Fix dying for Bouncer to make it work 100%
 - Fix bouncer getting stuck, which happens 0.1% of the time
+- Fix empty enemy array bug
 
 *Update Log*
+
+7/22/15
+-Railgun Implemented
+
 7/21/15
 - Started implementing dying animation for Back And Forth
 
