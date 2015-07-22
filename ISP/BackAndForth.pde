@@ -3,7 +3,12 @@ class BackAndForth implements Enemy {
   int direction;
   int step;
   int radius; //radius of circle - temp
-  boolean avoid;
+  boolean avoid, isAlive;
+  int myPlace, inLife;
+  int tempFrameCount;
+  
+  Animation moving;
+  Animation dying;
 
   BackAndForth() {
     radius = 50;
@@ -13,8 +18,13 @@ class BackAndForth implements Enemy {
 
     direction = (int)random(4f);
     avoid = false;
+    isAlive = true;
+    tempFrameCount = 0;
 
     step = 5;// May Change to increase speed
+    
+    moving = new Animation("MovingYellow", 13);
+    dying = new Animation("DieYellow", 5);
   }
   
   BackAndForth(float x, float y){
@@ -23,7 +33,13 @@ class BackAndForth implements Enemy {
     yCor = y;
     direction = (int)random(4f);
     avoid = false;
+    isAlive = true;
+    tempFrameCount = 0;
     step = 5;// May Change to increase speed
+    
+    moving = new Animation("MovingYellow", 13);
+    
+    dying = new Animation("DieYellow", 5);
   }
 
   float xCor() {
@@ -42,16 +58,19 @@ class BackAndForth implements Enemy {
         direction ++; //only 0,2, or 3
       }
       xCor -= step; // to move away from the border so it doesn't get caught here again
-    } else if (xCor <= 0) {
+    } 
+    else if (xCor <= 0) {
       // direction = 1;//right
       direction = (int)random(3f);
       direction ++; //only 1,2, or 3
       xCor += step; // same as xCor-=step
-    } else if (yCor >= YSIZE) {
+    } 
+    else if (yCor >= YSIZE) {
       //direction = 2;//up
       direction = (int)random(3f); // only 0, 1, 2
       yCor -= step; // same as xCor-=step
-    } else if (yCor <= 0) {
+    } 
+    else if (yCor <= 0) {
       //direction = 3;//down
       direction = (int)random(3f);
       if (direction == 2) {
@@ -113,19 +132,66 @@ class BackAndForth implements Enemy {
   }
 
   void dying(int i, int j) {
-    enemies[i].remove(j);
+    //println(millis());
+    myPlace = i;
+    inLife = j;
+    if (isAlive){
+      tempFrameCount = millis();
+      isAlive = false;
+      println("I'm alive");
+    }
+    else{
+      dying.show(xCor,yCor);
+      println("I'm dead");
+      if (millis() >= tempFrameCount + 20){
+        enemies[i].remove(j);
+        score += 10;
+        println("I'm hidden");
+      }
+    }
   }
 
   void act() {
-    if (isAlive()) {
+    if (isAlive) {
       display();
       attack();
-    } //else
-      //dying();
+    } 
+    else{
+      dying(myPlace, inLife);
+    }
   }
 
   void display() {//display() should only display
-    fill(255);
-    ellipse(xCor, yCor, radius, radius);
+    //fill(255);
+    //ellipse(xCor, yCor, radius, radius);
+    moving.show(xCor, yCor);
+  }
+}
+
+class Animation {
+  PImage[] images;
+  int imageCount;
+  int frame;
+  
+  Animation(String imagePrefix, int count){
+    imageCount = count;
+    images = new PImage[imageCount];
+    
+    for (int i = 0; i < imageCount; i++){
+      // Use nf() to number format 'i' into four digits
+      String filename = imagePrefix + nf(i, 4) + ".png";
+      PImage img = loadImage(filename);
+      img.resize(240, 200);
+      images[i] = img;
+    }
+  }
+  
+  void show(float xpos, float ypos){
+    frame = (frame+1) % imageCount;
+    image(images[frame], xpos, ypos);
+  }
+  
+  int getWidth() {
+    return images[0].width;
   }
 }

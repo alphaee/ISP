@@ -10,16 +10,27 @@ git push
 ```
 
 *To-Do*  
-- Tweaking Shield class and making it more fluid with the game
-- Figuring out why the application sometimes lags
-- Optimizing Code
 - Animate character die and enemies merge and die
 - Explosion animations
 - How to Play screen
 - Powerup Pictures, Reset/Back Pictures for the Death Screen
-- BGM and SFX
+- Implement animation (dying) for Back And Forth
+- Fix dying for Bouncer to make it work 100%
+- Fix bouncer getting stuck, which happens 0.1% of the time
 
 *Update Log*
+7/21/15
+- Started implementing dying animation for Back And Forth
+
+7/20/15
+- Moved Countdown to above player
+- Started working on score
+
+7/19/15
+- Implemented animation (moving) for Back And Forth
+
+7/18/15
+- Integrated the dying function
 
 7/14/15
 - Death Screen

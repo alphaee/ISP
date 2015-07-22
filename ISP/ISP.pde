@@ -33,7 +33,7 @@ ArrayList<Powerup>[] powerups;
 final int powerupSize = 3;
 
 /*
-  Indices:
+ Indices:
  0: Shield
  1: Mine
  */
@@ -57,6 +57,7 @@ int state;
  STATE 2: GAME OVER
  */
 int counter;
+int score;
 
 boolean start;
 int startMillis;
@@ -79,11 +80,11 @@ void setup() {
 
   for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
-    enemies[0].add(temp);
+    //enemies[0].add(temp);
     BackAndForth temp2 = new BackAndForth();
     enemies[1].add(temp2);
     Bouncer temp3 = new Bouncer();
-    enemies[2].add(temp3);
+    //enemies[2].add(temp3);
   }
 
   powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
@@ -123,13 +124,12 @@ void draw() {
 
     createBoundary();
 
-    displayStuff();
-
     displayAll();
 
     if (start) {
       countdown(startMillis);
-    } else {
+    } 
+    else {
       if (touchDetection()) {
         checkPowerupCounter();
         // checkEnemyCounter();
@@ -171,20 +171,23 @@ void countdown(int t) {
   textAlign(CENTER, CENTER);
   textSize(50);
   if (millis() - t < 1500)
-    text("3", pxCor, pyCor);
+    text("3", pxCor, pyCor-displayHeight/10);
   else if (millis() - t < 2500)
-    text("2", pxCor, pyCor);
+    text("2", pxCor, pyCor-displayHeight/10);
   else if (millis() - t < 3500)
-    text("1", pxCor, pyCor);
+    text("1", pxCor, pyCor-displayHeight/10);
   else
     start = false;
 }
 
 void mouseReleased() {
-  if (get(mouseX, mouseY)==#D130A4)
+  if (get(mouseX, mouseY) == #D130A4)
     state = 0;
-  if (get(mouseX, mouseY)==#5BD832)
+  if (get(mouseX, mouseY) == #5BD832){
+    start = true;
+    startMillis = millis();
     state = 1;
+  }
 }
 
 boolean sketchFullScreen() { //Necessary to start in full screen
@@ -211,7 +214,8 @@ boolean touchDetection() {
     controlAngle = thumbCircle.calcAngle();
     controlDistance = thumbCircle.calcDistance();
     return true;
-  } else {
+  } 
+  else {
     fill(0, 153, 204, 200);
     rect(-XCHANGE, -YCHANGE+displayHeight/4, displayWidth, displayHeight/2);
     fill(15);
@@ -226,16 +230,18 @@ boolean touchDetection() {
   }
 }
 
-void displayStuff() {
+void displayStats() {
   fill(100);
   textSize(displayHeight/15);
   textAlign(CENTER, CENTER);
   text("Shield: " + hero.shieldNum, pxCor + 3*displayWidth/8, pyCor - 3*displayHeight/8);
+  text("Score: " + score*10, pxCor - 3*displayWidth/8, pyCor - 3*displayHeight/8);
 }
 
 void displayAll() {
   thumbCircle.display();
   hero.display();
+  displayStats();
 
   for (int i = 0; i < enemySize; i ++) //2-D parsing
     for (Enemy e : enemies[i])
@@ -277,7 +283,7 @@ void mineCollision() {
           ((Mine)powerups[1].get(k)).exploding ++;
         if (enemies[i].size()>0)
           if (powerups[1].get(k).event(enemies[i].get(j))) {
-            println(i, j, k);
+            //println(i, j, k);
             enemies[i].get(j).dying(i, j);
             j--;
             if (j<0)
@@ -306,11 +312,11 @@ void railgunCollision() {
 }
 
 void checkPowerupCounter() {
-  if (counter%shieldTime==0) {
+  if (counter % shieldTime == 0) {
     Shield temp = new Shield();
     powerups[0].add(temp);
   }
-  if (counter%mineTime==0) {
+  if (counter % mineTime == 0) {
     Mine temp = new Mine();
     powerups[1].add(temp);
   }
@@ -321,11 +327,11 @@ void checkPowerupCounter() {
 }
 
 void checkEnemyCounter() {
-  if (counter%chaserTime==0) {
+  if (counter % chaserTime == 0) {
     Chaser temp = new Chaser();
     enemies[0].add(temp);
   }
-  if (counter%backAndForthTime==0) {
+  if (counter % backAndForthTime == 0) {
     BackAndForth temp = new BackAndForth();
     enemies[1].add(temp);
   }
