@@ -106,8 +106,6 @@ void setup2(){
   
   counter = 0;
   
-  score = 700;
-  
   start = true;
   startMillis = millis();
 }
