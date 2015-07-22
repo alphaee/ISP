@@ -78,11 +78,11 @@ void setup() {
 
   for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
-    enemies[0].add(temp);
+    //enemies[0].add(temp);
     BackAndForth temp2 = new BackAndForth();
     enemies[1].add(temp2);
     Bouncer temp3 = new Bouncer();
-    enemies[2].add(temp3);
+    //enemies[2].add(temp3);
   }
 
   powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];

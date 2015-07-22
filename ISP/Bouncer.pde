@@ -120,17 +120,18 @@ class Bouncer implements Enemy {
   }
 
   void dying(int i, int j) {
-    println(frameCount);
+    //println(millis());
     myPlace = i;
     inLife = j;
     if (isAlive){
-      tempFrameCount = frameCount;
+      tempFrameCount = millis();
       isAlive = false;
       println("Im alive");
     }
     else{
       println("Im dead");
-      if (frameCount == tempFrameCount + 10){
+      println(millis());
+      if (millis() >= tempFrameCount + 20){
         enemies[i].remove(j);
         BackAndForth baby = new BackAndForth(xCor, yCor);
         enemies[1].add(baby);

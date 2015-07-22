@@ -41,15 +41,6 @@ class BackAndForth implements Enemy {
     
     dying = new Animation("DieYellow", 5);
   }
-  
-  BackAndForth(float x, float y){
-    radius = 50;
-    xCor = x;
-    yCor = y;
-    direction = (int)random(4f);
-    avoid = false;
-    step = 5;// May Change to increase speed
-  }
 
   float xCor() {
     return xCor;
@@ -141,16 +132,17 @@ class BackAndForth implements Enemy {
   }
 
   void dying(int i, int j) {
-    println(frameCount);
+    //println(millis());
     myPlace = i;
     inLife = j;
     if (isAlive){
-      tempFrameCount = frameCount;
+      tempFrameCount = millis();
       isAlive = false;
     }
     else{
       dying.show(xCor,yCor);
-      if (frameCount == tempFrameCount + 6){
+      println(millis());
+      if (millis() >= tempFrameCount + 20){
         enemies[i].remove(j);
         score += 10;
       }
