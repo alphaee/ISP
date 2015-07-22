@@ -72,29 +72,29 @@ void setup() {
   XSIZE = (int)(displayWidth*1.4); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.4);
 
-  
+
   thumbCircle = new Joystick();
 
   enemies = (ArrayList<Enemy>[])new ArrayList[enemySize];
 
   powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
-  
+
   frameRate(fps);
-  
+
   setup2();
 }
 
-void setup2(){
+void setup2() {
   hero = new Player();
-  
-  for(int i = 0; i < enemySize; i++){
+
+  for (int i = 0; i < enemySize; i++) {
     enemies[i] = new ArrayList<Enemy>();
   }
-  
-  for(int i = 0; i < powerupSize; i++){
+
+  for (int i = 0; i < powerupSize; i++) {
     powerups[i] = new ArrayList<Powerup>();
   }
-  
+
   for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
     //enemies[0].add(temp);
@@ -103,9 +103,9 @@ void setup2(){
     Bouncer temp3 = new Bouncer();
     //enemies[2].add(temp3);
   }
-  
+
   counter = 0;
-  
+
   start = true;
   startMillis = millis();
 }
@@ -140,8 +140,7 @@ void draw() {
 
     if (start) {
       countdown(startMillis);
-    } 
-    else {
+    } else {
       if (touchDetection()) {
         checkPowerupCounter();
         // checkEnemyCounter();
@@ -195,7 +194,7 @@ void countdown(int t) {
 void mouseReleased() {
   if (get(mouseX, mouseY) == #D130A4)
     state = 0;
-  if (get(mouseX, mouseY) == #5BD832){
+  if (get(mouseX, mouseY) == #5BD832) {
     start = true;
     startMillis = millis();
     state = 1;
@@ -226,8 +225,7 @@ boolean touchDetection() {
     controlAngle = thumbCircle.calcAngle();
     controlDistance = thumbCircle.calcDistance();
     return true;
-  } 
-  else {
+  } else {
     fill(0, 153, 204, 200);
     rect(-XCHANGE, -YCHANGE+displayHeight/4, displayWidth, displayHeight/2);
     fill(15);
@@ -300,6 +298,12 @@ void mineCollision() {
             j--;
             if (j<0)
               j=0;
+            if (((Mine)powerups[1].get(k)).exploding<=fps) {
+              powerups[1].remove(k);
+              k--;
+              if (k<0)
+                k=0;
+            }
           }
       }
     }
@@ -312,13 +316,13 @@ void railgunCollision() {
       for (int k = 0; k < powerups[2].size (); k ++) {     
         if (enemies[i].size()>0)
           if (powerups[2].get(k).event(enemies[i].get(j))) {
-            println(i, j, k);
+//println(i, j, k);
             enemies[i].get(j).dying(i, j);
             j--;
             if (j<0)
               j=0;
           }
-        if( ((Railgun)powerups[2].get(k)).checkBounds() ){
+        if ( ((Railgun)powerups[2].get(k)).checkBounds() ) {
           powerups[2].remove(k);
         }
       }
@@ -356,11 +360,11 @@ void checkDeath() {
   for (int i = 0; i < enemySize; i ++) { //2-D parsing
     for (Enemy e : enemies[i]) {
       if (hero.isDead(e)) {
-        try{
+        try {
           checkHighScores();
           scores = highScores();
         }
-        catch(Exception a){
+        catch(Exception a) {
         }
         state = 2;
         setup2();
@@ -369,26 +373,26 @@ void checkDeath() {
   }
 }
 
-void checkHighScores() throws IOException{
+void checkHighScores() throws IOException {
   String[] res = highScores();
   int i = 2;
   int index = -1;
-  while((i >= 0)&&(score*10 >= Integer.parseInt(res[i]))){
+  while ( (i >= 0)&&(score*10 >= Integer.parseInt(res[i]))) {
     index = i;
     i--;
   }
-  if(index != -1){
+  if (index != -1) {
     res[index] = (int)score*10 + "";
     PrintWriter out = createWriter("data/highScores.txt");
-    println("whoa");
-    for(int k = 0; k < res.length; k++)
-      out.println(res[k]);
+    //println("whoa");
+    for (int k = 0; k < res.length; k++)
+//      out.println(res[k]);
     out.flush();
     out.close();
   }
 }
 
-String[] highScores() throws FileNotFoundException{
-    return loadStrings("highScores.txt");
+String[] highScores() throws FileNotFoundException {
+  return loadStrings("highScores.txt");
 }
 

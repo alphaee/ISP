@@ -55,7 +55,7 @@ class Chaser implements Enemy {
   }
 
   void dying(int i, int j) {
-    println(frameCount);
+    //println(frameCount);
     myPlace = i;
     inLife = j;
     if (isAlive){

@@ -138,15 +138,15 @@ class BackAndForth implements Enemy {
     if (isAlive){
       tempFrameCount = millis();
       isAlive = false;
-      println("I'm alive");
+ //     println("I'm alive");
     }
     else{
       dying.show(xCor,yCor);
-      println("I'm dead");
+  //    println("I'm dead");
       if (millis() >= tempFrameCount + 20){
         enemies[i].remove(j);
         score += 10;
-        println("I'm hidden");
+        //println("I'm hidden");
       }
     }
   }
