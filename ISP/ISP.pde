@@ -1,3 +1,4 @@
+import java.io.*;
 //Young Kim, Dan Kim, Franklin Wang
 
 //FIXED CONSTANTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -148,16 +149,22 @@ void draw() {
 
   case 2: //GAME OVER
     background(0);
-    textSize(displayHeight/8);
-    textAlign(CENTER, CENTER);
+    String[] scores  = {"a","b","c"};
+    try{
+      scores = highScores();
+    }
+    catch(Exception e){
+    }
+    textSize(displayHeight/8);         
+    textAlign(CENTER, CENTER);         
     fill(#32CCD8);
     text("High Scores", displayWidth/2, displayHeight/7);
-    textSize(displayHeight/15);
+    textSize(displayHeight/15);      
     textAlign(LEFT);
-    text("1", displayWidth/10, displayHeight/3);
-    text("2", displayWidth/10, displayHeight/3+displayHeight/7);
-    text("3", displayWidth/10, displayHeight/3+2*displayHeight/7);
-    text("You", displayWidth/10, displayHeight/3 + 3*displayHeight/7);
+    text("1: " + scores[0], displayWidth/10, displayHeight/3);
+    text("2: " + scores[1], displayWidth/10, displayHeight/3+displayHeight/7);
+    text("3: " + scores[2], displayWidth/10, displayHeight/3+2*displayHeight/7);
+    text("You: "+ score, displayWidth/10, displayHeight/3 + 3*displayHeight/7);
     fill(#D130A4);
     rect(displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
     fill(#5BD832);
@@ -297,7 +304,7 @@ void mineCollision() {
 void railgunCollision() {
   for (int i = 0; i < enemySize; i ++) {
     for (int j = 0; j < enemies[i].size (); j ++) {
-      for (int k = 0; k < powerups[1].size (); k ++) {     
+      for (int k = 0; k < powerups[2].size (); k ++) {     
         if (enemies[i].size()>0)
           if (powerups[2].get(k).event(enemies[i].get(j))) {
             println(i, j, k);
@@ -306,6 +313,9 @@ void railgunCollision() {
             if (j<0)
               j=0;
           }
+        if( ((Railgun)powerups[2].get(k)).checkBounds() ){
+          powerups[2].remove(k);
+        }
       }
     }
   }
@@ -320,7 +330,7 @@ void checkPowerupCounter() {
     Mine temp = new Mine();
     powerups[1].add(temp);
   }
-  if (counter%railgunTime==0) {
+  if (counter % railgunTime == 0) {
     Railgun temp = new Railgun();
     powerups[2].add(temp);
   }
@@ -341,10 +351,36 @@ void checkDeath() {
   for (int i = 0; i < enemySize; i ++) { //2-D parsing
     for (Enemy e : enemies[i]) {
       if (hero.isDead(e)) {
+        try{
+          checkHighScores();
+        }
+        catch(Exception a){
+        }
         state = 2;
         setup();
       }
     }
   }
+}
+
+void checkHighScores() throws IOException{
+  String[] res = highScores();
+  int i = 2;
+  int index = -1;
+  while((i > 0)&&(score >= Integer.parseInt(res[i]))){
+    index = i;
+    i--;
+  }
+  if(index != -1){
+    res[index] = (int)score + "";
+    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("highScores.txt")));
+    for(int k = 0; k < res.length; k++)
+      out.println(res[k]);
+    out.close();
+  }
+}
+
+String[] highScores() throws FileNotFoundException{
+    return loadStrings("highScores.txt");
 }
 

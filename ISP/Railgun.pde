@@ -56,5 +56,13 @@ class Railgun implements Powerup {
       fill(#048B29);
     ellipse(xCor, yCor, 50, 50);
   }
+  
+  boolean checkBounds(){
+    if( xCor < 0 || xCor > XSIZE) 
+      return true;
+    if( yCor < 0 || yCor > YSIZE)
+      return true;
+    return false; 
+  }
 }
 
