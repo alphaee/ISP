@@ -138,13 +138,15 @@ class BackAndForth implements Enemy {
     if (isAlive){
       tempFrameCount = millis();
       isAlive = false;
+      println("I'm alive");
     }
     else{
       dying.show(xCor,yCor);
-      println(millis());
+      println("I'm dead");
       if (millis() >= tempFrameCount + 20){
         enemies[i].remove(j);
         score += 10;
+        println("I'm hidden");
       }
     }
   }
@@ -179,7 +181,7 @@ class Animation {
       // Use nf() to number format 'i' into four digits
       String filename = imagePrefix + nf(i, 4) + ".png";
       PImage img = loadImage(filename);
-      img.resize(240,200);
+      img.resize(240, 200);
       images[i] = img;
     }
   }
