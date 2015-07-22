@@ -63,6 +63,8 @@ int score;
 boolean start;
 int startMillis;
 
+String scores[] = new String[3];
+
 void setup() {
   orientation(LANDSCAPE);
   size(displayWidth, displayHeight);
@@ -70,15 +72,29 @@ void setup() {
   XSIZE = (int)(displayWidth*1.4); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.4);
 
-  hero = new Player();
+  
   thumbCircle = new Joystick();
 
   enemies = (ArrayList<Enemy>[])new ArrayList[enemySize];
 
-  for (int i = 0; i < enemySize; i ++) {
+  powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
+  
+  frameRate(fps);
+  
+  setup2();
+}
+
+void setup2(){
+  hero = new Player();
+  
+  for(int i = 0; i < enemySize; i++){
     enemies[i] = new ArrayList<Enemy>();
   }
-
+  
+  for(int i = 0; i < powerupSize; i++){
+    powerups[i] = new ArrayList<Powerup>();
+  }
+  
   for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
     //enemies[0].add(temp);
@@ -87,14 +103,11 @@ void setup() {
     Bouncer temp3 = new Bouncer();
     //enemies[2].add(temp3);
   }
-
-  powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
-
-  for (int i = 0; i < powerupSize; i ++) {
-    powerups[i] = new ArrayList<Powerup>();
-  }
+  
   counter = 0;
-  frameRate(fps);
+  
+  score = 700;
+  
   start = true;
   startMillis = millis();
 }
@@ -149,12 +162,6 @@ void draw() {
 
   case 2: //GAME OVER
     background(0);
-    String[] scores  = {"a","b","c"};
-    try{
-      scores = highScores();
-    }
-    catch(Exception e){
-    }
     textSize(displayHeight/8);         
     textAlign(CENTER, CENTER);         
     fill(#32CCD8);
@@ -164,7 +171,7 @@ void draw() {
     text("1: " + scores[0], displayWidth/10, displayHeight/3);
     text("2: " + scores[1], displayWidth/10, displayHeight/3+displayHeight/7);
     text("3: " + scores[2], displayWidth/10, displayHeight/3+2*displayHeight/7);
-    text("You: "+ score, displayWidth/10, displayHeight/3 + 3*displayHeight/7);
+    text("You: "+ score*10, displayWidth/10, displayHeight/3 + 3*displayHeight/7);
     fill(#D130A4);
     rect(displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
     fill(#5BD832);
@@ -353,11 +360,12 @@ void checkDeath() {
       if (hero.isDead(e)) {
         try{
           checkHighScores();
+          scores = highScores();
         }
         catch(Exception a){
         }
         state = 2;
-        setup();
+        setup2();
       }
     }
   }
@@ -367,15 +375,17 @@ void checkHighScores() throws IOException{
   String[] res = highScores();
   int i = 2;
   int index = -1;
-  while((i > 0)&&(score >= Integer.parseInt(res[i]))){
+  while((i >= 0)&&(score*10 >= Integer.parseInt(res[i]))){
     index = i;
     i--;
   }
   if(index != -1){
-    res[index] = (int)score + "";
-    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("highScores.txt")));
+    res[index] = (int)score*10 + "";
+    PrintWriter out = createWriter("data/highScores.txt");
+    println("whoa");
     for(int k = 0; k < res.length; k++)
       out.println(res[k]);
+    out.flush();
     out.close();
   }
 }
