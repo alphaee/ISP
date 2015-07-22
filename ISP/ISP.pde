@@ -126,12 +126,18 @@ void draw() {
 
   case 0: //HOMESCREEN
     background(0);
+    
+    fill(#647775);
+    rectMode(CENTER);
+    rect(displayWidth/2,displayHeight/2,displayWidth/3,displayHeight/7,displayHeight/20);
+    rectMode(CORNER);
+    
     textSize(displayHeight/6);
     textAlign(CENTER, CENTER);
     fill(#32CCD8);
-    text("I.S.P", displayWidth/2, displayHeight/4);
+    text("I.S.P.", displayWidth/2, displayHeight/7);
     textSize(displayHeight/15);
-    text("DanTheMan, CDelano, and Franklin", displayWidth/2, displayHeight/2);
+    text("PLAY", displayWidth/2, displayHeight/2);
     text("(Click to Continue!)", displayWidth/2, 3*displayHeight/4);
     if (mousePressed) {
       state = 1;
