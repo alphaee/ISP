@@ -52,6 +52,12 @@ Joystick thumbCircle;
 float controlAngle;
 float controlDistance;
 
+//HIGH SCORE SCREEN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+String scores[] = new String[3];
+
+PImage reset;
+PImage home;
+
 //MISC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int state;
 /*
@@ -64,8 +70,6 @@ int score;
 
 boolean start;
 int startMillis;
-
-String scores[] = new String[3];
 
 void setup() {
   orientation(LANDSCAPE);
@@ -84,6 +88,11 @@ void setup() {
   
   baf_dying = new Animation("DieYellow", 5);
   baf_moving = new Animation("MovingYellow", 13);
+  
+  reset = loadImage("Reset_Button.png");
+  home = loadImage("Home_Button.png");
+  home.resize(displayHeight/7,displayHeight/7);
+  reset.resize(displayHeight/7,displayHeight/7);
 }
 
 void setup2(){
@@ -134,8 +143,7 @@ void draw() {
   
     case 1: //MAIN GAME
       background(0);
-      updatePlayerCors(); //update coordinates before applying translations
-      //also updates XCHANGE & YCHANGE
+      updatePlayerCors(); //update coordinates before applying translations; also updates XCHANGE & YCHANGE
       translate(XCHANGE, YCHANGE);
   
       createBoundary();
@@ -147,7 +155,7 @@ void draw() {
       } else {
         if (touchDetection()) {
           checkPowerupCounter();
-          // checkEnemyCounter();
+          //checkEnemyCounter();
           enemiesAttack();
           enemiesCollide();
           checkShield();
@@ -163,20 +171,30 @@ void draw() {
   
     case 2: //GAME OVER
       background(0);
-      textSize(displayHeight/8);         
+      textSize(displayHeight/9);         
       textAlign(CENTER, CENTER);         
       fill(#32CCD8);
-      text("High Scores", displayWidth/2, displayHeight/7);
-      textSize(displayHeight/15);      
+      text("High Scores", displayWidth/2, displayHeight/11);
+      
+      textSize(displayHeight/20);      
       textAlign(LEFT);
-      text("1: " + scores[0], displayWidth/10, displayHeight/3);
-      text("2: " + scores[1], displayWidth/10, displayHeight/3+displayHeight/7);
-      text("3: " + scores[2], displayWidth/10, displayHeight/3+2*displayHeight/7);
-      text("You: "+ score*10, displayWidth/10, displayHeight/3 + 3*displayHeight/7);
-      fill(#D130A4);
-      rect(displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
-      fill(#5BD832);
-      rect(4*displayWidth/5-displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
+      text("1st: ", displayWidth/3, displayHeight/4);
+      text("2nd: ", displayWidth/3, displayHeight/4+ displayHeight/10);
+      text("3rd: ", displayWidth/3, displayHeight/4+ 2*displayHeight/10);
+      text("You: ", displayWidth/3, displayHeight/4 + 3*displayHeight/9);
+      textAlign(RIGHT);
+      text(scores[0], 2*displayWidth/3, displayHeight/4);
+      text(scores[1], 2*displayWidth/3, displayHeight/4+ displayHeight/10);
+      text(scores[2], 2*displayWidth/3, displayHeight/4+ 2*displayHeight/10);
+      text(score*100, 2*displayWidth/3, displayHeight/4 + 3*displayHeight/9);
+      
+      imageMode(CORNER);
+      fill(#D130A4,0);
+      image(home,displayWidth/5,displayHeight*3/4);
+      rect(displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
+      fill(#5BD832,0);
+      image(reset,displayWidth*4/5-displayHeight/7,displayHeight*3/4);
+      rect(displayWidth-displayHeight/7-displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
       break;
   }
 }
@@ -229,7 +247,8 @@ boolean touchDetection() {
     controlAngle = thumbCircle.calcAngle();
     controlDistance = thumbCircle.calcDistance();
     return true;
-  } else {
+  } 
+  else {
     fill(0, 153, 204, 200);
     rect(-XCHANGE, -YCHANGE+displayHeight/4, displayWidth, displayHeight/2);
     fill(15);
@@ -249,7 +268,7 @@ void displayStats() {
   textSize(displayHeight/15);
   textAlign(CENTER, CENTER);
   text("Shield: " + hero.shieldNum, pxCor + 3*displayWidth/8, pyCor - 3*displayHeight/8);
-  text("Score: " + score*10, pxCor - 3*displayWidth/8, pyCor - 3*displayHeight/8);
+  text("Score: " + score*100, pxCor - 3*displayWidth/8, pyCor - 3*displayHeight/8);
 }
 
 void displayAll() {

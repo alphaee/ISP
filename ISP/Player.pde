@@ -22,7 +22,7 @@ class Player{
   }
   
   void addShield(){
-    if(shieldNum <= 3)
+    if(shieldNum <= 2)
       shieldNum++;
   }
   
