@@ -22,7 +22,10 @@ git push
 *Update Log*
 
 7/22/15
--Railgun Implemented
+- Railgun Implemented
+- High Score Screen fully functional
+- Fixed lagging issue with Back & Forth
+- Changed max Shield to 3
 
 7/21/15
 - Started implementing dying animation for Back And Forth
