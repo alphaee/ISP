@@ -3,15 +3,17 @@ class Mine implements Powerup {
   boolean activated;
   boolean exploded;
   int exploding;
-  
+  int duration;
+
   Mine(int i) {
     xCor = pxCor;
     yCor = pyCor;
     activated = false;
     exploded = false;
     exploding = 0;
+    duration = 3;
   }
-  
+
   Mine() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
@@ -47,11 +49,12 @@ class Mine implements Powerup {
   }
 
   void display() {
-    if (activated&&exploding<=fps*10)
+    if (activated&&exploding<=fps*duration)
       fill(#E80000);
     else 
       fill(#D8B8B8);
-    ellipse(xCor, yCor, 50, 50);
+    if (exploding<=fps*duration)
+      ellipse(xCor, yCor, 50, 50);
   }
 }
 

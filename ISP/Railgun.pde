@@ -11,6 +11,13 @@ class Railgun implements Powerup {
     activated = false;
   }
 
+  Railgun(int i) {
+    xCor = pxCor;
+    yCor = pyCor;
+    step = 2;
+    activated = false;
+  }
+
   void dying() {
   }
 

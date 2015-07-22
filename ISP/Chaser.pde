@@ -59,11 +59,11 @@ class Chaser implements Enemy {
     myPlace = i;
     inLife = j;
     if (isAlive){
-      tempFrameCount = millis();
+      tempFrameCount = counter;
       isAlive = false;
     }
     else{
-      if (millis() >= tempFrameCount + 20){
+      if (counter >= tempFrameCount){
         enemies[i].remove(j);
         score += 15;
       }

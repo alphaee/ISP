@@ -106,13 +106,13 @@ void setup2() {
     powerups[i] = new ArrayList<Powerup>();
   }
 
-  for (int i = 0; i < 5; i ++) { //FOR TESTING PURPOSES ONLY
+  for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
     enemies[0].add(temp);
-    //BackAndForth temp2 = new BackAndForth();
-    //enemies[1].add(temp2);
-    //Bouncer temp3 = new Bouncer();
-    //enemies[2].add(temp3);
+    BackAndForth temp2 = new BackAndForth();
+    enemies[1].add(temp2);
+    Bouncer temp3 = new Bouncer();
+    enemies[2].add(temp3);
   }
 
   counter = 0;
@@ -126,12 +126,12 @@ void draw() {
 
   case 0: //HOMESCREEN
     background(0);
-    
+
     fill(#647775);
     rectMode(CENTER);
-    rect(displayWidth/2,displayHeight/2,displayWidth/3,displayHeight/7,displayHeight/20);
+    rect(displayWidth/2, displayHeight/2, displayWidth/3, displayHeight/7, displayHeight/20);
     rectMode(CORNER);
-    
+
     textSize(displayHeight/6);
     textAlign(CENTER, CENTER);
     fill(#32CCD8);
@@ -158,8 +158,7 @@ void draw() {
 
     if (start) {
       countdown(startMillis);
-    } 
-    else {
+    } else {
       if (touchDetection()) {
         checkPowerupCounter();
         //checkEnemyCounter();
@@ -206,10 +205,17 @@ void draw() {
   }
 }
 
-void keyPressed(){
-  if(key == 'm'){
+void keyPressed() {
+  if (key == 'm') {
     Mine m = new Mine(1);
     powerups[1].add(m);
+  }
+  if (key == 'r') {
+    setup2();
+  }
+  if (key == ' ') {
+    Railgun r = new Railgun(1);
+    powerups[2].add(r);
   }
 }
 
@@ -335,12 +341,12 @@ void mineCollision() {
             if (j<0)
               j=0;
           }
-//        if (curr.exploding>=fps*10) {
-//          powerups[1].remove(k);
-//          k--;
-//          if (k<0)
-//            k=0;
-//        }
+        //        if (curr.exploding>=fps*10) {
+        //          powerups[1].remove(k);
+        //          k--;
+        //          if (k<0)
+        //            k=0;
+        //        }
       }
     }
   }
