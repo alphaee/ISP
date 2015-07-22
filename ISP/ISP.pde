@@ -1,4 +1,4 @@
-   //Young Kim, Dan Kim, Franklin Wang
+//Young Kim, Dan Kim, Franklin Wang
 
 //FIXED CONSTANTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int XSIZE, YSIZE;
@@ -30,7 +30,7 @@ final int bouncerTime = (int)fps*7;
 
 //POWERUP VARS------------------------------------
 ArrayList<Powerup>[] powerups;
-final int powerupSize = 2;
+final int powerupSize = 3;
 
 /*
   Indices:
@@ -41,6 +41,8 @@ final int powerupSize = 2;
 final int shieldTime = (int)fps*30;
 
 final int mineTime = (int)fps*15;
+
+final int railgunTime = (int)fps*10;
 
 //JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Joystick thumbCircle;
@@ -135,6 +137,7 @@ void draw() {
         enemiesCollide();
         checkShield();
         mineCollision();
+        railgunCollision();
         iCounter++;
         counter++;
       }
@@ -285,6 +288,23 @@ void mineCollision() {
   }
 }
 
+void railgunCollision() {
+  for (int i = 0; i < enemySize; i ++) {
+    for (int j = 0; j < enemies[i].size (); j ++) {
+      for (int k = 0; k < powerups[1].size (); k ++) {     
+        if (enemies[i].size()>0)
+          if (powerups[2].get(k).event(enemies[i].get(j))) {
+            println(i, j, k);
+            enemies[i].get(j).dying(i, j);
+            j--;
+            if (j<0)
+              j=0;
+          }
+      }
+    }
+  }
+}
+
 void checkPowerupCounter() {
   if (counter%shieldTime==0) {
     Shield temp = new Shield();
@@ -293,6 +313,10 @@ void checkPowerupCounter() {
   if (counter%mineTime==0) {
     Mine temp = new Mine();
     powerups[1].add(temp);
+  }
+  if (counter%railgunTime==0) {
+    Railgun temp = new Railgun();
+    powerups[2].add(temp);
   }
 }
 
@@ -317,3 +341,4 @@ void checkDeath() {
     }
   }
 }
+
