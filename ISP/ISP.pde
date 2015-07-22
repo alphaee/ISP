@@ -112,69 +112,71 @@ void setup2(){
 
 void draw() {
   switch(state) {
-  case 0: //HOMESCREEN
-    background(0);
-    textSize(displayHeight/6);
-    textAlign(CENTER, CENTER);
-    fill(#32CCD8);
-    text("I.S.P", displayWidth/2, displayHeight/4);
-    textSize(displayHeight/15);
-    text("DanTheMan, CDelano, and Franklin", displayWidth/2, displayHeight/2);
-    text("(Click to Continue!)", displayWidth/2, 3*displayHeight/4);
-    if (mousePressed) {
-      state = 1;
-      start = true;
-      startMillis = millis();
-    }
-    break;
-
-  case 1: //MAIN GAME
-    background(0);
-    updatePlayerCors(); //update coordinates before applying translations
-    //also updates XCHANGE & YCHANGE
-    translate(XCHANGE, YCHANGE);
-
-    createBoundary();
-
-    displayAll();
-
-    if (start) {
-      countdown(startMillis);
-    } 
-    else {
-      if (touchDetection()) {
-        checkPowerupCounter();
-        // checkEnemyCounter();
-        enemiesAttack();
-        enemiesCollide();
-        checkShield();
-        mineCollision();
-        railgunCollision();
-        iCounter++;
-        counter++;
+    
+    case 0: //HOMESCREEN
+      background(0);
+      textSize(displayHeight/6);
+      textAlign(CENTER, CENTER);
+      fill(#32CCD8);
+      text("I.S.P", displayWidth/2, displayHeight/4);
+      textSize(displayHeight/15);
+      text("DanTheMan, CDelano, and Franklin", displayWidth/2, displayHeight/2);
+      text("(Click to Continue!)", displayWidth/2, 3*displayHeight/4);
+      if (mousePressed) {
+        state = 1;
+        start = true;
+        startMillis = millis();
       }
-      hero.move();
-      checkDeath();
-    }
-    break;
-
-  case 2: //GAME OVER
-    background(0);
-    textSize(displayHeight/8);         
-    textAlign(CENTER, CENTER);         
-    fill(#32CCD8);
-    text("High Scores", displayWidth/2, displayHeight/7);
-    textSize(displayHeight/15);      
-    textAlign(LEFT);
-    text("1: " + scores[0], displayWidth/10, displayHeight/3);
-    text("2: " + scores[1], displayWidth/10, displayHeight/3+displayHeight/7);
-    text("3: " + scores[2], displayWidth/10, displayHeight/3+2*displayHeight/7);
-    text("You: "+ score*10, displayWidth/10, displayHeight/3 + 3*displayHeight/7);
-    fill(#D130A4);
-    rect(displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
-    fill(#5BD832);
-    rect(4*displayWidth/5-displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
-    break;
+      break;
+  
+    case 1: //MAIN GAME
+      background(0);
+      updatePlayerCors(); //update coordinates before applying translations
+      //also updates XCHANGE & YCHANGE
+      translate(XCHANGE, YCHANGE);
+  
+      createBoundary();
+  
+      displayAll();
+  
+      if (start) {
+        countdown(startMillis);
+      } 
+      else {
+        if (touchDetection()) {
+          checkPowerupCounter();
+          // checkEnemyCounter();
+          enemiesAttack();
+          enemiesCollide();
+          checkShield();
+          mineCollision();
+          railgunCollision();
+          iCounter++;
+          counter++;
+        }
+        hero.move();
+        checkDeath();
+      }
+      break;
+  
+    case 2: //GAME OVER
+      background(0);
+      textSize(displayHeight/8);         
+      textAlign(CENTER, CENTER);         
+      fill(#32CCD8);
+      text("High Scores", displayWidth/2, displayHeight/7);
+      textSize(displayHeight/15);      
+      textAlign(LEFT);
+      text("1: " + scores[0], displayWidth/10, displayHeight/3);
+      text("2: " + scores[1], displayWidth/10, displayHeight/3+displayHeight/7);
+      text("3: " + scores[2], displayWidth/10, displayHeight/3+2*displayHeight/7);
+      text("You: "+ score*10, displayWidth/10, displayHeight/3 + 3*displayHeight/7);
+      fill(#D130A4);
+      rect(displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
+      fill(#5BD832);
+      rect(4*displayWidth/5-displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
+      break;
+      
   }
 }
 
