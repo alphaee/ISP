@@ -7,9 +7,6 @@ class BackAndForth implements Enemy {
   int myPlace, inLife;
   int tempFrameCount;
   
-  Animation moving;
-  Animation dying;
-
   BackAndForth() {
     radius = 50;
 
@@ -21,10 +18,7 @@ class BackAndForth implements Enemy {
     isAlive = true;
     tempFrameCount = 0;
 
-    step = 5;// May Change to increase speed
-    
-    moving = new Animation("MovingYellow", 13);
-    dying = new Animation("DieYellow", 5);
+    step = 5;// may change to increase speed
   }
   
   BackAndForth(float x, float y){
@@ -35,11 +29,7 @@ class BackAndForth implements Enemy {
     avoid = false;
     isAlive = true;
     tempFrameCount = 0;
-    step = 5;// May Change to increase speed
-    
-    moving = new Animation("MovingYellow", 13);
-    
-    dying = new Animation("DieYellow", 5);
+    step = 5;// may change to increase speed
   }
 
   float xCor() {
@@ -141,8 +131,7 @@ class BackAndForth implements Enemy {
  //     println("I'm alive");
     }
     else{
-      dying.show(xCor,yCor);
-  //    println("I'm dead");
+      baf_dying.show(xCor,yCor);
       if (millis() >= tempFrameCount + 20){
         enemies[i].remove(j);
         score += 10;
@@ -164,34 +153,7 @@ class BackAndForth implements Enemy {
   void display() {//display() should only display
     //fill(255);
     //ellipse(xCor, yCor, radius, radius);
-    moving.show(xCor, yCor);
+    baf_moving.show(xCor, yCor);
   }
 }
 
-class Animation {
-  PImage[] images;
-  int imageCount;
-  int frame;
-  
-  Animation(String imagePrefix, int count){
-    imageCount = count;
-    images = new PImage[imageCount];
-    
-    for (int i = 0; i < imageCount; i++){
-      // Use nf() to number format 'i' into four digits
-      String filename = imagePrefix + nf(i, 4) + ".png";
-      PImage img = loadImage(filename);
-      img.resize(240, 200);
-      images[i] = img;
-    }
-  }
-  
-  void show(float xpos, float ypos){
-    frame = (frame+1) % imageCount;
-    image(images[frame], xpos, ypos);
-  }
-  
-  int getWidth() {
-    return images[0].width;
-  }
-}

@@ -27,9 +27,11 @@ final int backAndForthTime = (int)fps*5;
 
 final int bouncerTime = (int)fps*7;
 
+//ENEMY ANIMATIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Animation baf_moving;
+Animation baf_dying; 
 
-
-//POWERUP VARS------------------------------------
+//POWERUP VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ArrayList<Powerup>[] powerups;
 final int powerupSize = 3;
 
@@ -68,112 +70,114 @@ String scores[] = new String[3];
 void setup() {
   orientation(LANDSCAPE);
   size(displayWidth, displayHeight);
-
+  
   XSIZE = (int)(displayWidth*1.4); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.4);
-
-
+  
   thumbCircle = new Joystick();
 
   enemies = (ArrayList<Enemy>[])new ArrayList[enemySize];
 
   powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
-
+  
   frameRate(fps);
-
-  setup2();
+  
+  baf_dying = new Animation("DieYellow", 5);
+  baf_moving = new Animation("MovingYellow", 13);
 }
 
-void setup2() {
+void setup2(){
   hero = new Player();
-
-  for (int i = 0; i < enemySize; i++) {
+  
+  for(int i = 0; i < enemySize; i++){
     enemies[i] = new ArrayList<Enemy>();
   }
-
-  for (int i = 0; i < powerupSize; i++) {
+  
+  for(int i = 0; i < powerupSize; i++){
     powerups[i] = new ArrayList<Powerup>();
   }
-
+  
   for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
     //enemies[0].add(temp);
     BackAndForth temp2 = new BackAndForth();
     enemies[1].add(temp2);
     Bouncer temp3 = new Bouncer();
-    //enemies[2].add(temp3);
+    enemies[2].add(temp3);
   }
-
+  
   counter = 0;
-
+  
   start = true;
   startMillis = millis();
 }
 
 void draw() {
   switch(state) {
-  case 0: //HOMESCREEN
-    background(0);
-    textSize(displayHeight/6);
-    textAlign(CENTER, CENTER);
-    fill(#32CCD8);
-    text("I.S.P", displayWidth/2, displayHeight/4);
-    textSize(displayHeight/15);
-    text("DanTheMan, CDelano, and Franklin", displayWidth/2, displayHeight/2);
-    text("(Click to Continue!)", displayWidth/2, 3*displayHeight/4);
-    if (mousePressed) {
-      state = 1;
-      start = true;
-      startMillis = millis();
-    }
-    break;
-
-  case 1: //MAIN GAME
-    background(0);
-    updatePlayerCors(); //update coordinates before applying translations
-    //also updates XCHANGE & YCHANGE
-    translate(XCHANGE, YCHANGE);
-
-    createBoundary();
-
-    displayAll();
-
-    if (start) {
-      countdown(startMillis);
-    } else {
-      if (touchDetection()) {
-        checkPowerupCounter();
-        // checkEnemyCounter();
-        enemiesAttack();
-        enemiesCollide();
-        checkShield();
-        mineCollision();
-        railgunCollision();
-        iCounter++;
-        counter++;
+    
+    case 0: //HOMESCREEN
+      background(0);
+      textSize(displayHeight/6);
+      textAlign(CENTER, CENTER);
+      fill(#32CCD8);
+      text("I.S.P", displayWidth/2, displayHeight/4);
+      textSize(displayHeight/15);
+      text("DanTheMan, CDelano, and Franklin", displayWidth/2, displayHeight/2);
+      text("(Click to Continue!)", displayWidth/2, 3*displayHeight/4);
+      if (mousePressed) {
+        state = 1;
+        setup2();
+        start = true;
+        startMillis = millis();
       }
-      hero.move();
-      checkDeath();
-    }
-    break;
-
-  case 2: //GAME OVER
-    background(0);
-    textSize(displayHeight/8);         
-    textAlign(CENTER, CENTER);         
-    fill(#32CCD8);
-    text("High Scores", displayWidth/2, displayHeight/7);
-    textSize(displayHeight/15);      
-    textAlign(LEFT);
-    text("1: " + scores[0], displayWidth/10, displayHeight/3);
-    text("2: " + scores[1], displayWidth/10, displayHeight/3+displayHeight/7);
-    text("3: " + scores[2], displayWidth/10, displayHeight/3+2*displayHeight/7);
-    text("You: "+ score*10, displayWidth/10, displayHeight/3 + 3*displayHeight/7);
-    fill(#D130A4);
-    rect(displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
-    fill(#5BD832);
-    rect(4*displayWidth/5-displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
-    break;
+      break;
+  
+    case 1: //MAIN GAME
+      background(0);
+      updatePlayerCors(); //update coordinates before applying translations
+      //also updates XCHANGE & YCHANGE
+      translate(XCHANGE, YCHANGE);
+  
+      createBoundary();
+  
+      displayAll();
+  
+      if (start) {
+        countdown(startMillis);
+      } else {
+        if (touchDetection()) {
+          checkPowerupCounter();
+          // checkEnemyCounter();
+          enemiesAttack();
+          enemiesCollide();
+          checkShield();
+          mineCollision();
+          railgunCollision();
+          iCounter++;
+          counter++;
+        }
+        hero.move();
+        checkDeath();
+      }
+      break;
+  
+    case 2: //GAME OVER
+      background(0);
+      textSize(displayHeight/8);         
+      textAlign(CENTER, CENTER);         
+      fill(#32CCD8);
+      text("High Scores", displayWidth/2, displayHeight/7);
+      textSize(displayHeight/15);      
+      textAlign(LEFT);
+      text("1: " + scores[0], displayWidth/10, displayHeight/3);
+      text("2: " + scores[1], displayWidth/10, displayHeight/3+displayHeight/7);
+      text("3: " + scores[2], displayWidth/10, displayHeight/3+2*displayHeight/7);
+      text("You: "+ score*10, displayWidth/10, displayHeight/3 + 3*displayHeight/7);
+      fill(#D130A4);
+      rect(displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
+      fill(#5BD832);
+      rect(4*displayWidth/5-displayHeight/30, displayHeight/30, displayWidth/5, displayHeight/8);
+      break;
   }
 }
 
@@ -316,7 +320,7 @@ void railgunCollision() {
       for (int k = 0; k < powerups[2].size (); k ++) {     
         if (enemies[i].size()>0)
           if (powerups[2].get(k).event(enemies[i].get(j))) {
-//println(i, j, k);
+            //println(i, j, k);
             enemies[i].get(j).dying(i, j);
             j--;
             if (j<0)
@@ -386,8 +390,8 @@ void checkHighScores() throws IOException {
     PrintWriter out = createWriter("data/highScores.txt");
     //println("whoa");
     for (int k = 0; k < res.length; k++)
-//      out.println(res[k]);
-    out.flush();
+      //      out.println(res[k]);
+      out.flush();
     out.close();
   }
 }
