@@ -140,6 +140,14 @@ class Bouncer implements Enemy {
     }
   }
   
+  boolean checkBounds(){
+    if( xCor < 0 || xCor > XSIZE) 
+      return true;
+    if( yCor < 0 || yCor > YSIZE)
+      return true;
+    return false; 
+  }
+  
   void event(Enemy e, int i, int j) {
   }
 

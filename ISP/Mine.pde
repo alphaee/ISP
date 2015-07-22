@@ -3,7 +3,15 @@ class Mine implements Powerup {
   boolean activated;
   boolean exploded;
   int exploding;
-
+  
+  Mine(int i) {
+    xCor = pxCor;
+    yCor = pyCor;
+    activated = false;
+    exploded = false;
+    exploding = 0;
+  }
+  
   Mine() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);

@@ -106,11 +106,11 @@ void setup2() {
     powerups[i] = new ArrayList<Powerup>();
   }
 
-  for (int i = 0; i < 30; i ++) { //FOR TESTING PURPOSES ONLY
+  for (int i = 0; i < 5; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
     enemies[0].add(temp);
-    BackAndForth temp2 = new BackAndForth();
-    enemies[1].add(temp2);
+    //BackAndForth temp2 = new BackAndForth();
+    //enemies[1].add(temp2);
     //Bouncer temp3 = new Bouncer();
     //enemies[2].add(temp3);
   }
@@ -152,7 +152,8 @@ void draw() {
 
     if (start) {
       countdown(startMillis);
-    } else {
+    } 
+    else {
       if (touchDetection()) {
         checkPowerupCounter();
         //checkEnemyCounter();
@@ -196,6 +197,13 @@ void draw() {
     image(reset, displayWidth*4/5-displayHeight/7, displayHeight*3/4);
     rect(displayWidth-displayHeight/7-displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
     break;
+  }
+}
+
+void keyPressed(){
+  if(key == 'm'){
+    Mine m = new Mine(1);
+    powerups[1].add(m);
   }
 }
 
