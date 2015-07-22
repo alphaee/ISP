@@ -74,38 +74,38 @@ int startMillis;
 void setup() {
   orientation(LANDSCAPE);
   size(displayWidth, displayHeight);
-  
+
   XSIZE = (int)(displayWidth*1.4); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.4);
-  
+
   thumbCircle = new Joystick();
 
   enemies = (ArrayList<Enemy>[])new ArrayList[enemySize];
 
   powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
-  
+
   frameRate(fps);
-  
+
   baf_dying = new Animation("DieYellow", 5);
   baf_moving = new Animation("MovingYellow", 13);
-  
+
   reset = loadImage("Reset_Button.png");
   home = loadImage("Home_Button.png");
-  home.resize(displayHeight/7,displayHeight/7);
-  reset.resize(displayHeight/7,displayHeight/7);
+  home.resize(displayHeight/7, displayHeight/7);
+  reset.resize(displayHeight/7, displayHeight/7);
 }
 
-void setup2(){
+void setup2() {
   hero = new Player();
-  
-  for(int i = 0; i < enemySize; i++){
+
+  for (int i = 0; i < enemySize; i++) {
     enemies[i] = new ArrayList<Enemy>();
   }
-  
-  for(int i = 0; i < powerupSize; i++){
+
+  for (int i = 0; i < powerupSize; i++) {
     powerups[i] = new ArrayList<Powerup>();
   }
-  
+
   for (int i = 0; i < 30; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
     enemies[0].add(temp);
@@ -114,88 +114,88 @@ void setup2(){
     //Bouncer temp3 = new Bouncer();
     //enemies[2].add(temp3);
   }
-  
+
   counter = 0;
-  
+
   start = true;
   startMillis = millis();
 }
 
 void draw() {
   switch(state) {
-    
-    case 0: //HOMESCREEN
-      background(0);
-      textSize(displayHeight/6);
-      textAlign(CENTER, CENTER);
-      fill(#32CCD8);
-      text("I.S.P", displayWidth/2, displayHeight/4);
-      textSize(displayHeight/15);
-      text("DanTheMan, CDelano, and Franklin", displayWidth/2, displayHeight/2);
-      text("(Click to Continue!)", displayWidth/2, 3*displayHeight/4);
-      if (mousePressed) {
-        state = 1;
-        setup2();
-        start = true;
-        startMillis = millis();
+
+  case 0: //HOMESCREEN
+    background(0);
+    textSize(displayHeight/6);
+    textAlign(CENTER, CENTER);
+    fill(#32CCD8);
+    text("I.S.P", displayWidth/2, displayHeight/4);
+    textSize(displayHeight/15);
+    text("DanTheMan, CDelano, and Franklin", displayWidth/2, displayHeight/2);
+    text("(Click to Continue!)", displayWidth/2, 3*displayHeight/4);
+    if (mousePressed) {
+      state = 1;
+      setup2();
+      start = true;
+      startMillis = millis();
+    }
+    break;
+
+  case 1: //MAIN GAME
+    background(0);
+    updatePlayerCors(); //update coordinates before applying translations; also updates XCHANGE & YCHANGE
+    translate(XCHANGE, YCHANGE);
+
+    createBoundary();
+
+    displayAll();
+
+    if (start) {
+      countdown(startMillis);
+    } else {
+      if (touchDetection()) {
+        checkPowerupCounter();
+        //checkEnemyCounter();
+        enemiesAttack();
+        enemiesCollide();
+        checkShield();
+        mineCollision();
+        railgunCollision();
+        iCounter++;
+        counter++;
       }
-      break;
-  
-    case 1: //MAIN GAME
-      background(0);
-      updatePlayerCors(); //update coordinates before applying translations; also updates XCHANGE & YCHANGE
-      translate(XCHANGE, YCHANGE);
-  
-      createBoundary();
-  
-      displayAll();
-  
-      if (start) {
-        countdown(startMillis);
-      } else {
-        if (touchDetection()) {
-          checkPowerupCounter();
-          //checkEnemyCounter();
-          enemiesAttack();
-          enemiesCollide();
-          checkShield();
-          mineCollision();
-          railgunCollision();
-          iCounter++;
-          counter++;
-        }
-        hero.move();
-        checkDeath();
-      }
-      break;
-  
-    case 2: //GAME OVER
-      background(0);
-      textSize(displayHeight/9);         
-      textAlign(CENTER, CENTER);         
-      fill(#32CCD8);
-      text("High Scores", displayWidth/2, displayHeight/11);
-      
-      textSize(displayHeight/20);      
-      textAlign(LEFT);
-      text("1st: ", displayWidth/3, displayHeight/4);
-      text("2nd: ", displayWidth/3, displayHeight/4+ displayHeight/10);
-      text("3rd: ", displayWidth/3, displayHeight/4+ 2*displayHeight/10);
-      text("You: ", displayWidth/3, displayHeight/4 + 3*displayHeight/9);
-      textAlign(RIGHT);
-      text(scores[0], 2*displayWidth/3, displayHeight/4);
-      text(scores[1], 2*displayWidth/3, displayHeight/4+ displayHeight/10);
-      text(scores[2], 2*displayWidth/3, displayHeight/4+ 2*displayHeight/10);
-      text(score*100, 2*displayWidth/3, displayHeight/4 + 3*displayHeight/9);
-      
-      imageMode(CORNER);
-      fill(#D130A4,0);
-      image(home,displayWidth/5,displayHeight*3/4);
-      rect(displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
-      fill(#5BD832,0);
-      image(reset,displayWidth*4/5-displayHeight/7,displayHeight*3/4);
-      rect(displayWidth-displayHeight/7-displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
-      break;
+      hero.move();
+      checkDeath();
+    }
+    break;
+
+  case 2: //GAME OVER
+    background(0);
+    textSize(displayHeight/9);         
+    textAlign(CENTER, CENTER);         
+    fill(#32CCD8);
+    text("High Scores", displayWidth/2, displayHeight/11);
+
+    textSize(displayHeight/20);      
+    textAlign(LEFT);
+    text("1st: ", displayWidth/3, displayHeight/4);
+    text("2nd: ", displayWidth/3, displayHeight/4+ displayHeight/10);
+    text("3rd: ", displayWidth/3, displayHeight/4+ 2*displayHeight/10);
+    text("You: ", displayWidth/3, displayHeight/4 + 3*displayHeight/9);
+    textAlign(RIGHT);
+    text(scores[0], 2*displayWidth/3, displayHeight/4);
+    text(scores[1], 2*displayWidth/3, displayHeight/4+ displayHeight/10);
+    text(scores[2], 2*displayWidth/3, displayHeight/4+ 2*displayHeight/10);
+    text(score*100, 2*displayWidth/3, displayHeight/4 + 3*displayHeight/9);
+
+    imageMode(CORNER);
+    fill(#D130A4, 0);
+    image(home, displayWidth/5, displayHeight*3/4);
+    rect(displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
+    fill(#5BD832, 0);
+    image(reset, displayWidth*4/5-displayHeight/7, displayHeight*3/4);
+    rect(displayWidth-displayHeight/7-displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
+    break;
   }
 }
 
@@ -247,8 +247,7 @@ boolean touchDetection() {
     controlAngle = thumbCircle.calcAngle();
     controlDistance = thumbCircle.calcDistance();
     return true;
-  } 
-  else {
+  } else {
     fill(0, 153, 204, 200);
     rect(-XCHANGE, -YCHANGE+displayHeight/4, displayWidth, displayHeight/2);
     fill(15);
@@ -279,7 +278,7 @@ void displayAll() {
   for (int i = 0; i < powerupSize; i ++) //2-D parsing
     for (Powerup p : powerups[i])
       p.display();
-  
+
   thumbCircle.display();
   hero.display();
   displayStats();
@@ -312,22 +311,22 @@ void mineCollision() {
   for (int i = 0; i < enemySize; i ++) {
     for (int j = 0; j < enemies[i].size (); j ++) {
       for (int k = 0; k < powerups[1].size (); k ++) {
-        if (((Mine)powerups[1].get(k)).exploded)
-          ((Mine)powerups[1].get(k)).exploding ++;
+        Mine curr = (Mine)powerups[1].get(k);
+        if (curr.exploded)
+          curr.exploding ++;
         if (enemies[i].size()>0)
-          if (powerups[1].get(k).event(enemies[i].get(j))) {
-            //println(i, j, k);
+          if (curr.event(enemies[i].get(j))) {
             enemies[i].get(j).dying(i, j);
             j--;
             if (j<0)
               j=0;
-            if (((Mine)powerups[1].get(k)).exploding<=fps) {
-              powerups[1].remove(k);
-              k--;
-              if (k<0)
-                k=0;
-            }
           }
+        if (curr.exploding>=fps*10) {
+          powerups[1].remove(k);
+          k--;
+          if (k<0)
+            k=0;
+        }
       }
     }
   }
