@@ -26,6 +26,7 @@ git push
 - High Score Screen fully functional
 - Fixed lagging issue with Back & Forth
 - Changed max Shield to 3
+- Added the home and replay button
 
 7/21/15
 - Started implementing dying animation for Back And Forth
