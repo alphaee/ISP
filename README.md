@@ -21,6 +21,9 @@ git push
 
 *Update Log*
 
+7/24/15
+- Implemented moving animation for Bouncer
+
 7/22/15
 - Railgun Implemented
 - High Score Screen fully functional
