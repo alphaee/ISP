@@ -152,7 +152,8 @@ class Bouncer implements Enemy {
   }
 
   void display() {
-    fill(100);
-    ellipse(xCor, yCor, 50, 80);
+    //fill(100);
+    //ellipse(xCor, yCor, 50, 80);
+    bounce_moving.show(xCor, yCor);
   }
 }

@@ -30,6 +30,7 @@ final int bouncerTime = (int)fps*7;
 //ENEMY ANIMATIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Animation baf_moving;
 Animation baf_dying; 
+Animation bounce_moving;
 
 //POWERUP VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ArrayList<Powerup>[] powerups;
@@ -88,6 +89,7 @@ void setup() {
 
   baf_dying = new Animation("DieYellow", 5);
   baf_moving = new Animation("MovingYellow", 13);
+  bounce_moving = new Animation("MovingGreen", 13);
 
   reset = loadImage("Reset_Button.png");
   home = loadImage("Home_Button.png");
@@ -437,4 +439,3 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
-
