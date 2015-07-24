@@ -336,12 +336,6 @@ void mineCollision() {
             if (j<0)
               j=0;
           }
-        //        if (curr.exploding>=fps*10) {
-        //          powerups[1].remove(k);
-        //          k--;
-        //          if (k<0)
-        //            k=0;
-        //        }
       }
     }
   }
@@ -421,9 +415,7 @@ void checkHighScores() throws IOException {
   if (index != -1) {
     res[index] = (int)score*10 + "";
     PrintWriter out = createWriter("data/highScores.txt");
-    //println("whoa");
     for (int k = 0; k < res.length; k++)
-      //      out.println(res[k]);
       out.flush();
     out.close();
   }
