@@ -77,19 +77,16 @@ class Bouncer implements Enemy {
   void emergencyMoving(){
     
     if ( xCor < 0 ) {
-    }
+    
           xCor = 15;
       }
       if (xCor > XSIZE){
-}
           xCor = XSIZE - 15;
       }
       if ( yCor < 0 ){
-}
           yCor = 15;
       }
       if (yCor > YSIZE){
-}
           yCor = YSIZE - 15;
       }
       
