@@ -77,27 +77,19 @@ class Bouncer implements Enemy {
   void emergencyMoving(){
     
     if ( xCor < 0 ) {
-          //while ( xCor < 0 ){
-            //xCor+=5; 
-          //}
+    }
           xCor = 15;
       }
       if (xCor > XSIZE){
-          //while (xCor > XSIZE){
-            //xCor-=10;
-          //}
+}
           xCor = XSIZE - 15;
       }
       if ( yCor < 0 ){
-          //while (yCor < 0){
-            //yCor+=10;
-          //}
+}
           yCor = 15;
       }
       if (yCor > YSIZE){
-          //while (yCor > YSIZE){
-            //yCor-=10;
-          //}
+}
           yCor = YSIZE - 15;
       }
       
@@ -129,7 +121,6 @@ class Bouncer implements Enemy {
     }
     else{
       println("Im dead");
-      //println(millis());
       if (counter >= tempFrameCount ){
         enemies[i].remove(j);
         BackAndForth baby = new BackAndForth(xCor, yCor);
@@ -152,8 +143,6 @@ class Bouncer implements Enemy {
   }
 
   void display() {
-    //fill(100);
-    //ellipse(xCor, yCor, 50, 80);
     bounce_moving.show(xCor, yCor);
   }
 }
