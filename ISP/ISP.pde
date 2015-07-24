@@ -61,6 +61,11 @@ PImage home;
 
 //MISC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int state;
+/*
+ STATE 0: HOMESCREEN
+ STATE 1: GAME
+ STATE 2: GAME OVER
+ */
 int counter;
 int score;
 
@@ -158,6 +163,8 @@ void draw() {
     } else {
       if (touchDetection()) {
         checkPowerupCounter();
+        //checkEnemyCounter();
+        enemiesAttack();
         enemiesCollide();
         checkShield();
         mineCollision();
