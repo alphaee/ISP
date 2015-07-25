@@ -23,6 +23,7 @@ git push
 
 7/24/15
 - Implemented moving animation for Bouncer
+- Shield PNG file finished
 
 7/22/15
 - Railgun Implemented
