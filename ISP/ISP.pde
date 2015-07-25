@@ -103,9 +103,9 @@ void setup() {
   shield = loadImage("Shield.png");
   shield.resize(60,60);
   mineActive = loadImage("LandMineActivated.png");
-  mineActive.resize(70,70);
+  mineActive.resize(75,75);
   minePassive = loadImage("LandMine.png");
-  minePassive.resize(70,70);
+  minePassive.resize(75,75);
 }
 
 void setup2() {
