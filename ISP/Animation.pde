@@ -3,7 +3,7 @@ class Animation {
   int imageCount;
   int frame;
   
-  Animation(String imagePrefix, int count){
+  Animation(String imagePrefix, int count, int across, int up){
     imageCount = count;
     images = new PImage[imageCount];
     
@@ -11,7 +11,7 @@ class Animation {
       // Use nf() to number format 'i' into four digits
       String filename = imagePrefix + nf(i, 4) + ".png";
       PImage img = loadImage(filename);
-      img.resize(240, 200);
+      img.resize(across, up);
       images[i] = img;
     }
   }

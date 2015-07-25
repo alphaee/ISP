@@ -18,8 +18,8 @@ class Shield implements Powerup {
   }
 
   void display() {
-    fill(0, 255, 255);
-    ellipse(xCor, yCor, 50, 50);
+    // fill(0, 255, 255);
+    // ellipse(xCor, yCor, 50, 50);
+    image(shield, xCor, yCor);
   }
 }
-

@@ -50,11 +50,13 @@ class Mine implements Powerup {
 
   void display() {
     if (activated&&exploding<=fps*duration)
-      fill(#E80000);
+      // fill(#E80000);
+      image(mineActive, xCor, yCor);
     else 
-      fill(#D8B8B8);
+      //fill(#D8B8B8);
+      image(mineActive, xCor, yCor);
     if (exploding<=fps*duration)
-      ellipse(xCor, yCor, 50, 50);
+      //ellipse(xCor, yCor, 50, 50);
+      image(minePassive, xCor, yCor);
   }
 }
-

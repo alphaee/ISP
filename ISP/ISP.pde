@@ -48,6 +48,10 @@ final int mineTime = (int)fps*15;
 
 final int railgunTime = (int)fps*10;
 
+PImage shield;
+PImage mineActive;
+PImage minePassive;
+
 //JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Joystick thumbCircle;
 float controlAngle;
@@ -87,14 +91,21 @@ void setup() {
 
   frameRate(fps);
 
-  baf_dying = new Animation("DieYellow", 5);
-  baf_moving = new Animation("MovingYellow", 13);
-  bounce_moving = new Animation("MovingGreen", 13);
+  baf_dying = new Animation("DieYellow", 5, 240, 200);
+  baf_moving = new Animation("MovingYellow", 13, 180, 150);
+  bounce_moving = new Animation("MovingGreen", 13, 240, 200);
 
   reset = loadImage("Reset_Button.png");
   home = loadImage("Home_Button.png");
   home.resize(displayHeight/7, displayHeight/7);
   reset.resize(displayHeight/7, displayHeight/7);
+  
+  shield = loadImage("Shield.png");
+  shield.resize(60,60);
+  mineActive = loadImage("LandMineActivated.png");
+  mineActive.resize(80,60);
+  minePassive = loadImage("LandMine.png");
+  minePassive.resize(80,60);
 }
 
 void setup2() {
