@@ -8,6 +8,7 @@ git add --all
 git commit -m "[insert message here]"
 git push
 ```
+*Font We're Using:* [Kuro](http://www.dafont.com/kuro.font)
 
 *To-Do*  
 - Animate character die and enemies merge and die
