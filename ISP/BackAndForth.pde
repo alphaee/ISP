@@ -128,14 +128,15 @@ class BackAndForth implements Enemy {
     if (isAlive){
       tempFrameCount = counter;
       isAlive = false;
- //     println("I'm alive");
+      println("I'm alive");
     }
     else{
       baf_dying.show(xCor,yCor);
+      println("I'm dying");
       if (counter >= tempFrameCount){
         enemies[i].remove(j);
         score += 10;
-        //println("I'm hidden");
+        println("I'm hidden");
       }
     }
   }
@@ -156,4 +157,3 @@ class BackAndForth implements Enemy {
     baf_moving.show(xCor, yCor);
   }
 }
-

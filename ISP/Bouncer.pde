@@ -55,7 +55,7 @@ class Bouncer implements Enemy {
       multiplier = random(1.01,1.4);
       speedX = -origSpeedX * multiplier; // you don't want speed increasing to infinity or to 0 by chance
       speedY = origSpeedY * multiplier; // so you save and modify the origSpeed.
-      if (abs(origSpeedX*(multiplier-multiBefore)) > 3){// if it hits the boundary when the speedDiff is too great
+      if (abs(origSpeedX*(multiplier-multiBefore)) > 2){// if it hits the boundary when the speedDiff is too great
                      // we should manually move it inside the boundary so 
                      // it doesn't get stuck
         emergencyMoving();
@@ -68,7 +68,7 @@ class Bouncer implements Enemy {
       multiplier = random(1.01,1.4);
       speedY = -origSpeedY * multiplier;
       speedX = origSpeedX * multiplier;
-      if (abs(origSpeedY*(multiplier-multiBefore)) > 3){
+      if (abs(origSpeedY*(multiplier-multiBefore)) > 2){
         emergencyMoving();
       }
     }
