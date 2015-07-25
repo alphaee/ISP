@@ -21,6 +21,9 @@ git push
 
 *Update Log*
 
+7/25/15
+- LandMine PNG uploaded
+
 7/24/15
 - Implemented moving animation for Bouncer
 - Shield PNG file finished
