@@ -76,6 +76,8 @@ int score;
 boolean start;
 int startMillis;
 
+PFont font;
+
 void setup() {
   orientation(LANDSCAPE);
   size(displayWidth, displayHeight);
@@ -106,6 +108,8 @@ void setup() {
   mineActive.resize(75,75);
   minePassive = loadImage("LandMine.png");
   minePassive.resize(75,75);
+  
+  font = loadFont("Kuro-Regular.ttf");
 }
 
 void setup2() {
@@ -148,6 +152,7 @@ void draw() {
     textSize(displayHeight/6);
     textAlign(CENTER, CENTER);
     fill(#32CCD8);
+    textFont(font);
     text("I.S.P.", displayWidth/2, displayHeight/7);
     textSize(displayHeight/15);
     text("PLAY", displayWidth/2, displayHeight/2);
@@ -190,6 +195,7 @@ void draw() {
 
   case 2: //GAME OVER
     background(0);
+    textFont(font);
     textSize(displayHeight/9);         
     textAlign(CENTER, CENTER);         
     fill(#32CCD8);
@@ -236,6 +242,7 @@ void countdown(int t) {
   fill(0);
   textAlign(CENTER, CENTER);
   textSize(50);
+  textFont(font);
   if (millis() - t < 1500)
     text("3", pxCor, pyCor-displayHeight/10);
   else if (millis() - t < 2500)
@@ -286,6 +293,7 @@ boolean touchDetection() {
     fill(15);
     textSize(displayHeight/6);
     textAlign(CENTER, CENTER);
+    textFont(font);
     text("Play to Resume!", displayWidth/2-XCHANGE, displayHeight/2-YCHANGE);
     thumbCircle.pause = true;
     controlAngle = 0;
@@ -299,6 +307,7 @@ void displayStats() {
   fill(100);
   textSize(displayHeight/15);
   textAlign(CENTER, CENTER);
+  textFont(font);
   text("Shield: " + hero.shieldNum, pxCor + 3*displayWidth/8, pyCor - 3*displayHeight/8);
   text("Score: " + score*100, pxCor - 3*displayWidth/8, pyCor - 3*displayHeight/8);
 }
@@ -353,12 +362,6 @@ void mineCollision() {
             j--;
             if (j<0)
               j=0;
-          }
-          if(curr.exploding>=curr.duration){
-            powerups[1].remove(k);
-            k--;
-            if (k<0)
-              k=0;
           }
       }
     }
