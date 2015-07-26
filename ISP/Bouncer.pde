@@ -75,14 +75,11 @@ class Bouncer implements Enemy {
     if (isAlive) {
       tempFrameCount = counter;
       isAlive = false;
-      println("Im alive");
     } else {
-      println("Im dead");
       if (counter >= tempFrameCount ) {
         enemies[i].remove(j);
         BackAndForth baby = new BackAndForth(xCor, yCor);
         enemies[1].add(baby);
-        println("im hidden");
         score += 20;
       }
     }

@@ -382,7 +382,6 @@ void railgunCollision() {
         Railgun curr = (Railgun)powerups[2].get(k);
         if (enemies[i].size()>0)
           if (curr.event(enemies[i].get(j))) {
-            //println(i, j, k);
             enemies[i].get(j).dying(i, j);
             j--;
             if (j<0)

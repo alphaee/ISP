@@ -122,21 +122,17 @@ class BackAndForth implements Enemy {
   }
 
   void dying(int i, int j) {
-    //println(millis());
     myPlace = i;
     inLife = j;
     if (isAlive){
       tempFrameCount = counter;
       isAlive = false;
-      println("I'm alive");
     }
     else{
       baf_dying.show(xCor,yCor, 1);
-      println("I'm dying");
       if (counter >= tempFrameCount){
         enemies[i].remove(j);
-        score += 10;
-        println("I'm hidden");
+        score += 10; 
       }
     }
   }
