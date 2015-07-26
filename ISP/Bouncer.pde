@@ -4,6 +4,7 @@ class Bouncer implements Enemy {
   boolean isAlive;
   int myPlace, inLife;
   int tempFrameCount;
+  int spawnDelay, spawnCounter;
 
   Bouncer() {
     xCor = random(0, XSIZE);
@@ -12,6 +13,8 @@ class Bouncer implements Enemy {
     speedY = 5 - random( 10 );
     isAlive = true;
     tempFrameCount = 0;
+    spawnDelay = fps*2;
+    spawnCounter = 0;
   }
 
   Bouncer(float x, float y) {
@@ -21,6 +24,8 @@ class Bouncer implements Enemy {
     speedY = 5 - random( 10 );
     isAlive = true;
     tempFrameCount = 0;
+    spawnDelay = fps*2;
+    spawnCounter = 0;
   }
 
   float xCor() {
@@ -41,16 +46,16 @@ class Bouncer implements Enemy {
     multiplier = random(.75, 1.4);
     if ( xCor <= 0 || xCor >= XSIZE ) {
       speedX *= -multiplier;
-      
+
       if (abs(speedX)> 8)
         speedX = 8*speedX/abs(speedX);
-      }
-      if ( yCor < 0 || yCor > YSIZE ) {
-        speedY *= -multiplier;
-        
-        if (abs(speedY)> 8)
-          speedY = 8*speedY/abs(speedY);
-      }
+    }
+    if ( yCor < 0 || yCor > YSIZE ) {
+      speedY *= -multiplier;
+
+      if (abs(speedY)> 8)
+        speedY = 8*speedY/abs(speedY);
+    }
   }
 
 
@@ -84,6 +89,7 @@ class Bouncer implements Enemy {
       }
     }
   }
+
 
   boolean checkBounds() {
     if ( xCor < 0 || xCor > XSIZE) 
