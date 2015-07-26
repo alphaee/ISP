@@ -2,7 +2,6 @@ import java.lang.Math;
 
 class Bouncer implements Enemy {
   float xCor, yCor;
-  float origSpeedX, origSpeedY;
   float speedX, speedY;
   boolean isAlive;
   int myPlace, inLife;
@@ -11,10 +10,8 @@ class Bouncer implements Enemy {
   Bouncer() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-    origSpeedX = 5 - random( 10 );
-    origSpeedY = 5 - random( 10 );
-    speedX = origSpeedX;
-    speedY = origSpeedY;
+    speedX = 5 - random( 10 );
+    speedY = 5 - random( 10 );
     isAlive = true;
     tempFrameCount = 0;
   }
@@ -22,10 +19,8 @@ class Bouncer implements Enemy {
    Bouncer(float x, float y) {
     xCor = x;
     yCor = y;
-    origSpeedX = 5 - random( 10 );
-    origSpeedY = 5 - random( 10 );
-    speedX = origSpeedX;
-    speedY = origSpeedY;
+    speedX = 5 - random( 10 );
+    speedY = 5 - random( 10 );
     isAlive = true;
     tempFrameCount = 0;
   }
@@ -45,53 +40,43 @@ class Bouncer implements Enemy {
     xCor += speedX;
     yCor += speedY;
     //multiplier will change the speed every time it hits the boundary.
-    float multiplier, multiBefore;
+    float multiplier;
     multiplier = 1;
     // here, we always update the sign of origSpeed to current Speed so reflect works correctly.
-    if ( xCor < 0 || xCor > XSIZE ) {
-      origSpeedX = Math.signum(speedX)*abs(origSpeedX); // signum returns +1 if number is positive 
-      origSpeedY = Math.signum(speedY)*abs(origSpeedY); // -1 for negative and 0 for zero.
-      multiBefore = multiplier;
-      multiplier = random(1.01,1.4);
-      speedX = -origSpeedX * multiplier; // you don't want speed increasing to infinity or to 0 by chance
-      speedY = origSpeedY * multiplier; // so you save and modify the origSpeed.
-      if (abs(origSpeedX*(multiplier-multiBefore)) > 2){// if it hits the boundary when the speedDiff is too great
-                     // we should manually move it inside the boundary so 
-                     // it doesn't get stuck
-        emergencyMoving();
-      }
+    if ( xCor <= 0 || xCor >= XSIZE ) {
+      speedX *= -multiplier;
+//      if (abs(origSpeedX*(multiplier-multiBefore)) > 2){// if it hits the boundary when the speedDiff is too great
+//                     // we should manually move it inside the boundary so 
+//                     // it doesn't get stuck
+//        emergencyMoving();
+//      }
     }
     if ( yCor < 0 || yCor > YSIZE ) {
-      origSpeedX = Math.signum(speedX)*abs(origSpeedX);
-      origSpeedY = Math.signum(speedY)*abs(origSpeedY);
-      multiBefore = multiplier;
-      multiplier = random(1.01,1.4);
-      speedY = -origSpeedY * multiplier;
-      speedX = origSpeedX * multiplier;
-      if (abs(origSpeedY*(multiplier-multiBefore)) > 2){
-        emergencyMoving();
-      }
+      speedY *= -multiplier;
+//      if (abs(origSpeedY*(multiplier-multiBefore)) > 2){
+//        emergencyMoving();
+//      }
     }
   }
   
-  void emergencyMoving(){
-    
-    if ( xCor < 0 ) {
-    
-          xCor = 15;
-      }
-      if (xCor > XSIZE){
-          xCor = XSIZE - 15;
-      }
-      if ( yCor < 0 ){
-          yCor = 15;
-      }
-      if (yCor > YSIZE){
-          yCor = YSIZE - 15;
-      }
-      
-      
-  }
+//  void emergencyMoving(){
+//    
+//    if ( xCor < 0 ) {
+//    
+//          xCor = 15;
+//      }
+//      if (xCor > XSIZE){
+//          xCor = XSIZE - 15;
+//      }
+//      if ( yCor < 0 ){
+//          yCor = 15;
+//      }
+//      if (yCor > YSIZE){
+//          yCor = YSIZE - 15;
+//      }
+//      
+//      
+//  }
 
   boolean isAlive() {//Still needs work
     return true;

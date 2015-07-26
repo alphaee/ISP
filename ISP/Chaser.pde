@@ -74,7 +74,7 @@ class Chaser implements Enemy {
   }
 
   void display() {
-    fill(0);
-    ellipse(xCor, yCor, 50, 80);
+    fill(#DE1616);
+    ellipse(xCor, yCor, 30, 30);
   }
 }

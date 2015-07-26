@@ -101,15 +101,15 @@ void setup() {
   home = loadImage("Home_Button.png");
   home.resize(displayHeight/7, displayHeight/7);
   reset.resize(displayHeight/7, displayHeight/7);
-  
+
   shield = loadImage("Shield.png");
-  shield.resize(60,60);
+  shield.resize(60, 60);
   mineActive = loadImage("LandMineActivated.png");
-  mineActive.resize(75,75);
+  mineActive.resize(75, 75);
   minePassive = loadImage("LandMine.png");
-  minePassive.resize(75,75);
-  
-  font = loadFont("Kuro-Regular.ttf");
+  minePassive.resize(75, 75);
+
+  font = loadFont("Kuro-Regular-48.vlw");
 }
 
 void setup2() {
@@ -363,6 +363,12 @@ void mineCollision() {
             if (j<0)
               j=0;
           }
+        if (curr.exploding>=curr.duration) {
+          powerups[1].remove(k);
+          k--;
+          if (k<0)
+            k=0;
+        }
       }
     }
   }
@@ -451,3 +457,4 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
+
