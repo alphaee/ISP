@@ -16,9 +16,9 @@ class Animation {
     }
   }
   
-  void show(float xpos, float ypos){
-    frame = (frame+1) % (10 * imageCount);
-    image(images[frame / 10], xpos, ypos);
+  void show(float xpos, float ypos, int howSlow){
+    frame = (frame+1) % (howSlow * imageCount);
+    image(images[frame / howSlow], xpos, ypos);
   }
   
   int getWidth() {

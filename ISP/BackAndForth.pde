@@ -131,7 +131,7 @@ class BackAndForth implements Enemy {
       println("I'm alive");
     }
     else{
-      baf_dying.show(xCor,yCor);
+      baf_dying.show(xCor,yCor, 1);
       println("I'm dying");
       if (counter >= tempFrameCount){
         enemies[i].remove(j);
@@ -154,6 +154,6 @@ class BackAndForth implements Enemy {
   void display() {//display() should only display
     //fill(255);
     //ellipse(xCor, yCor, radius, radius);
-    baf_moving.show(xCor, yCor);
+    baf_moving.show(xCor, yCor, 10);
   }
 }

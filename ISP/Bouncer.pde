@@ -140,6 +140,6 @@ class Bouncer implements Enemy {
   }
 
   void display() {
-    bounce_moving.show(xCor, yCor);
+    bounce_moving.show(xCor, yCor, 20);
   }
 }
