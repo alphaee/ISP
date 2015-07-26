@@ -354,6 +354,12 @@ void mineCollision() {
             if (j<0)
               j=0;
           }
+          if(curr.exploding>=curr.duration){
+            powerups[1].remove(k);
+            k--;
+            if (k<0)
+              k=0;
+          }
       }
     }
   }

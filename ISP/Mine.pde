@@ -11,7 +11,7 @@ class Mine implements Powerup {
     activated = false;
     exploded = false;
     exploding = 0;
-    duration = 3;
+    duration = fps*3;
   }
 
   Mine() {
@@ -49,14 +49,17 @@ class Mine implements Powerup {
   }
 
   void display() {
-    if (activated&&exploding<=fps*duration)
+    if (activated&&exploding<=duration)
       // fill(#E80000);
       image(mineActive, xCor, yCor);
-    else 
+    else
       //fill(#D8B8B8);
-      image(mineActive, xCor, yCor);
-    if (exploding<=fps*duration)
-      //ellipse(xCor, yCor, 50, 50);
-      image(minePassive, xCor, yCor);
+    image(minePassive, xCor, yCor);
+    // image(mineActive, xCor, yCor);
+    if (exploding<=duration)
+      ellipse(0, 0, 0, 0);
+    //ellipse(xCor, yCor, 50, 50);
+    //image(minePassive, xCor, yCor);
   }
 }
+
