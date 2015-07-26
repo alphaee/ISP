@@ -11,7 +11,7 @@ class Mine implements Powerup {
     activated = false;
     exploded = false;
     exploding = 0;
-    duration = fps*3;
+    duration = fps * 1;
   }
 
   Mine() {
