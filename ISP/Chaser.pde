@@ -8,7 +8,7 @@ class Chaser implements Enemy {
   Chaser() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-    step = (int) random(30,60);
+    step = (int) random(2,6);
     isAlive = true;
     tempFrameCount = 0;
   }
@@ -28,13 +28,13 @@ class Chaser implements Enemy {
   }
 
   void attack() { //nearly identical to Player class' "move()" method
-    float speedX = (xCor - pxCor) / step;
-    float speedY = (yCor - pyCor) / step;
+    float speedX = (xCor - pxCor);
+    float speedY = (yCor - pyCor);
 
     float speed = sqrt(speedX*speedX + speedY*speedY);
 
-    speedX = (2*speedX)/speed;
-    speedY = (2*speedY)/speed;
+    speedX = (step*speedX)/speed;
+    speedY = (step*speedY)/speed;
     xCor -= speedX;
     yCor -= speedY;
   }

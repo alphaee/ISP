@@ -14,7 +14,7 @@ class Railgun implements Powerup {
   Railgun(int i) {
     xCor = pxCor;
     yCor = pyCor;
-    step = 2;
+    step = 1;
     activated = false;
   }
 
@@ -45,13 +45,13 @@ class Railgun implements Powerup {
   }
 
   void moving() {
-    float speedX = (xCor - setXCor) / step;
-    float speedY = (yCor - setYCor) / step;
+    float speedX = (xCor - setXCor);
+    float speedY = (yCor - setYCor);
 
     float speed = sqrt(speedX*speedX + speedY*speedY);
 
-    speedX = (2*speedX)/speed;
-    speedY = (2*speedY)/speed;
+    speedX = (step*speedX)/speed;
+    speedY = (step*speedY)/speed;
     
     xCor += speedX;
     yCor += speedY;
