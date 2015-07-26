@@ -8,7 +8,7 @@ class Chaser implements Enemy {
   Chaser() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-    step = (int) random(2,6);
+    step = (int) random(2,5);
     isAlive = true;
     tempFrameCount = 0;
   }

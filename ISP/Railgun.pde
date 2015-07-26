@@ -7,15 +7,14 @@ class Railgun implements Powerup {
   Railgun() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-    step = 2;
+    step = 5;
     activated = false;
   }
 
   Railgun(int i) {
+    Railgun();
     xCor = pxCor;
     yCor = pyCor;
-    step = 1;
-    activated = false;
   }
 
   void dying() {
@@ -35,12 +34,9 @@ class Railgun implements Powerup {
       setYCor=yCor+(pyCor-yCor);
       activated = true;
     }    
-    if (activated) {
-      moving();
-      if (detect(e)) {
+    if (activated & detect(e)) {
         return true;
       }
-    }
     return false;
   }
 

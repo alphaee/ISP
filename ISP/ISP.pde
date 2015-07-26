@@ -123,11 +123,11 @@ void setup2() {
     powerups[i] = new ArrayList<Powerup>();
   }
 
-  for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
-    Chaser temp = new Chaser();
-    enemies[0].add(temp);
-    BackAndForth temp2 = new BackAndForth();
-    enemies[1].add(temp2);
+  for (int i = 0; i < 30; i ++) { //FOR TESTING PURPOSES ONLY
+    //    Chaser temp = new Chaser();
+    //    enemies[0].add(temp);
+    //    BackAndForth temp2 = new BackAndForth();
+    //    enemies[1].add(temp2);
     Bouncer temp3 = new Bouncer();
     enemies[2].add(temp3);
   }
@@ -185,6 +185,7 @@ void draw() {
         checkShield();
         mineCollision();
         railgunCollision();
+        railgunMove();
         iCounter++;
         counter++;
       }
@@ -377,20 +378,28 @@ void mineCollision() {
 void railgunCollision() {
   for (int i = 0; i < enemySize; i ++) {
     for (int j = 0; j < enemies[i].size (); j ++) {
-      for (int k = 0; k < powerups[2].size (); k ++) {     
+      for (int k = 0; k < powerups[2].size (); k ++) {
+        Railgun curr = (Railgun)powerups[2].get(k);
         if (enemies[i].size()>0)
-          if (powerups[2].get(k).event(enemies[i].get(j))) {
+          if (curr.event(enemies[i].get(j))) {
             //println(i, j, k);
             enemies[i].get(j).dying(i, j);
             j--;
             if (j<0)
               j=0;
           }
-        if ( ((Railgun)powerups[2].get(k)).checkBounds() ) {
+        if (curr.checkBounds()) {
           powerups[2].remove(k);
         }
       }
     }
+  }
+}
+
+void railgunMove() {
+  for (int k = 0; k < powerups[2].size (); k ++) {
+    if (((Railgun)powerups[2].get(k)).activated)
+      ((Railgun)powerups[2].get(k)).moving();
   }
 }
 

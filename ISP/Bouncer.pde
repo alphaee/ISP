@@ -1,5 +1,3 @@
-import java.lang.Math;
-
 class Bouncer implements Enemy {
   float xCor, yCor;
   float speedX, speedY;
@@ -15,8 +13,8 @@ class Bouncer implements Enemy {
     isAlive = true;
     tempFrameCount = 0;
   }
-  
-   Bouncer(float x, float y) {
+
+  Bouncer(float x, float y) {
     xCor = x;
     yCor = y;
     speedX = 5 - random( 10 );
@@ -33,50 +31,29 @@ class Bouncer implements Enemy {
   }
 
   boolean detect() { 
-      return true;
+    return true;
   }
 
-  void attack() { // reflect when it hits the boundary with different speed
+  void attack() { 
     xCor += speedX;
     yCor += speedY;
-    //multiplier will change the speed every time it hits the boundary.
     float multiplier;
-    multiplier = 1;
-    // here, we always update the sign of origSpeed to current Speed so reflect works correctly.
+    multiplier = random(.75, 1.4);
     if ( xCor <= 0 || xCor >= XSIZE ) {
       speedX *= -multiplier;
-//      if (abs(origSpeedX*(multiplier-multiBefore)) > 2){// if it hits the boundary when the speedDiff is too great
-//                     // we should manually move it inside the boundary so 
-//                     // it doesn't get stuck
-//        emergencyMoving();
-//      }
-    }
-    if ( yCor < 0 || yCor > YSIZE ) {
-      speedY *= -multiplier;
-//      if (abs(origSpeedY*(multiplier-multiBefore)) > 2){
-//        emergencyMoving();
-//      }
-    }
+      
+      if (abs(speedX)> 8)
+        speedX = 8*speedX/abs(speedX);
+      }
+      if ( yCor < 0 || yCor > YSIZE ) {
+        speedY *= -multiplier;
+        
+        if (abs(speedY)> 8)
+          speedY = 8*speedY/abs(speedY);
+      }
   }
-  
-//  void emergencyMoving(){
-//    
-//    if ( xCor < 0 ) {
-//    
-//          xCor = 15;
-//      }
-//      if (xCor > XSIZE){
-//          xCor = XSIZE - 15;
-//      }
-//      if ( yCor < 0 ){
-//          yCor = 15;
-//      }
-//      if (yCor > YSIZE){
-//          yCor = YSIZE - 15;
-//      }
-//      
-//      
-//  }
+
+
 
   boolean isAlive() {//Still needs work
     return true;
@@ -87,8 +64,7 @@ class Bouncer implements Enemy {
       display();
       detect();
       attack();
-    } 
-    else{
+    } else {
       dying(myPlace, inLife);
     }
   }
@@ -96,14 +72,13 @@ class Bouncer implements Enemy {
   void dying(int i, int j) {
     myPlace = i;
     inLife = j;
-    if (isAlive){
+    if (isAlive) {
       tempFrameCount = counter;
       isAlive = false;
       println("Im alive");
-    }
-    else{
+    } else {
       println("Im dead");
-      if (counter >= tempFrameCount ){
+      if (counter >= tempFrameCount ) {
         enemies[i].remove(j);
         BackAndForth baby = new BackAndForth(xCor, yCor);
         enemies[1].add(baby);
@@ -112,15 +87,15 @@ class Bouncer implements Enemy {
       }
     }
   }
-  
-  boolean checkBounds(){
-    if( xCor < 0 || xCor > XSIZE) 
+
+  boolean checkBounds() {
+    if ( xCor < 0 || xCor > XSIZE) 
       return true;
-    if( yCor < 0 || yCor > YSIZE)
+    if ( yCor < 0 || yCor > YSIZE)
       return true;
-    return false; 
+    return false;
   }
-  
+
   void event(Enemy e, int i, int j) {
   }
 
@@ -128,3 +103,4 @@ class Bouncer implements Enemy {
     bounce_moving.show(xCor, yCor, 20);
   }
 }
+
