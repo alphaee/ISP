@@ -19,9 +19,15 @@ git push
 - Implement animation (dying) for Back And Forth
 - Fix dying for Bouncer to make it work 100%
 - Fix bouncer getting stuck, which happens 0.1% of the time
-- Fix empty enemy array bug
+- Fix score null pointer exception bug(?)
 
 *Update Log*
+
+7/26/15
+- Set all the fonts to Kuro
+- Fixed the bouncer getting stuck. we think
+- Make moving animation slower.
+- Fully implmented mine PNG
 
 7/25/15
 - LandMine PNG uploaded
