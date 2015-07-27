@@ -1,14 +1,8 @@
 # ISP
 **Developed by Young Kim, Dan Kim, Franklin Wang**
 
-*Github Pushing Instructions*
-```bash
-git pull
-git add --all
-git commit -m "[insert message here]"
-git push
-```
 [Kuro](http://www.dafont.com/kuro.font)
+
 [Google Doc!](https://docs.google.com/document/d/1bsUmQ39Tuk8-FGRpbGtZ056lpED07QvHCmKS6JtyHVg/edit?usp=sharing)
 
 *To-Do*  
