@@ -6,7 +6,7 @@ class BackAndForth implements Enemy {
   boolean avoid, isAlive;
   int myPlace, inLife;
   int tempFrameCount;
-  
+
   BackAndForth() {
     radius = 50;
 
@@ -20,8 +20,8 @@ class BackAndForth implements Enemy {
 
     step = 5;// may change to increase speed
   }
-  
-  BackAndForth(float x, float y){
+
+  BackAndForth(float x, float y, float speedX, float speedY) {
     radius = 50;
     xCor = x;
     yCor = y;
@@ -48,19 +48,16 @@ class BackAndForth implements Enemy {
         direction ++; //only 0,2, or 3
       }
       xCor -= step; // to move away from the border so it doesn't get caught here again
-    } 
-    else if (xCor <= 0) {
+    } else if (xCor <= 0) {
       // direction = 1;//right
       direction = (int)random(3f);
       direction ++; //only 1,2, or 3
       xCor += step; // same as xCor-=step
-    } 
-    else if (yCor >= YSIZE) {
+    } else if (yCor >= YSIZE) {
       //direction = 2;//up
       direction = (int)random(3f); // only 0, 1, 2
       yCor -= step; // same as xCor-=step
-    } 
-    else if (yCor <= 0) {
+    } else if (yCor <= 0) {
       //direction = 3;//down
       direction = (int)random(3f);
       if (direction == 2) {
@@ -124,15 +121,14 @@ class BackAndForth implements Enemy {
   void dying(int i, int j) {
     myPlace = i;
     inLife = j;
-    if (isAlive){
+    if (isAlive) {
       tempFrameCount = counter;
       isAlive = false;
-    }
-    else{
-      baf_dying.show(xCor,yCor, 1);
-      if (counter >= tempFrameCount){
+    } else {
+      baf_dying.show(xCor, yCor, 1);
+      if (counter >= tempFrameCount) {
         enemies[i].remove(j);
-        score += 10; 
+        score += 10;
       }
     }
   }
@@ -141,8 +137,7 @@ class BackAndForth implements Enemy {
     if (isAlive) {
       display();
       attack();
-    } 
-    else{
+    } else {
       dying(myPlace, inLife);
     }
   }
@@ -153,3 +148,4 @@ class BackAndForth implements Enemy {
     baf_moving.show(xCor, yCor, 10);
   }
 }
+
