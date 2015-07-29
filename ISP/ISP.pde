@@ -100,12 +100,12 @@ void setup() {
   powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
 
   frameRate(fps);
-  
+
   //loading animations
   baf_dying = new Animation("DieYellow", 5, 240, 200);
   baf_moving = new Animation("MovingYellow", 13, 180, 150);
   bounce_moving = new Animation("MovingGreen", 13, 240, 200);
-  
+
   //home screen
   button_play = loadImage("Button_Play.png");
   button_instructions = loadImage("Button_Instructions.png");
@@ -117,7 +117,7 @@ void setup() {
   home = loadImage("Home_Button.png");
   home.resize(displayHeight/7, displayHeight/7);
   reset.resize(displayHeight/7, displayHeight/7);
-  
+
   //powerups
   shield = loadImage("Shield.png");
   shield.resize(60, 60);
@@ -125,10 +125,10 @@ void setup() {
   mineActive.resize(65, 65);
   minePassive = loadImage("LandMine1.png");
   minePassive.resize(65, 65);
-  
+
   font = loadFont("Kuro-Regular-120.vlw");
   textFont(font);
-  
+
   active = true;
 }
 
@@ -144,10 +144,10 @@ void setup2() {
   }
 
   for (int i = 0; i < 30; i ++) { //FOR TESTING PURPOSES ONLY
-//    Chaser temp = new Chaser();
-//    enemies[0].add(temp);
-//    BackAndForth temp2 = new BackAndForth();
-//    enemies[1].add(temp2);
+    //    Chaser temp = new Chaser();
+    //    enemies[0].add(temp);
+    //    BackAndForth temp2 = new BackAndForth();
+    //    enemies[1].add(temp2);
     Bouncer temp3 = new Bouncer();
     enemies[2].add(temp3);
   }
@@ -156,6 +156,7 @@ void setup2() {
 
   start = true;
   startMillis = millis();
+  score = 0;
 }
 
 void draw() {
@@ -178,26 +179,26 @@ void draw() {
     text("Play", displayWidth/2, displayHeight/2 - displayHeight*2/25);
     text("Instructions", displayWidth/2, displayHeight/2 + displayHeight*3/25);
     text("Credits", displayWidth/2, displayHeight/2 + displayHeight*8/25);
-    
+
     stroke(255);
-    line(0,displayHeight/2 - displayHeight*2/25 - displayHeight/10,displayWidth,displayHeight/2 - displayHeight*2/25 - displayHeight/10);
-    line(0,displayHeight/2 - displayHeight*2/25 + displayHeight/10,displayWidth,displayHeight/2 - displayHeight*2/25 + displayHeight/10);
-    line(0,displayHeight/2 - displayHeight*2/25 + displayHeight*3/10,displayWidth,displayHeight/2 - displayHeight*2/25 + displayHeight*3/10);
-    line(0,displayHeight/2 - displayHeight*2/25 + displayHeight*5/10,displayWidth,displayHeight/2 - displayHeight*2/25 + displayHeight*5/10);
-    
-    if(!active){
-      if(millis() - activeMillis > 500)
+    line(0, displayHeight/2 - displayHeight*2/25 - displayHeight/10, displayWidth, displayHeight/2 - displayHeight*2/25 - displayHeight/10);
+    line(0, displayHeight/2 - displayHeight*2/25 + displayHeight/10, displayWidth, displayHeight/2 - displayHeight*2/25 + displayHeight/10);
+    line(0, displayHeight/2 - displayHeight*2/25 + displayHeight*3/10, displayWidth, displayHeight/2 - displayHeight*2/25 + displayHeight*3/10);
+    line(0, displayHeight/2 - displayHeight*2/25 + displayHeight*5/10, displayWidth, displayHeight/2 - displayHeight*2/25 + displayHeight*5/10);
+
+    if (!active) {
+      if (millis() - activeMillis > 500)
         active = !active;
     }
-    
+
     if (mousePressed && active) {
       active = false;
       activeMillis = millis();
-      if(mouseY > displayHeight/2 - displayHeight*2/25 + displayHeight*3/10)
+      if (mouseY > displayHeight/2 - displayHeight*2/25 + displayHeight*3/10)
         state = 02;
-      else if(mouseY > displayHeight/2 - displayHeight*2/25 + displayHeight/10)
+      else if (mouseY > displayHeight/2 - displayHeight*2/25 + displayHeight/10)
         state = 01;
-      else if(mouseY > displayHeight/2 - displayHeight*2/25 - displayHeight/10){
+      else if (mouseY > displayHeight/2 - displayHeight*2/25 - displayHeight/10) {
         state = 10;
         setup2();
         start = true;
@@ -205,71 +206,71 @@ void draw() {
       }
     }
     break;
-  
+
   case 01: //INSTRUCTIONS
     fill(150);
     rectMode(CENTER);
-    rect(displayWidth/2,displayHeight/2,displayWidth*9/10,displayHeight*9/10,30);
-    
+    rect(displayWidth/2, displayHeight/2, displayWidth*9/10, displayHeight*9/10, 30);
+
     fill(#32CCD8);
     textSize(displayHeight/8);
-    textAlign(CENTER,CENTER);
+    textAlign(CENTER, CENTER);
     text("Instructions", displayWidth/2, displayHeight/7);
-    
+
     textSize(displayHeight/25);
     textAlign(LEFT);
     fill(0);
-    text("Welcome to I.S.P.!",displayWidth/4,displayHeight/5 + displayHeight*2/20);
-    text("Controls are self-explanatory, just use the",displayWidth/4,displayHeight/5 + displayHeight*4/20);
-    text("thumbstick to move.",displayWidth/3,displayHeight/5 + displayHeight*5/20);
-    text("To pause, just let go of the thumbstick at any time.",displayWidth/4, displayHeight/5 + displayHeight*6/20);
-    
-    textAlign(CENTER,CENTER);
-    text("Tap Anywhere To Return!",displayWidth/2,displayHeight*6/7);
-    
-    if(!active){
-      if(millis() - activeMillis > 500)
+    text("Welcome to I.S.P.!", displayWidth/4, displayHeight/5 + displayHeight*2/20);
+    text("Controls are self-explanatory, just use the", displayWidth/4, displayHeight/5 + displayHeight*4/20);
+    text("thumbstick to move.", displayWidth/3, displayHeight/5 + displayHeight*5/20);
+    text("To pause, just let go of the thumbstick at any time.", displayWidth/4, displayHeight/5 + displayHeight*6/20);
+
+    textAlign(CENTER, CENTER);
+    text("Tap Anywhere To Return!", displayWidth/2, displayHeight*6/7);
+
+    if (!active) {
+      if (millis() - activeMillis > 500)
         active = !active;
     }
-    
-    if(mousePressed && active){
+
+    if (mousePressed && active) {
       state = 00;
       active = false;
       activeMillis = millis();
     }
     break;
-  
+
   case 02: //CREDITS
     fill(150);
     rectMode(CENTER);
-    rect(displayWidth/2,displayHeight/2,displayWidth*9/10,displayHeight*9/10,30);
-    
+    rect(displayWidth/2, displayHeight/2, displayWidth*9/10, displayHeight*9/10, 30);
+
     fill(#32CCD8);
     textSize(displayHeight/8);
-    textAlign(CENTER,CENTER);
+    textAlign(CENTER, CENTER);
     text("Credits", displayWidth/2, displayHeight/7);
-    
+
     textSize(displayHeight/25);
     textAlign(LEFT);
     fill(0);
-    text("Designed by cdelano, alphaee, boao",displayWidth/4,displayHeight/5 + displayHeight*4/20);
-    text("AKA Young Kim, Dan Kim, Franklin Wang.",displayWidth/3,displayHeight/5 + displayHeight*5/20);
-    
-    textAlign(CENTER,CENTER);
-    text("Tap Anywhere To Return!",displayWidth/2,displayHeight*6/7);
-    
-    if(!active){
-      if(millis() - activeMillis > 500)
+    text("Designed by cdelano, alphaee, boao", displayWidth/4, displayHeight/5 + displayHeight*4/20);
+    text("AKA Young Kim, Dan Kim, Franklin Wang.", displayWidth/3, displayHeight/5 + displayHeight*5/20);
+
+    textAlign(CENTER, CENTER);
+    text("Tap Anywhere To Return!", displayWidth/2, displayHeight*6/7);
+
+    if (!active) {
+      if (millis() - activeMillis > 500)
         active = !active;
     }
-    
-    if(mousePressed && active){
+
+    if (mousePressed && active) {
       state = 00;
       active = false;
       activeMillis = millis();
     }
     break;
-  
+
   case 10: //MAIN GAME
     background(0);
     updatePlayerCors(); //update coordinates before applying translations; also updates XCHANGE & YCHANGE
@@ -367,6 +368,14 @@ void mouseReleased() {
     start = true;
     startMillis = millis();
     state = 10;
+  }
+  println(get(mouseX, mouseY));
+  if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590) && state == 20) {
+    if (mouseX > displayWidth/2) {
+      setup2();
+      state = 10;
+    } else 
+      state = 00;
   }
 }
 
@@ -507,7 +516,7 @@ void railgunMove() {
 }
 
 void mineExploding() {
-  for (int k = 0; k < powerups[1].size(); k ++) {
+  for (int k = 0; k < powerups[1].size (); k ++) {
     Mine curr = (Mine)powerups[1].get(k);
     if (curr.exploded)
       curr.exploding += 2;
@@ -551,7 +560,6 @@ void checkDeath() {
         catch(Exception a) {
         }
         state = 20;
-        setup2();
       }
     }
   }
@@ -577,3 +585,4 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
+

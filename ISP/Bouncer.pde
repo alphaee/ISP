@@ -81,7 +81,7 @@ class Bouncer implements Enemy {
       tempFrameCount = counter;
       isAlive = false;
     } else {
-      if (counter >= tempFrameCount ) {
+      if (counter >= tempFrameCount) {
         enemies[i].remove(j);
         BackAndForth baby = new BackAndForth(xCor, yCor, speedX, speedY);
         enemies[1].add(baby);
