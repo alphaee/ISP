@@ -118,21 +118,12 @@ void setup() {
   //powerups
   shield = loadImage("Shield.png");
   shield.resize(60, 60);
-<<<<<<< HEAD
   mineActive = loadImage("LandMineActivated.png");
   mineActive.resize(75, 75);
   minePassive = loadImage("LandMine.png");
   minePassive.resize(75, 75);
   
   font = loadFont("Kuro-Regular-120.vlw");
-=======
-  mineActive = loadImage("LandMineActivated1.png");
-  mineActive.resize(65, 65);
-  minePassive = loadImage("LandMine1.png");
-  minePassive.resize(65, 65);
-
-  font = loadFont("Kuro-Regular-48.vlw");
->>>>>>> origin/master
 }
 
 void setup2() {
