@@ -8,14 +8,20 @@
 *To-Do*  
 - Animate character die and enemies merge and die
 - Explosion animations
-- How to Play screen
-- Powerup Pictures, Reset/Back Pictures for the Death Screen
-- Implement animation (dying) for Back And Forth
+- Spawning/dying animations for enemies
 - Fix dying for Bouncer to make it work 100%
-- Fix bouncer getting stuck, which happens 0.1% of the time
-- Fix score null pointer exception bug(?)
+- Background screen
+- Dan: Spawning
+- Young: (optional: mine picture & music), Instructions/Credits, Lag
+- Franklin: First frame of railgun animation
 
 *Update Log*
+
+7/29/15
+- Implemented Instructions and Credits screens
+- Different Shield pictures depending on the number of shields the player has
+- Updated Mine picture
+- Put in Replay/Home buttons for High Score Screen
 
 7/26/15
 - Set all the fonts to Kuro
