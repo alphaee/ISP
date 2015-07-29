@@ -78,6 +78,9 @@ int state;
 int counter;
 int score;
 
+boolean active; //create a delay so button-spamming doesn't happen
+int activeMillis;
+
 boolean start;
 int startMillis;
 
@@ -124,6 +127,9 @@ void setup() {
   minePassive.resize(65, 65);
   
   font = loadFont("Kuro-Regular-120.vlw");
+  textFont(font);
+  
+  active = true;
 }
 
 void setup2() {
@@ -155,7 +161,7 @@ void setup2() {
 void draw() {
   switch(state) {
 
-  case 0: //HOMESCREEN
+  case 00: //HOMESCREEN
     background(0);
 
     fill(#647775);
@@ -165,7 +171,6 @@ void draw() {
 
     textAlign(CENTER, CENTER);
     fill(#32CCD8);
-    textFont(font);
     textSize(displayHeight/8);
     text("I.S.P.", displayWidth/2, displayHeight/8);
     textSize(displayHeight/22);
@@ -173,18 +178,99 @@ void draw() {
     text("Play", displayWidth/2, displayHeight/2 - displayHeight*2/25);
     text("Instructions", displayWidth/2, displayHeight/2 + displayHeight*3/25);
     text("Credits", displayWidth/2, displayHeight/2 + displayHeight*8/25);
-    //image(button_play, displayWidth/2, displayHeight/2);
-    //image(button_instructions, displayWidth/2, 3*displayHeight/4);
-    //image(button_credits,displayWidth/2,4*displayHeight/4);
-    if (mousePressed) {
-      state = 1;
-      setup2();
-      start = true;
-      startMillis = millis();
+    
+    stroke(255);
+    line(0,displayHeight/2 - displayHeight*2/25 - displayHeight/10,displayWidth,displayHeight/2 - displayHeight*2/25 - displayHeight/10);
+    line(0,displayHeight/2 - displayHeight*2/25 + displayHeight/10,displayWidth,displayHeight/2 - displayHeight*2/25 + displayHeight/10);
+    line(0,displayHeight/2 - displayHeight*2/25 + displayHeight*3/10,displayWidth,displayHeight/2 - displayHeight*2/25 + displayHeight*3/10);
+    line(0,displayHeight/2 - displayHeight*2/25 + displayHeight*5/10,displayWidth,displayHeight/2 - displayHeight*2/25 + displayHeight*5/10);
+    
+    if(!active){
+      if(millis() - activeMillis > 500)
+        active = !active;
+    }
+    
+    if (mousePressed && active) {
+      active = false;
+      activeMillis = millis();
+      if(mouseY > displayHeight/2 - displayHeight*2/25 + displayHeight*3/10)
+        state = 02;
+      else if(mouseY > displayHeight/2 - displayHeight*2/25 + displayHeight/10)
+        state = 01;
+      else if(mouseY > displayHeight/2 - displayHeight*2/25 - displayHeight/10){
+        state = 10;
+        setup2();
+        start = true;
+        startMillis = millis();
+      }
     }
     break;
-
-  case 1: //MAIN GAME
+  
+  case 01: //INSTRUCTIONS
+    fill(150);
+    rectMode(CENTER);
+    rect(displayWidth/2,displayHeight/2,displayWidth*9/10,displayHeight*9/10,30);
+    
+    fill(#32CCD8);
+    textSize(displayHeight/8);
+    textAlign(CENTER,CENTER);
+    text("Instructions", displayWidth/2, displayHeight/7);
+    
+    textSize(displayHeight/25);
+    textAlign(LEFT);
+    fill(0);
+    text("Welcome to I.S.P.!",displayWidth/4,displayHeight/5 + displayHeight*2/20);
+    text("Controls are self-explanatory, just use the",displayWidth/4,displayHeight/5 + displayHeight*4/20);
+    text("thumbstick to move.",displayWidth/3,displayHeight/5 + displayHeight*5/20);
+    text("To pause, just let go of the thumbstick at any time.",displayWidth/4, displayHeight/5 + displayHeight*6/20);
+    
+    textAlign(CENTER,CENTER);
+    text("Tap Anywhere To Return!",displayWidth/2,displayHeight*6/7);
+    
+    if(!active){
+      if(millis() - activeMillis > 500)
+        active = !active;
+    }
+    
+    if(mousePressed && active){
+      state = 00;
+      active = false;
+      activeMillis = millis();
+    }
+    break;
+  
+  case 02: //CREDITS
+    fill(150);
+    rectMode(CENTER);
+    rect(displayWidth/2,displayHeight/2,displayWidth*9/10,displayHeight*9/10,30);
+    
+    fill(#32CCD8);
+    textSize(displayHeight/8);
+    textAlign(CENTER,CENTER);
+    text("Credits", displayWidth/2, displayHeight/7);
+    
+    textSize(displayHeight/25);
+    textAlign(LEFT);
+    fill(0);
+    text("Designed by cdelano, alphaee, boao",displayWidth/4,displayHeight/5 + displayHeight*4/20);
+    text("AKA Young Kim, Dan Kim, Franklin Wang.",displayWidth/3,displayHeight/5 + displayHeight*5/20);
+    
+    textAlign(CENTER,CENTER);
+    text("Tap Anywhere To Return!",displayWidth/2,displayHeight*6/7);
+    
+    if(!active){
+      if(millis() - activeMillis > 500)
+        active = !active;
+    }
+    
+    if(mousePressed && active){
+      state = 00;
+      active = false;
+      activeMillis = millis();
+    }
+    break;
+  
+  case 10: //MAIN GAME
     background(0);
     updatePlayerCors(); //update coordinates before applying translations; also updates XCHANGE & YCHANGE
     translate(XCHANGE, YCHANGE);
@@ -214,7 +300,7 @@ void draw() {
     }
     break;
 
-  case 2: //GAME OVER
+  case 20: //GAME OVER
     background(0);
     textFont(font);
     textSize(displayHeight/9);         
@@ -276,11 +362,11 @@ void countdown(int t) {
 
 void mouseReleased() {
   if (get(mouseX, mouseY) == #D130A4)
-    state = 0;
+    state = 00;
   if (get(mouseX, mouseY) == #5BD832) {
     start = true;
     startMillis = millis();
-    state = 1;
+    state = 10;
   }
 }
 
@@ -464,7 +550,7 @@ void checkDeath() {
         }
         catch(Exception a) {
         }
-        state = 2;
+        state = 20;
         setup2();
       }
     }
