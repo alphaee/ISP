@@ -57,6 +57,11 @@ Joystick thumbCircle;
 float controlAngle;
 float controlDistance;
 
+//HOME SCREEN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PImage button_play;
+PImage button_instructions;
+PImage button_credits;
+
 //HIGH SCORE SCREEN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 String scores[] = new String[3];
 
@@ -92,24 +97,33 @@ void setup() {
   powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
 
   frameRate(fps);
-
+  
+  //loading animations
   baf_dying = new Animation("DieYellow", 5, 240, 200);
   baf_moving = new Animation("MovingYellow", 13, 180, 150);
   bounce_moving = new Animation("MovingGreen", 13, 240, 200);
+  
+  //home screen
+  button_play = loadImage("Button_Play.png");
+  button_instructions = loadImage("Button_Instructions.png");
+  button_credits = loadImage("Button_Credits.png");
+  //button_play.resize(displayWidth/4,displayHeight/7);
 
+  //high score screen
   reset = loadImage("Reset_Button.png");
   home = loadImage("Home_Button.png");
   home.resize(displayHeight/7, displayHeight/7);
   reset.resize(displayHeight/7, displayHeight/7);
-
+  
+  //powerups
   shield = loadImage("Shield.png");
   shield.resize(60, 60);
   mineActive = loadImage("LandMineActivated.png");
   mineActive.resize(75, 75);
   minePassive = loadImage("LandMine.png");
   minePassive.resize(75, 75);
-
-  font = loadFont("Kuro-Regular-48.vlw");
+  
+  font = loadFont("Kuro-Regular-120.vlw");
 }
 
 void setup2() {
@@ -146,17 +160,22 @@ void draw() {
 
     fill(#647775);
     rectMode(CENTER);
-    rect(displayWidth/2, displayHeight/2, displayWidth/3, displayHeight/7, displayHeight/20);
+    //rect(displayWidth/2, displayHeight/2, displayWidth/3, displayHeight/7, displayHeight/20);
     rectMode(CORNER);
 
-    textSize(displayHeight/6);
     textAlign(CENTER, CENTER);
     fill(#32CCD8);
     textFont(font);
-    text("I.S.P.", displayWidth/2, displayHeight/7);
-    textSize(displayHeight/15);
-    text("PLAY", displayWidth/2, displayHeight/2);
-    text("(Click to Continue!)", displayWidth/2, 3*displayHeight/4);
+    textSize(displayHeight/8);
+    text("I.S.P.", displayWidth/2, displayHeight/8);
+    textSize(displayHeight/22);
+    imageMode(CENTER);
+    text("Play", displayWidth/2, displayHeight/2 - displayHeight*2/25);
+    text("Instructions", displayWidth/2, displayHeight/2 + displayHeight*3/25);
+    text("Credits", displayWidth/2, displayHeight/2 + displayHeight*8/25);
+    //image(button_play, displayWidth/2, displayHeight/2);
+    //image(button_instructions, displayWidth/2, 3*displayHeight/4);
+    //image(button_credits,displayWidth/2,4*displayHeight/4);
     if (mousePressed) {
       state = 1;
       setup2();
@@ -307,9 +326,9 @@ boolean touchDetection() {
 
 void displayStats() {
   fill(100);
-  textSize(displayHeight/15);
   textAlign(CENTER, CENTER);
   textFont(font);
+  textSize(displayHeight/15);
   text("Shield: " + hero.shieldNum, pxCor + 3*displayWidth/8, pyCor - 3*displayHeight/8);
   text("Score: " + score*100, pxCor - 3*displayWidth/8, pyCor - 3*displayHeight/8);
 }
