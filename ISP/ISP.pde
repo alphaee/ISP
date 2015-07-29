@@ -271,23 +271,32 @@ void draw() {
     break;
   
   case 10: //MAIN GAME
-    background(0);
+    int m = millis();
     updatePlayerCors(); //update coordinates before applying translations; also updates XCHANGE & YCHANGE
     translate(XCHANGE, YCHANGE);
-
+    
     createBoundary();
-
+    
+    println("0" +( millis() - m));
+    m = millis();
+    
     displayAll();
-
+    
+    println("1" +( millis() - m));
+    m = millis();
+    
     if (start) {
       countdown(startMillis);
-    } else {
+    } 
+    else {
       if (touchDetection()) {
+        
         checkPowerupCounter();
         //checkEnemyCounter();
         enemiesAttack();
         enemiesCollide();
         checkShield();
+        
         mineCollision();
         mineExploding();
         railgunCollision();
@@ -295,6 +304,7 @@ void draw() {
         iCounter++;
         counter++;
       }
+      
       hero.move();
       checkDeath();
     }
@@ -382,10 +392,10 @@ void updatePlayerCors() {
 }
 
 void createBoundary() {
-  stroke(204, 102, 0); 
+  fill(0);
+  rect(pxCor - displayWidth/2, pyCor - displayHeight/2 ,displayWidth,displayHeight);
   fill(180);
   rect(0, 0, XSIZE, YSIZE);
-  stroke(0);
 }
 
 boolean touchDetection() {
