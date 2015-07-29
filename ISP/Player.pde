@@ -8,10 +8,10 @@ class Player{
     yCor = YSIZE/2;
     
     img = loadImage("Hero.png");
-    img2 = loadImage("Hero_Shielded.png");
+    img2 = loadImage("Shielded-Hero4.png");
     imageMode(CENTER);
-    img.resize(40,65);
-    img2.resize(40,65);
+    img.resize(55,65);
+    img2.resize(55,65);
   }
   
   void display(){
