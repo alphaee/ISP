@@ -2,14 +2,11 @@ class BackAndForth implements Enemy {
   float xCor, yCor;
   int direction;
   int step;
-  int radius; //radius of circle - temp
   boolean avoid, isAlive;
   int myPlace, inLife;
   int tempFrameCount;
 
   BackAndForth() {
-    radius = 50;
-
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
 
@@ -22,7 +19,6 @@ class BackAndForth implements Enemy {
   }
 
   BackAndForth(float x, float y, float speedX, float speedY) {
-    radius = 50;
     xCor = x;
     yCor = y;
     direction = (int)random(4f);
@@ -148,4 +144,3 @@ class BackAndForth implements Enemy {
     baf_moving.show(xCor, yCor, 10);
   }
 }
-

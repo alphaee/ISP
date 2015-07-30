@@ -43,7 +43,7 @@ class Bouncer implements Enemy {
     xCor += speedX;
     yCor += speedY;
     float multiplier;
-    multiplier = random(.75, 1.4);
+    multiplier = random(1.01, 1.4);
     if ( xCor <= 0 || xCor >= XSIZE ) {
       speedX *= -multiplier;
 
