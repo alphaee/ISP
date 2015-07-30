@@ -44,7 +44,7 @@ final int powerupSize = 3;
 
 final int shieldTime = (int)fps*30;
 
-final int mineTime = (int)fps*15;
+final int mineTime = (int)fps*5;
 
 final int railgunTime = (int)fps*10;
 
@@ -143,13 +143,13 @@ void setup2() {
     powerups[i] = new ArrayList<Powerup>();
   }
 
-  for (int i = 0; i < 30; i ++) { //FOR TESTING PURPOSES ONLY
-    //    Chaser temp = new Chaser();
-    //    enemies[0].add(temp);
+  for (int i = 0; i < 60; i ++) { //FOR TESTING PURPOSES ONLY
+        //Chaser temp = new Chaser();
+       // enemies[0].add(temp);
     //    BackAndForth temp2 = new BackAndForth();
-    //    enemies[1].add(temp2);
-    Bouncer temp3 = new Bouncer();
-    enemies[2].add(temp3);
+    //     enemies[1].add(temp2);
+    //Bouncer temp3 = new Bouncer();
+    //enemies[2].add(temp3);
   }
 
   counter = 0;
@@ -272,32 +272,23 @@ void draw() {
     break;
 
   case 10: //MAIN GAME
-    int m = millis();
+    background(0);
     updatePlayerCors(); //update coordinates before applying translations; also updates XCHANGE & YCHANGE
     translate(XCHANGE, YCHANGE);
-    
+
     createBoundary();
-    
-    println("0" +( millis() - m));
-    m = millis();
-    
+
     displayAll();
-    
-    println("1" +( millis() - m));
-    m = millis();
-    
+
     if (start) {
       countdown(startMillis);
-    } 
-    else {
+    } else {
       if (touchDetection()) {
-        
         checkPowerupCounter();
-        //checkEnemyCounter();
+        checkEnemyCounter();
         enemiesAttack();
         enemiesCollide();
         checkShield();
-        
         mineCollision();
         mineExploding();
         railgunCollision();
@@ -305,7 +296,6 @@ void draw() {
         iCounter++;
         counter++;
       }
-      
       hero.move();
       checkDeath();
     }
@@ -401,10 +391,10 @@ void updatePlayerCors() {
 }
 
 void createBoundary() {
-  fill(0);
-  rect(pxCor - displayWidth/2, pyCor - displayHeight/2 ,displayWidth,displayHeight);
+  stroke(204, 102, 0); 
   fill(180);
   rect(0, 0, XSIZE, YSIZE);
+  stroke(0);
 }
 
 boolean touchDetection() {
@@ -579,15 +569,22 @@ void checkHighScores() throws IOException {
   String[] res = highScores();
   int i = 2;
   int index = -1;
-  while ( (i >= 0)&&(score*10 >= Integer.parseInt(res[i]))) {
+  while ( (i >= 0)&&(score*10 >= Integer.parseInt(res[i]))) { //change to 100
     index = i;
     i--;
   }
   if (index != -1) {
-    res[index] = (int)score*10 + "";
+    res[index] = (int)score*100 + "";
     PrintWriter out = createWriter("data/highScores.txt");
-    for (int k = 0; k < res.length; k++)
-      out.flush();
+    for (int k = 0; k < res.length; k++){
+      if(k != res.length - 1)
+        out.write(res[k]+"\n");
+      else
+        out.write(res[k]);
+    }
+    println(res[0]);
+    println(res[1]);
+    println(res[2]);
     out.close();
   }
 }

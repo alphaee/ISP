@@ -1,17 +1,21 @@
 class Player{
   float xCor, yCor;
   int shieldNum;
-  PImage img, img2;
+  PImage img, img2, img3, img4;
   
   Player(){
     xCor = XSIZE/2;
     yCor = YSIZE/2;
     
     img = loadImage("Hero.png");
-    img2 = loadImage("Shielded-Hero4.png");
+    img2 = loadImage("Shielded-Hero1.png");
+    img3 = loadImage("Shielded-Hero2.png");
+    img4 = loadImage("Shielded-Hero3.png");
     imageMode(CENTER);
     img.resize(55,65);
     img2.resize(55,65);
+    img3.resize(55,65);
+    img4.resize(55,65);
   }
   
   void display(){
@@ -21,8 +25,12 @@ class Player{
     rotate(controlAngle + PI/2); //rotations are always done over the origin
     if(shieldNum == 0)
       image(img,0,0);
-    else
+    else if(shieldNum == 1)
       image(img2,0,0);
+    else if(shieldNum == 2)
+      image(img3,0,0);
+    else 
+      image(img4,0,0);
     popMatrix();
   }
   
