@@ -62,6 +62,7 @@ class Chaser implements Enemy {
       isAlive = false;
     }
     else{
+      chas_dying.show(xCor, yCor, 1);
       if (counter >= tempFrameCount){
         enemies[i].remove(j);
         score += 15;

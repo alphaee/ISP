@@ -28,6 +28,7 @@ final int backAndForthTime = (int)fps*3;
 final int bouncerTime = (int)fps*7;
 
 //ENEMY ANIMATIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Animation chas_dying;
 Animation baf_moving;
 Animation baf_dying; 
 Animation bounce_moving;
@@ -102,6 +103,7 @@ void setup() {
   frameRate(fps);
 
   //loading animations
+  chas_dying = new Animation("DieRed", 7, 240, 200);
   baf_dying = new Animation("DieYellow", 5, 240, 200);
   baf_moving = new Animation("MovingYellow", 13, 180, 150);
   bounce_moving = new Animation("MovingGreen", 13, 240, 200);
