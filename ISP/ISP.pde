@@ -23,7 +23,7 @@ final int enemySize = 3;
 
 final int chaserTime = (int)fps*15;
 
-final int backAndForthTime = (int)fps*5;
+final int backAndForthTime = (int)fps*3;
 
 final int bouncerTime = (int)fps*7;
 
@@ -44,7 +44,7 @@ final int powerupSize = 3;
 
 final int shieldTime = (int)fps*30;
 
-final int mineTime = (int)fps*5;
+final int mineTime = (int)fps*10;
 
 final int railgunTime = (int)fps*10;
 
@@ -592,4 +592,3 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
-
