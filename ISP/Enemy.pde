@@ -4,9 +4,7 @@ interface Enemy {
 
   boolean detect(); //Detects borders and player
   
-  void attack(); //Defines how the character attacks 
-  
-  boolean isAlive();//Life detection
+  void attack(); //Defines how the character attacks
   
   void dying(int i, int j); //How the character dies ie. splitting into smaller or disappearing
   

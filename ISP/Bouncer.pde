@@ -58,12 +58,6 @@ class Bouncer implements Enemy {
     }
   }
 
-
-
-  boolean isAlive() {//Still needs work
-    return true;
-  }
-
   void act() {
     if (isAlive) {
       display();

@@ -109,11 +109,7 @@ class BackAndForth implements Enemy {
     enemies[1].remove(j);
     enemies[1].remove(i);
   }
-
-  boolean isAlive() {//Still needs work
-    return true;
-  }
-
+  
   void dying(int i, int j) {
     myPlace = i;
     inLife = j;

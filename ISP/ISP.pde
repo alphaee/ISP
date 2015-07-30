@@ -145,9 +145,9 @@ void setup2() {
     powerups[i] = new ArrayList<Powerup>();
   }
 
-  for (int i = 0; i < 60; i ++) { //FOR TESTING PURPOSES ONLY
-        //Chaser temp = new Chaser();
-       // enemies[0].add(temp);
+  for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
+        Chaser temp = new Chaser();
+        enemies[0].add(temp);
     //    BackAndForth temp2 = new BackAndForth();
     //     enemies[1].add(temp2);
     Bouncer temp3 = new Bouncer();

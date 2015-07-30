@@ -39,12 +39,8 @@ class Chaser implements Enemy {
     yCor -= speedY;
   }
 
-  boolean isAlive() {//Still needs work
-    return true;
-  }
-
   void act() {
-    if (isAlive()) {
+    if (isAlive) {
       display();
       if (detect())
         attack();
