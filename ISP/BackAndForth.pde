@@ -133,6 +133,11 @@ class BackAndForth implements Enemy {
   }
 
   void display() {//display() should only display
-    baf_moving.show(xCor, yCor, 10);
+    if(direction % 4 == 2 || direction % 4 == 3){
+      baf_moving_vert.show(xCor, yCor, 10);
+    }
+    else{
+      baf_moving_hori.show(xCor, yCor, 10);
+    }
   }
 }
