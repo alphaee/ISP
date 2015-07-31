@@ -32,6 +32,7 @@ Animation chas_dying;
 Animation baf_moving;
 Animation baf_dying; 
 Animation bounce_moving;
+Animation bounce_dying;
 
 //POWERUP VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ArrayList<Powerup>[] powerups;
@@ -41,6 +42,7 @@ final int powerupSize = 3;
  Indices:
  0: Shield
  1: Mine
+ 2: Railgun
  */
 
 final int shieldTime = (int)fps*30;
@@ -107,6 +109,7 @@ void setup() {
   baf_dying = new Animation("DieYellow", 5, 240, 200);
   baf_moving = new Animation("MovingYellow", 13, 180, 150);
   bounce_moving = new Animation("MovingGreen", 13, 240, 200);
+  bounce_dying = new Animation("DieGreen", 10, 240, 200);
 
   //home screen
   button_play = loadImage("Button_Play.png");

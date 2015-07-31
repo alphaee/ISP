@@ -12,5 +12,6 @@ interface Enemy {
   
   void act(); //Contains the display and attack fxns
   
-  void event(Enemy e, int i, int j);
+  void event(Enemy e, int i, int j); //When two enemies collide,
+                                    //merge or change directions?
 }

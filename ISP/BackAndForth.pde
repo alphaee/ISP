@@ -9,12 +9,10 @@ class BackAndForth implements Enemy {
   BackAndForth() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-
     direction = (int)random(4f);
     avoid = false;
     isAlive = true;
     tempFrameCount = 0;
-
     step = 5;// may change to increase speed
   }
 
@@ -135,8 +133,6 @@ class BackAndForth implements Enemy {
   }
 
   void display() {//display() should only display
-    //fill(255);
-    //ellipse(xCor, yCor, radius, radius);
     baf_moving.show(xCor, yCor, 10);
   }
 }
