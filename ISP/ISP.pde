@@ -376,7 +376,6 @@ void mouseReleased() {
     startMillis = millis();
     state = 10;
   }
-  println(get(mouseX, mouseY));
   if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590) && state == 20) {
     if (mouseX > displayWidth/2) {
       setup2();
