@@ -11,6 +11,7 @@
 - Spawning/dying animations for enemies
 - Fix dying for Bouncer to make it work 100%
 - Background screen
+- Game should not immediately pause after starting
 - Dan: Spawning
 - Young: (optional: mine picture & music), Instructions/Credits, Lag
 - Franklin: First frame of railgun animation
