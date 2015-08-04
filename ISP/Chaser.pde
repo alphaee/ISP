@@ -37,7 +37,7 @@ class Chaser implements Enemy {
   void act() {
     if (isAlive) {
       display();
-        attack();
+      attack();
     } else {
       dying(myPlace, inLife);
     }

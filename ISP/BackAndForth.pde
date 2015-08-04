@@ -107,7 +107,7 @@ class BackAndForth implements Enemy {
     enemies[1].remove(j);
     enemies[1].remove(i);
   }
-  
+
   void dying(int i, int j) {
     myPlace = i;
     inLife = j;
@@ -133,11 +133,11 @@ class BackAndForth implements Enemy {
   }
 
   void display() {//display() should only display
-    if(direction % 4 == 2 || direction % 4 == 3){
+    if (direction % 4 == 2 || direction % 4 == 3) {
       baf_moving_vert.show(xCor, yCor, 10);
-    }
-    else{
+    } else {
       baf_moving_hori.show(xCor, yCor, 10);
     }
   }
 }
+

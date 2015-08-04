@@ -398,8 +398,8 @@ void updatePlayerCors() {
 
 void enemiesAct() {
   for (int i = 0; i < enemySize; i ++) //2-D parsing
-    for (int j = 0; j < enemies[i].size(); j++){
-     Enemy e = enemies[i].get(j);
+    for (int j = 0; j < enemies[i].size (); j++) {
+      Enemy e = enemies[i].get(j);
       if (e.xCor() < pxCor + displayWidth/2 && e.xCor() > pxCor - displayWidth/2 && e.yCor() < pyCor + displayHeight/2 && e.yCor() > pyCor - displayHeight/2)
         e.act();
     }
@@ -454,11 +454,11 @@ void displayAll() {
   displayStats();
 }
 
-void enemiesAttack() {
-  for (int i = 0; i < enemySize; i ++) //2-D parsing
-    for (Enemy e : enemies[i])
-      e.attack();
-}
+//void enemiesAttack() {
+//  for (int i = 0; i < enemySize; i ++) //2-D parsing
+//    for (Enemy e : enemies[i])
+//      e.attack();
+//}
 
 void enemiesCollide() {
   for (int i = 0; i < enemies[1].size (); i ++)

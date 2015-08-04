@@ -36,8 +36,8 @@ class Railgun implements Powerup {
       activated = true;
     }    
     if (activated & detect(e)) {
-        return true;
-      }
+      return true;
+    }
     return false;
   }
 
@@ -49,7 +49,7 @@ class Railgun implements Powerup {
 
     speedX = (step*speedX)/speed;
     speedY = (step*speedY)/speed;
-    
+
     xCor += speedX;
     yCor += speedY;
   }
