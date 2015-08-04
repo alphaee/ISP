@@ -571,30 +571,24 @@ void checkDeath() {
   }
 }
 
-void checkHighScores() throws IOException {
+void checkHighScores() throws IOException{
   String[] res = highScores();
   int i = 2;
   int index = -1;
-  while ( (i >= 0)&&(score*10 >= Integer.parseInt(res[i]))) { //change to 100
+  while((i > 0)&&(score*100 >= Integer.parseInt(res[i]))){
     index = i;
     i--;
   }
-  if (index != -1) {
+  if(index != -1){
     res[index] = (int)score*100 + "";
     PrintWriter out = createWriter("data/highScores.txt");
-    for (int k = 0; k < res.length; k++){
-      if(k != res.length - 1)
-        out.write(res[k]+"\n");
-      else
-        out.write(res[k]);
-    }
-    println(res[0]);
-    println(res[1]);
-    println(res[2]);
+    for(int k = 0; k < res.length; k++)
+      out.println(res[k]);
+    out.flush();
     out.close();
   }
 }
 
-String[] highScores() throws FileNotFoundException {
-  return loadStrings("highScores.txt");
+String[] highScores() throws FileNotFoundException{
+    return loadStrings("highScores.txt");
 }
