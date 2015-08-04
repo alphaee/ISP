@@ -8,7 +8,7 @@ class Chaser implements Enemy {
   Chaser() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-    step = (int) random(2,5);
+    step = (int) random(2, 5);
     isAlive = true;
     tempFrameCount = 0;
   }
@@ -21,10 +21,7 @@ class Chaser implements Enemy {
   }
 
   boolean detect() {
-    if ( dist(xCor, yCor, pxCor, pyCor) < YSIZE/5 ) {
-      return true;
-    }
-    return false;
+    return dist(xCor, yCor, pxCor, pyCor) < YSIZE/5;
   }
 
   void attack() { //nearly identical to Player class' "move()" method
@@ -40,10 +37,8 @@ class Chaser implements Enemy {
   void act() {
     if (isAlive) {
       display();
-      if (detect())
         attack();
-    } 
-    else{
+    } else {
       dying(myPlace, inLife);
     }
   }
@@ -51,13 +46,12 @@ class Chaser implements Enemy {
   void dying(int i, int j) {
     myPlace = i;
     inLife = j;
-    if (isAlive){
+    if (isAlive) {
       tempFrameCount = counter;
       isAlive = false;
-    }
-    else{
+    } else {
       chas_dying.show(xCor, yCor, 1);
-      if (counter >= tempFrameCount){
+      if (counter >= tempFrameCount) {
         enemies[i].remove(j);
         score += 15;
       }
@@ -72,3 +66,4 @@ class Chaser implements Enemy {
     ellipse(xCor, yCor, 30, 30);
   }
 }
+

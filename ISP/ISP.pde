@@ -151,8 +151,8 @@ void setup2() {
   }
 
   for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
-        Chaser temp = new Chaser();
-        enemies[0].add(temp);
+    Chaser temp = new Chaser();
+    enemies[0].add(temp);
     //    BackAndForth temp2 = new BackAndForth();
     //     enemies[1].add(temp2);
     Bouncer temp3 = new Bouncer();
@@ -293,7 +293,7 @@ void draw() {
       if (touchDetection()) {
         checkPowerupCounter();
         //checkEnemyCounter();
-        enemiesAttack();
+        enemiesAct();
         enemiesCollide();
         checkShield();
         mineCollision();
@@ -396,6 +396,16 @@ void updatePlayerCors() {
   YCHANGE = YSIZE/2.8 - pyCor;
 }
 
+void enemiesAct() {
+  for (int i = 0; i < enemySize; i ++) //2-D parsing
+    for (int j = 0; j < enemies[i].size(); j++){
+     Enemy e = enemies[i].get(j);
+      if (e.xCor() < pxCor + displayWidth/2 && e.xCor() > pxCor - displayWidth/2 && e.yCor() < pyCor + displayHeight/2 && e.yCor() > pyCor - displayHeight/2)
+        e.act();
+    }
+}
+
+
 void createBoundary() {
   stroke(204, 102, 0); 
   fill(180);
@@ -435,12 +445,6 @@ void displayStats() {
 }
 
 void displayAll() {
-  for (int i = 0; i < enemySize; i ++) //2-D parsing
-    for (Enemy e : enemies[i]){
-      if(e.xCor() < pxCor + displayWidth/2 && e.xCor() > pxCor - displayWidth/2 && e.yCor() < pyCor + displayHeight/2 && e.yCor() > pyCor - displayHeight/2)
-        e.display();
-    }
-
   for (int i = 0; i < powerupSize; i ++) //2-D parsing
     for (Powerup p : powerups[i])
       p.display();
@@ -573,24 +577,25 @@ void checkDeath() {
   }
 }
 
-void checkHighScores() throws IOException{
+void checkHighScores() throws IOException {
   String[] res = highScores();
   int i = 2;
   int index = -1;
-  while((i > 0)&&(score*100 >= Integer.parseInt(res[i]))){
+  while ( (i > 0)&&(score*100 >= Integer.parseInt(res[i]))) {
     index = i;
     i--;
   }
-  if(index != -1){
+  if (index != -1) {
     res[index] = (int)score*100 + "";
     PrintWriter out = createWriter("data/highScores.txt");
-    for(int k = 0; k < res.length; k++)
+    for (int k = 0; k < res.length; k++)
       out.println(res[k]);
     out.flush();
     out.close();
   }
 }
 
-String[] highScores() throws FileNotFoundException{
-    return loadStrings("highScores.txt");
+String[] highScores() throws FileNotFoundException {
+  return loadStrings("highScores.txt");
 }
+
