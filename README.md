@@ -22,6 +22,9 @@
 - Fixed score so highscores are saved
 - Made game less laggy by only displaying enemies in range of player
 
+7/30/15
+- Added the vertical animation for BackAndForth
+
 7/29/15
 - Implemented Instructions and Credits screens
 - Different Shield pictures depending on the number of shields the player has
