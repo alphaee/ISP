@@ -436,8 +436,10 @@ void displayStats() {
 
 void displayAll() {
   for (int i = 0; i < enemySize; i ++) //2-D parsing
-    for (Enemy e : enemies[i])
-      e.display();
+    for (Enemy e : enemies[i]){
+      if(e.xCor() < pxCor + displayWidth/2 && e.xCor() > pxCor - displayWidth/2 && e.yCor() < pyCor + displayHeight/2 && e.yCor() > pyCor - displayHeight/2)
+        e.display();
+    }
 
   for (int i = 0; i < powerupSize; i ++) //2-D parsing
     for (Powerup p : powerups[i])
