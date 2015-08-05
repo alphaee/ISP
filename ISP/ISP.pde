@@ -155,8 +155,8 @@ void setup2() {
     enemies[0].add(temp);
     //    BackAndForth temp2 = new BackAndForth();
     //     enemies[1].add(temp2);
-    Bouncer temp3 = new Bouncer();
-    enemies[2].add(temp3);
+    //Bouncer temp3 = new Bouncer();
+    //enemies[2].add(temp3);
   }
 
   counter = 0;
@@ -293,7 +293,7 @@ void draw() {
       if (touchDetection()) {
         checkPowerupCounter();
         //checkEnemyCounter();
-        enemiesAct();
+        enemiesAttack();
         enemiesCollide();
         checkShield();
         mineCollision();
@@ -396,14 +396,14 @@ void updatePlayerCors() {
   YCHANGE = YSIZE/2.8 - pyCor;
 }
 
-void enemiesAct() {
-  for (int i = 0; i < enemySize; i ++) //2-D parsing
-    for (int j = 0; j < enemies[i].size (); j++) {
-      Enemy e = enemies[i].get(j);
-      if (e.xCor() < pxCor + displayWidth/2 && e.xCor() > pxCor - displayWidth/2 && e.yCor() < pyCor + displayHeight/2 && e.yCor() > pyCor - displayHeight/2)
-        e.act();
-    }
-}
+// void enemiesAct() {
+//   for (int i = 0; i < enemySize; i ++) //2-D parsing
+//     for (int j = 0; j < enemies[i].size (); j++) {
+//       Enemy e = enemies[i].get(j);
+//       if (e.xCor() < pxCor + displayWidth/2 && e.xCor() > pxCor - displayWidth/2 && e.yCor() < pyCor + displayHeight/2 && e.yCor() > pyCor - displayHeight/2)
+//         e.act();
+//     }
+// }
 
 
 void createBoundary() {
@@ -445,6 +445,13 @@ void displayStats() {
 }
 
 void displayAll() {
+  for (int i = 0; i < enemySize; i ++) //2-D parsing
+    for (int j = 0; j < enemies[i].size (); j++) {
+      Enemy e = enemies[i].get(j);
+      if (e.xCor() < pxCor + displayWidth/2 && e.xCor() > pxCor - displayWidth/2 && e.yCor() < pyCor + displayHeight/2 && e.yCor() > pyCor - displayHeight/2)
+        e.display();
+    }
+    
   for (int i = 0; i < powerupSize; i ++) //2-D parsing
     for (Powerup p : powerups[i])
       p.display();
@@ -454,11 +461,11 @@ void displayAll() {
   displayStats();
 }
 
-//void enemiesAttack() {
-//  for (int i = 0; i < enemySize; i ++) //2-D parsing
-//    for (Enemy e : enemies[i])
-//      e.attack();
-//}
+void enemiesAttack() {
+ for (int i = 0; i < enemySize; i ++) //2-D parsing
+   for (Enemy e : enemies[i])
+     e.attack();
+}
 
 void enemiesCollide() {
   for (int i = 0; i < enemies[1].size (); i ++)
@@ -598,4 +605,3 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
-

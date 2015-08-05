@@ -25,13 +25,18 @@ class Chaser implements Enemy {
   }
 
   void attack() { //nearly identical to Player class' "move()" method
-    float speedX = (xCor - pxCor);
-    float speedY = (yCor - pyCor);
-    float speed = sqrt(speedX*speedX + speedY*speedY);
-    speedX = (step*speedX)/speed;
-    speedY = (step*speedY)/speed;
-    xCor -= speedX;
-    yCor -= speedY;
+    if (isAlive){  
+      float speedX = (xCor - pxCor);
+      float speedY = (yCor - pyCor);
+      float speed = sqrt(speedX*speedX + speedY*speedY);
+      speedX = (step*speedX)/speed;
+      speedY = (step*speedY)/speed;
+      xCor -= speedX;
+      yCor -= speedY;
+    }
+    else{
+      return;
+    }
   }
 
   void act() {
@@ -47,11 +52,13 @@ class Chaser implements Enemy {
     myPlace = i;
     inLife = j;
     if (isAlive) {
-      tempFrameCount = counter;
+      //tempFrameCount = counter;
+      tempFrameCount = millis();
       isAlive = false;
     } else {
-      chas_dying.show(xCor, yCor, 1);
-      if (counter >= tempFrameCount) {
+      chas_dying.show(xCor, yCor, 2);
+      //if (counter >= tempFrameCount + 8) {
+        if (millis() >= tempFrameCount + 250) {
         enemies[i].remove(j);
         score += 15;
       }
@@ -62,8 +69,12 @@ class Chaser implements Enemy {
   }
 
   void display() {
-    fill(#DE1616);
-    ellipse(xCor, yCor, 30, 30);
+    if(isAlive){
+      fill(#DE1616);
+      ellipse(xCor, yCor, 30, 30);
+    }
+    else{
+      dying(myPlace, inLife);
+    }
   }
 }
-
