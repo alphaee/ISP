@@ -34,31 +34,30 @@ class Chaser implements Enemy {
       xCor -= speedX;
       yCor -= speedY;
     }
-    else{
-      return;
-    }
   }
 
   void act() {
-    if (isAlive) {
-      display();
-      attack();
-    } else {
-      dying(myPlace, inLife);
-    }
+//    if (isAlive) {
+//      display();
+//      attack();
+//    } 
+//    else {
+//      dying(myPlace, inLife);
+//    }
   }
 
   void dying(int i, int j) {
     myPlace = i;
     inLife = j;
     if (isAlive) {
-      //tempFrameCount = counter;
-      tempFrameCount = millis();
+      tempFrameCount = counter;
+      //tempFrameCount = millis();
       isAlive = false;
-    } else {
+    } 
+    else {
       chas_dying.show(xCor, yCor, 2);
-      //if (counter >= tempFrameCount + 8) {
-        if (millis() >= tempFrameCount + 250) {
+      if (counter >= tempFrameCount + 8) {
+        //if (millis() >= tempFrameCount + 250) {
         enemies[i].remove(j);
         score += 15;
       }

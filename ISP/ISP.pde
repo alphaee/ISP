@@ -150,7 +150,7 @@ void setup2() {
     powerups[i] = new ArrayList<Powerup>();
   }
 
-  for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
+  for (int i = 0; i < 2; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
     enemies[0].add(temp);
     //    BackAndForth temp2 = new BackAndForth();
@@ -167,6 +167,7 @@ void setup2() {
 }
 
 void draw() {
+  println("running" + counter);
   switch(state) {
 
   case 00: //HOMESCREEN
@@ -289,7 +290,8 @@ void draw() {
 
     if (start) {
       countdown(startMillis);
-    } else {
+    } 
+    else {
       if (touchDetection()) {
         checkPowerupCounter();
         //checkEnemyCounter();
@@ -588,11 +590,19 @@ void checkHighScores() throws IOException {
   String[] res = highScores();
   int i = 2;
   int index = -1;
-  while ( (i > 0)&&(score*100 >= Integer.parseInt(res[i]))) {
+  while ( (i >= 0)&&(score*100 >= Integer.parseInt(res[i]))) {
     index = i;
     i--;
   }
   if (index != -1) {
+    i = index;
+    if(i == 1){
+      res[2] = res[1];
+    } 
+    else if(i == 0){
+      res[2] = res[1];
+      res[1] = res[0];
+    }
     res[index] = (int)score*100 + "";
     PrintWriter out = createWriter("data/highScores.txt");
     for (int k = 0; k < res.length; k++)
