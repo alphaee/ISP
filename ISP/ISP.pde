@@ -55,6 +55,7 @@ final int railgunTime = (int)fps*10;
 PImage shield;
 PImage mineActive;
 PImage minePassive;
+PImage railgun;
 
 //JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Joystick thumbCircle;
@@ -132,6 +133,8 @@ void setup() {
   mineActive.resize(65, 65);
   minePassive = loadImage("LandMine1.png");
   minePassive.resize(65, 65);
+  railgun = loadImage("Railgun.png");
+  railgun.resize(65,65);
 
   font = loadFont("Kuro-Regular-120.vlw");
   textFont(font);

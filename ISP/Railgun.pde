@@ -59,7 +59,7 @@ class Railgun implements Powerup {
       fill(#53A58C);
     else
       fill(#048B29);
-    ellipse(xCor, yCor, 50, 50);
+    image(railgun,xCor,yCor);
   }
 
   boolean checkBounds() {
