@@ -12,8 +12,9 @@
 - Fix dying for Bouncer to make it work 100%
 - Background screen
 - Game should not immediately pause after starting
-- Dan: Spawning
+- Dan: Spawning and merging, Animation tweaking, secondary dying bouncer
 - Young: (optional: music), Instructions/Credits
+- Franklin Enemy invincibility, pause display
 
 *Update Log*
 
