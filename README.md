@@ -6,17 +6,23 @@
 [Google Doc!](https://docs.google.com/document/d/1bsUmQ39Tuk8-FGRpbGtZ056lpED07QvHCmKS6JtyHVg/edit?usp=sharing)
 
 *To-Do*  
-- Animate character die and enemies merge and die
+- Animate character die
 - Explosion animations
-- Spawning/dying animations for enemies
+- Spawning animations for enemies
 - Fix dying for Bouncer to make it work 100%
 - Background screen
 - Game should not immediately pause after starting
 - Dan: Spawning
-- Young: (optional: mine picture & music), Instructions/Credits, Lag
-- Franklin: First frame of railgun animation
+- Young: (optional: music), Instructions/Credits
 
 *Update Log*
+
+8/5/15
+- Act fxn implemented
+- High Scores fully fixed
+- Dying fxn split
+- Death lag fixed
+- Mine picture updated
 
 8/3/15
 - Fixed score so highscores are saved
