@@ -16,7 +16,7 @@ class Bouncer implements Enemy {
     tempFrameCount = 0;
     spawnDelay = fps*2;
     spawnCounter = 0;
-    deathCounter = 35;
+    deathCounter = 28;
   }
 
   Bouncer(float x, float y) {
@@ -28,7 +28,7 @@ class Bouncer implements Enemy {
     tempFrameCount = 0;
     spawnDelay = fps*2;
     spawnCounter = 0;
-    deathCounter = 35;
+    deathCounter = 28;
   }
 
   float xCor() {
@@ -76,7 +76,6 @@ class Bouncer implements Enemy {
   }
 
   void dead(int i, int j) {
-    print("p");
     myPlace = i;
     inLife = j;
     if (isAlive) {
@@ -88,7 +87,7 @@ class Bouncer implements Enemy {
 
   void dying() {
     if (!isAlive) {
-      bounce_dying.show(xCor, yCor, 2);
+      bounce_dying.show(xCor, yCor, 8);
       deathCounter--;  
       if (deathCounter < 0) {
         if (inLife>=enemies[myPlace].size())

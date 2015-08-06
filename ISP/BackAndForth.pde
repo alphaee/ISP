@@ -16,7 +16,7 @@ class BackAndForth implements Enemy {
     isAlive = true;
     tempFrameCount = 0;
     step = 5;// may change to increase speed
-    deathCounter = 35;
+    deathCounter = 14;
   }
 
   BackAndForth(float x, float y, float speedX, float speedY) {
@@ -28,7 +28,7 @@ class BackAndForth implements Enemy {
     tempFrameCount = 0;
     iBafCounter = 0;
     step = 5;// may change to increase speed
-    deathCounter = 35;
+    deathCounter = 14;
   }
 
   float xCor() {
@@ -124,14 +124,13 @@ class BackAndForth implements Enemy {
       //tempFrameCount = counter;
       tempFrameCount = millis();
       isAlive = false;
-      println("P");
     }
   }
 
   void dying() {
 
     if (!isAlive) {
-      baf_dying.show(xCor, yCor, 2);
+      baf_dying.show(xCor, yCor, 4);
       deathCounter--;
       if (deathCounter < 0) {
         //if (counter >= tempFrameCount) {
