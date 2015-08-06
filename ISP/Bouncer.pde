@@ -5,6 +5,7 @@ class Bouncer implements Enemy {
   int myPlace, inLife;
   int tempFrameCount;
   int spawnDelay, spawnCounter;
+  int deathCounter;
 
   Bouncer() {
     xCor = random(0, XSIZE);
@@ -15,6 +16,7 @@ class Bouncer implements Enemy {
     tempFrameCount = 0;
     spawnDelay = fps*2;
     spawnCounter = 0;
+    deathCounter = 35;
   }
 
   Bouncer(float x, float y) {
@@ -26,6 +28,7 @@ class Bouncer implements Enemy {
     tempFrameCount = 0;
     spawnDelay = fps*2;
     spawnCounter = 0;
+    deathCounter = 35;
   }
 
   float xCor() {
@@ -33,6 +36,10 @@ class Bouncer implements Enemy {
   }
   float yCor() {
     return yCor;
+  }
+
+  boolean isAlive() {
+    return isAlive;
   }
 
   boolean detect() { 
@@ -60,24 +67,33 @@ class Bouncer implements Enemy {
 
   void act() {
     if (isAlive) {
-      display();
-      detect();
+      if (xCor < pxCor + displayWidth/2 && xCor > pxCor - displayWidth/2 && yCor < pyCor + displayHeight/2 && yCor > pyCor - displayHeight/2)
+        display();
       attack();
     } else {
-      dying(myPlace, inLife);
+      dying();
     }
   }
 
-  void dying(int i, int j) {
+  void dead(int i, int j) {
+    print("p");
     myPlace = i;
     inLife = j;
     if (isAlive) {
-      tempFrameCount = counter;
+      //tempFrameCount = counter;
+      tempFrameCount = millis();
       isAlive = false;
-    } else {
-      bounce_dying.show(xCor, yCor, 1);
-      if (counter >= tempFrameCount) {
-        enemies[i].remove(j);
+    }
+  }
+
+  void dying() {
+    if (!isAlive) {
+      bounce_dying.show(xCor, yCor, 2);
+      deathCounter--;  
+      if (deathCounter < 0) {
+        if (inLife>=enemies[myPlace].size())
+          inLife = enemies[myPlace].size()-1;
+        enemies[myPlace].remove(inLife);
         BackAndForth baby = new BackAndForth(xCor, yCor, speedX, speedY);
         enemies[1].add(baby);
         score += 20;
@@ -101,3 +117,4 @@ class Bouncer implements Enemy {
     bounce_moving.show(xCor, yCor, 20);
   }
 }
+

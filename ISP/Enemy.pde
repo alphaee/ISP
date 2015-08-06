@@ -1,12 +1,15 @@
 interface Enemy {  
   float xCor();
   float yCor();
+  boolean isAlive();
 
   boolean detect(); //Detects borders and player
 
   void attack(); //Defines how the character attacks
 
-  void dying(int i, int j); //How the character dies ie. splitting into smaller or disappearing
+  void dying(); //How the character dies ie. splitting into smaller or disappearing
+  
+  void dead(int i, int j);
 
   void display(); //Draws the character with image import
 

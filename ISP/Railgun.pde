@@ -26,7 +26,7 @@ class Railgun implements Powerup {
   }
 
   boolean detect(Enemy e) {
-    return( dist(xCor, yCor, e.xCor(), e.yCor()) <  50 );
+    return dist(xCor, yCor, e.xCor(), e.yCor()) <  50 && e.isAlive();
   }
 
   boolean event(Enemy e) {

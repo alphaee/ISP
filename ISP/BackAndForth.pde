@@ -5,6 +5,8 @@ class BackAndForth implements Enemy {
   boolean avoid, isAlive;
   int myPlace, inLife;
   int tempFrameCount;
+  int iBafCounter;
+  int deathCounter;
 
   BackAndForth() {
     xCor = random(0, XSIZE);
@@ -14,6 +16,7 @@ class BackAndForth implements Enemy {
     isAlive = true;
     tempFrameCount = 0;
     step = 5;// may change to increase speed
+    deathCounter = 35;
   }
 
   BackAndForth(float x, float y, float speedX, float speedY) {
@@ -23,7 +26,9 @@ class BackAndForth implements Enemy {
     avoid = false;
     isAlive = true;
     tempFrameCount = 0;
+    iBafCounter = 0;
     step = 5;// may change to increase speed
+    deathCounter = 35;
   }
 
   float xCor() {
@@ -32,6 +37,10 @@ class BackAndForth implements Enemy {
 
   float yCor() {
     return yCor;
+  }
+
+  boolean isAlive() {
+    return isAlive;
   }
 
   boolean detect() {
@@ -108,16 +117,27 @@ class BackAndForth implements Enemy {
     enemies[1].remove(i);
   }
 
-  void dying(int i, int j) {
+  void dead(int i, int j) {
     myPlace = i;
     inLife = j;
-    if (isAlive) {
-      tempFrameCount = counter;
+    if (isAlive) {// && iBafCounter>=fps*3) {
+      //tempFrameCount = counter;
+      tempFrameCount = millis();
       isAlive = false;
-    } else {
-      baf_dying.show(xCor, yCor, 1);
-      if (counter >= tempFrameCount) {
-        enemies[i].remove(j);
+      println("P");
+    }
+  }
+
+  void dying() {
+
+    if (!isAlive) {
+      baf_dying.show(xCor, yCor, 2);
+      deathCounter--;
+      if (deathCounter < 0) {
+        //if (counter >= tempFrameCount) {
+        if (inLife>=enemies[myPlace].size())
+          inLife = enemies[myPlace].size()-1;
+        enemies[myPlace].remove(inLife);
         score += 10;
       }
     }
@@ -125,10 +145,12 @@ class BackAndForth implements Enemy {
 
   void act() {
     if (isAlive) {
-      display();
+      if (xCor < pxCor + displayWidth/2 && xCor > pxCor - displayWidth/2 && yCor < pyCor + displayHeight/2 && yCor > pyCor - displayHeight/2)
+        display();
       attack();
+      iBafCounter++;
     } else {
-      dying(myPlace, inLife);
+      dying();
     }
   }
 

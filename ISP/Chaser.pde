@@ -20,45 +20,54 @@ class Chaser implements Enemy {
     return yCor;
   }
 
+  boolean isAlive() {
+    return isAlive;
+  }
+
   boolean detect() {
     return dist(xCor, yCor, pxCor, pyCor) < YSIZE/5;
   }
 
   void attack() { //nearly identical to Player class' "move()" method
-    if (isAlive){  
-      float speedX = (xCor - pxCor);
-      float speedY = (yCor - pyCor);
-      float speed = sqrt(speedX*speedX + speedY*speedY);
-      speedX = (step*speedX)/speed;
-      speedY = (step*speedY)/speed;
-      xCor -= speedX;
-      yCor -= speedY;
-    }
+    float speedX = (xCor - pxCor);
+    float speedY = (yCor - pyCor);
+    float speed = sqrt(speedX*speedX + speedY*speedY);
+    speedX = (step*speedX)/speed;
+    speedY = (step*speedY)/speed;
+    xCor -= speedX;
+    yCor -= speedY;
   }
 
   void act() {
-//    if (isAlive) {
-//      display();
-//      attack();
-//    } 
-//    else {
-//      dying(myPlace, inLife);
-//    }
+    if (isAlive) {
+      if (xCor < pxCor + displayWidth/2 && xCor > pxCor - displayWidth/2 && yCor < pyCor + displayHeight/2 && yCor > pyCor - displayHeight/2)
+        display();
+      attack();
+    } else {
+      print("correct");
+      dying();
+    }
   }
 
-  void dying(int i, int j) {
+  void dead(int i, int j) {
+    print("p");
     myPlace = i;
     inLife = j;
     if (isAlive) {
-      tempFrameCount = counter;
-      //tempFrameCount = millis();
+      //tempFrameCount = counter;
+      tempFrameCount = millis();
       isAlive = false;
-    } 
-    else {
+    }
+  }
+
+  void dying() {
+    if (!isAlive) {
       chas_dying.show(xCor, yCor, 2);
-      if (counter >= tempFrameCount + 8) {
+      if (millis() >= tempFrameCount + 100) {
         //if (millis() >= tempFrameCount + 250) {
-        enemies[i].remove(j);
+        if (inLife>=enemies[myPlace].size())
+          inLife = enemies[myPlace].size()-1;
+        enemies[myPlace].remove(inLife);
         score += 15;
       }
     }
@@ -68,12 +77,8 @@ class Chaser implements Enemy {
   }
 
   void display() {
-    if(isAlive){
-      fill(#DE1616);
-      ellipse(xCor, yCor, 30, 30);
-    }
-    else{
-      dying(myPlace, inLife);
-    }
+    fill(#DE1616);
+    ellipse(xCor, yCor, 30, 30);
   }
 }
+
