@@ -153,13 +153,13 @@ void setup2() {
     powerups[i] = new ArrayList<Powerup>();
   }
 
-  for (int i = 0; i < 5; i ++) { //FOR TESTING PURPOSES ONLY
+  for (int i = 0; i < 100; i ++) { //FOR TESTING PURPOSES ONLY
     Chaser temp = new Chaser();
     enemies[0].add(temp);
     //    BackAndForth temp2 = new BackAndForth();
     //     enemies[1].add(temp2);
-    Bouncer temp3 = new Bouncer();
-    enemies[2].add(temp3);
+    //Bouncer temp3 = new Bouncer();
+    //enemies[2].add(temp3);
   }
 
   counter = 0;
@@ -189,12 +189,6 @@ void draw() {
     text("Play", displayWidth/2, displayHeight/2 - displayHeight*2/25);
     text("Instructions", displayWidth/2, displayHeight/2 + displayHeight*3/25);
     text("Credits", displayWidth/2, displayHeight/2 + displayHeight*8/25);
-
-    stroke(255);
-    line(0, displayHeight/2 - displayHeight*2/25 - displayHeight/10, displayWidth, displayHeight/2 - displayHeight*2/25 - displayHeight/10);
-    line(0, displayHeight/2 - displayHeight*2/25 + displayHeight/10, displayWidth, displayHeight/2 - displayHeight*2/25 + displayHeight/10);
-    line(0, displayHeight/2 - displayHeight*2/25 + displayHeight*3/10, displayWidth, displayHeight/2 - displayHeight*2/25 + displayHeight*3/10);
-    line(0, displayHeight/2 - displayHeight*2/25 + displayHeight*5/10, displayWidth, displayHeight/2 - displayHeight*2/25 + displayHeight*5/10);
 
     if (!active) {
       if (millis() - activeMillis > 500)
@@ -230,10 +224,10 @@ void draw() {
     textSize(displayHeight/25);
     textAlign(LEFT);
     fill(0);
-    text("Welcome to I.S.P.!", displayWidth/4, displayHeight/5 + displayHeight*2/20);
-    text("Controls are self-explanatory, just use the", displayWidth/4, displayHeight/5 + displayHeight*4/20);
-    text("thumbstick to move.", displayWidth/3, displayHeight/5 + displayHeight*5/20);
-    text("To pause, just let go of the thumbstick at any time.", displayWidth/4, displayHeight/5 + displayHeight*6/20);
+    text("Welcome to I.S.P.!", displayWidth/6, displayHeight/5 + displayHeight*2/20);
+    text("Controls are self-explanatory, just use the thumbstick to move.", displayWidth/6, displayHeight/5 + displayHeight*4/20);
+    text("To pause, just let go of the thumbstick at any time.", displayWidth/6, displayHeight/5 + displayHeight*6/20);
+    text("There are three main powerups: the mine, the railgun, and the shield.", displayWidth/6, displayHeight/5 + displayHeight*7/20);
 
     textAlign(CENTER, CENTER);
     text("Tap Anywhere To Return!", displayWidth/2, displayHeight*6/7);
