@@ -50,7 +50,6 @@ class Railgun implements Powerup {
     xCor += speedX;
     yCor += speedY;
   }
-
   boolean checkBounds() {
     if ( xCor < 0 || xCor > XSIZE) 
       return true;
@@ -58,13 +57,13 @@ class Railgun implements Powerup {
       return true;
     return false;
   }
-  
+
   void display() {
-    if (activated) 
-      fill(#53A58C);
+    if (activated)
+      gunMoving.show(xCor, yCor, 2); 
     else
-      fill(#048B29);
-    image(railgun,xCor,yCor);
+      image(railgun, xCor, yCor);
   }
+
 }
 
