@@ -18,6 +18,14 @@
 
 *Update Log*
 
+8/11/15
+- Changed border around game
+- Added spawning/merging animations
+- Started railgun animation
+- Fixed enemies not showing during pause screen
+- Bouncer rotation
+- Changed frame count from 60 to 30
+
 8/5/15
 - Act fxn implemented
 - High Scores fully fixed
