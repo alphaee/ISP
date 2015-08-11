@@ -124,8 +124,8 @@ void setup() {
   baf_merge = new Animation("MergeYellow", 14, 240, 200);
   bounce_moving = new Animation("MovingGreen", 13, 240, 200);
   bounce_dying = new Animation("DieGreen", 10, 240, 200);
-  bounce_dying2 = new Animation("SecondDieGreen", 10, 240, 200);
-  gunMoving = new Animation("Railgun", 7, displayHeight/14, displayHeight/14);
+  //bounce_dying2 = new Animation("SecondDieGreen", 10, 240, 200);
+  gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
 
   //home screen
   button_play = loadImage("Button_Play.png");
