@@ -7,12 +7,12 @@ class Railgun implements Powerup {
   Railgun() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-    step = 30;
+    step = 60;
     activated = false;
   }
 
   Railgun(int i) {
-    step = 30;
+    step = 60;
     activated = false;
     xCor = pxCor;
     yCor = pyCor;

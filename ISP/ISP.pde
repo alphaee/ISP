@@ -427,7 +427,8 @@ boolean touchDetection() {
     controlAngle = thumbCircle.calcAngle();
     controlDistance = thumbCircle.calcDistance();
     return true;
-  } else {
+  } 
+  else {
     fill(0, 153, 204, 200);
     rect(-XCHANGE, -YCHANGE+displayHeight/4, displayWidth, displayHeight/2);
     fill(15);
@@ -591,7 +592,8 @@ void checkHighScores() throws IOException {
     i = index;
     if (i == 1) {
       res[2] = res[1];
-    } else if (i == 0) {
+    } 
+    else if (i == 0) {
       res[2] = res[1];
       res[1] = res[0];
     }

@@ -11,8 +11,8 @@ class Bouncer implements Enemy {
   Bouncer() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-    speedX = 10 - random( 20 ); //speed
-    speedY = 10 - random( 20 );
+    speedX = 10 - random( 10 ); //speed
+    speedY = 10 - random( 10 );
     isAlive = true;
     tempFrameCount = 0;
     spawnDelay = fps*2;
@@ -59,13 +59,13 @@ class Bouncer implements Enemy {
       speedX *= -multiplier;
 
       if (abs(speedX)> 16) //change this to change speed
-        speedX = 8*speedX/abs(speedX);
+        speedX = 16*speedX/abs(speedX);
     }
     if ( yCor < 0 || yCor > YSIZE ) {
       speedY *= -multiplier;
 
       if (abs(speedY)> 16) //change this to change speed
-        speedY = 8*speedY/abs(speedY);
+        speedY = 16*speedY/abs(speedY);
     }
   }
 
