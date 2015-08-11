@@ -2,9 +2,9 @@ class Chaser implements Enemy {
   float xCor, yCor;
   int step;
   int myPlace, inLife;
-  boolean isAlive;
+  boolean isAlive, spawning;
   int tempFrameCount;
-  int deathCounter;
+  int deathCounter, spawnCounter;
 
   Chaser() {
     xCor = random(0, XSIZE);
@@ -13,6 +13,8 @@ class Chaser implements Enemy {
     isAlive = true;
     tempFrameCount = 0;
     deathCounter = 14;
+    spawnCounter = 5;
+    spawning = true;
   }
 
   float xCor() {
@@ -78,8 +80,16 @@ class Chaser implements Enemy {
   }
 
   void display() {
-    fill(#DE1616);
-    ellipse(xCor, yCor, 30, 30);
+    if (spawning){
+      chas_spawning.show(xCor, yCor, 20);
+      spawnCounter--;
+      if (spawnCounter < 0){
+        spawning = false;
+      }
+    }
+    else{
+      fill(#DE1616);
+      ellipse(xCor, yCor, 30, 30);
+    }
   }
 }
-

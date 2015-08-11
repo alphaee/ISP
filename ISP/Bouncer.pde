@@ -1,7 +1,7 @@
 class Bouncer implements Enemy {
   float xCor, yCor;
   float speedX, speedY;
-  boolean isAlive;
+  boolean isAlive, spawning;
   int myPlace, inLife;
   int tempFrameCount;
   int spawnDelay, spawnCounter;
@@ -15,8 +15,9 @@ class Bouncer implements Enemy {
     isAlive = true;
     tempFrameCount = 0;
     spawnDelay = fps*2;
-    spawnCounter = 0;
+    spawnCounter = 10;
     deathCounter = 28;
+    spawning = true;
   }
 
   Bouncer(float x, float y) {
@@ -27,7 +28,7 @@ class Bouncer implements Enemy {
     isAlive = true;
     tempFrameCount = 0;
     spawnDelay = fps*2;
-    spawnCounter = 0;
+    spawnCounter = 10;
     deathCounter = 28;
   }
 
@@ -113,7 +114,15 @@ class Bouncer implements Enemy {
   }
 
   void display() {
+    if (spawning){
+      baf_spawning.show(xCor, yCor, 20);
+      spawnCounter--;
+      if (spawnCounter < 0){
+        spawning = false;
+      }
+    }
+    else{
     bounce_moving.show(xCor, yCor, 20);
+    }
   }
 }
-

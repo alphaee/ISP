@@ -2,11 +2,11 @@ class BackAndForth implements Enemy {
   float xCor, yCor;
   int direction;
   int step;
-  boolean avoid, isAlive;
+  boolean avoid, isAlive, spawning;
   int myPlace, inLife;
   int tempFrameCount;
   int iBafCounter;
-  int deathCounter;
+  int deathCounter, spawnCounter;
 
   BackAndForth() {
     xCor = random(0, XSIZE);
@@ -17,6 +17,8 @@ class BackAndForth implements Enemy {
     tempFrameCount = 0;
     step = 5;// may change to increase speed
     deathCounter = 14;
+    spawnCounter = 10;
+    spawning = true;
   }
 
   BackAndForth(float x, float y, float speedX, float speedY) {
@@ -154,11 +156,17 @@ class BackAndForth implements Enemy {
   }
 
   void display() {//display() should only display
-    if (direction % 4 == 2 || direction % 4 == 3) {
+    if (spawning){
+      baf_spawning.show(xCor, yCor, 20);
+      spawnCounter--;
+      if (spawnCounter < 0){
+        spawning = false;
+      }
+    }
+    else if (direction % 4 == 2 || direction % 4 == 3) {
       baf_moving_vert.show(xCor, yCor, 10);
     } else {
       baf_moving_hori.show(xCor, yCor, 10);
     }
   }
 }
-
