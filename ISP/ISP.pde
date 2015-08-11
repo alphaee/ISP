@@ -134,13 +134,13 @@ void setup() {
 
   //powerups
   shield = loadImage("Shield.png");
-  shield.resize(60, 60);
+  shield.resize(displayHeight/14, displayHeight/14);
   mineActive = loadImage("LandMineActivated1.png");
-  mineActive.resize(65, 65);
+  mineActive.resize(displayHeight/14, displayHeight/14);
   minePassive = loadImage("LandMine1.png");
-  minePassive.resize(65, 65);
+  minePassive.resize(displayHeight/14, displayHeight/14);
   railgun = loadImage("Railgun.png");
-  railgun.resize(65, 65);
+  railgun.resize(displayHeight/14, displayHeight/14);
 
   font = loadFont("Kuro-Regular-120.vlw");
   textFont(font);
@@ -230,11 +230,17 @@ void draw() {
     textSize(displayHeight/25);
     textAlign(LEFT);
     fill(0);
-    text("Welcome to I.S.P.!", displayWidth/6, displayHeight/5 + displayHeight*2/20);
-    text("Controls are self-explanatory, just use the thumbstick to move.", displayWidth/6, displayHeight/5 + displayHeight*4/20);
-    text("To pause, just let go of the thumbstick at any time.", displayWidth/6, displayHeight/5 + displayHeight*6/20);
-    text("There are three main powerups: the mine, the railgun, and the shield.", displayWidth/6, displayHeight/5 + displayHeight*7/20);
-
+    text("To move, use the thumbstick.", displayWidth/6, displayHeight/6 + displayHeight*2/20);
+    text("Survive the waves of enemies using three powerups:", displayWidth/6, displayHeight/6 + displayHeight*4/20);
+    text("Mine:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*5/20);
+    text("Shield:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*7/20);
+    text("Railgun:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*9/20);
+    
+    imageMode(CENTER);
+    image(minePassive, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*5/20);
+    image(shield, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*7/20);
+    image(railgun, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*9/20);
+    
     textAlign(CENTER, CENTER);
     text("Tap Anywhere To Return!", displayWidth/2, displayHeight*6/7);
 
