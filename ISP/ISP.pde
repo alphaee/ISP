@@ -33,13 +33,10 @@ Animation chas_dying;
 Animation baf_spawning;
 Animation baf_moving_hori;
 Animation baf_moving_vert;
-Animation baf_merge;
 Animation baf_dying; 
 Animation bounce_spawning;
 Animation bounce_moving;
 Animation bounce_dying;
-Animation bounce_dying2;
-
 
 //POWERUP VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ArrayList<Powerup>[] powerups;
@@ -62,7 +59,6 @@ PImage shield;
 PImage mineActive;
 PImage minePassive;
 PImage railgun;
-Animation gunMoving;
 
 //JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Joystick thumbCircle;
@@ -121,11 +117,8 @@ void setup() {
   baf_moving_hori = new Animation("MovingYellow", 13, 180, 150);
   baf_moving_vert = new Animation("MovingYellowVert", 13, 150, 180);
   bounce_spawning = new Animation("SpawnGreen", 10, 240, 200);
-  baf_merge = new Animation("MergeYellow", 14, 240, 200);
   bounce_moving = new Animation("MovingGreen", 13, 240, 200);
   bounce_dying = new Animation("DieGreen", 10, 240, 200);
-  bounce_dying2 = new Animation("SecondDieGreen", 10, 240, 200);
-  gunMoving = new Animation("Railgun", 7, displayHeight/14, displayHeight/14);
 
   //home screen
   button_play = loadImage("Button_Play.png");
@@ -166,13 +159,13 @@ void setup2() {
     powerups[i] = new ArrayList<Powerup>();
   }
 
-  for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
+  for (int i = 0; i < 20; i ++) { //FOR TESTING PURPOSES ONLY
     //Chaser temp = new Chaser();
     //enemies[0].add(temp);
-        BackAndForth temp2 = new BackAndForth();
-         enemies[1].add(temp2);
-    //Bouncer temp3 = new Bouncer();
-    //enemies[2].add(temp3);
+    //BackAndForth temp2 = new BackAndForth();
+    //enemies[1].add(temp2);
+    Bouncer temp3 = new Bouncer();
+    enemies[2].add(temp3);
   }
 
   counter = 0;
@@ -439,6 +432,13 @@ void createBoundary() {
   line(XSIZE,-displayHeight/10,XSIZE,YSIZE+displayHeight/10);
   line(-displayHeight/10,0,XSIZE+displayHeight/10,0);
   line(-displayHeight/10,YSIZE,XSIZE+displayHeight/10,YSIZE);
+  
+  fill(0);
+  strokeWeight(5);
+  ellipse(-displayHeight/20,-displayHeight/20,displayHeight/50,displayHeight/50);
+  ellipse(-displayHeight/20,YSIZE+displayHeight/20,displayHeight/50,displayHeight/50);
+  ellipse(XSIZE+displayHeight/20,-displayHeight/20,displayHeight/50,displayHeight/50);
+  ellipse(XSIZE+displayHeight/20,YSIZE+displayHeight/20,displayHeight/50,displayHeight/50);
 }
 
 boolean touchDetection() {
@@ -630,3 +630,4 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
+
