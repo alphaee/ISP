@@ -116,7 +116,7 @@ void setup() {
   baf_dying = new Animation("DieYellow", 5, 240, 200);
   baf_moving_hori = new Animation("MovingYellow", 13, 180, 150);
   baf_moving_vert = new Animation("MovingYellowVert", 13, 150, 180);
-  bounce_spawning = new  Animation("SpawnGreen", 10, 240, 200);
+  bounce_spawning = new Animation("SpawnGreen", 10, 240, 200);
   bounce_moving = new Animation("MovingGreen", 13, 240, 200);
   bounce_dying = new Animation("DieGreen", 10, 240, 200);
 
