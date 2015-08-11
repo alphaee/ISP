@@ -8,7 +8,6 @@
 *To-Do*  
 - Animate character die
 - Explosion animations
-- Spawning animations for enemies
 - Fix dying for Bouncer to make it work 100%
 - Background screen
 - Game should not immediately pause after starting
