@@ -477,6 +477,7 @@ boolean touchDetection() {
     textSize(50);
     textFont(font);
     text("GO!", pxCor, pyCor-displayHeight/10);
+  }
   return false;
 }
 
