@@ -298,7 +298,8 @@ void draw() {
 
     if (start) {
       countdown(startMillis);
-    } else {
+    } 
+    else {
       if (touchDetection()) {
         checkPowerupCounter();
         //checkEnemyCounter();
@@ -413,6 +414,14 @@ void enemiesAct() {
     }
 }
 
+void enemiesDisplay() {
+  for (int i = 0; i < enemySize; i ++) //2-D parsing
+    for (int j = 0; j < enemies[i].size (); j++) {
+      Enemy e = enemies[i].get(j);
+      e.display();
+    }
+}
+
 
 void createBoundary() {
   stroke(204, 102, 0); 
@@ -429,6 +438,7 @@ boolean touchDetection() {
     return true;
   } 
   else {
+    enemiesDisplay();
     fill(0, 153, 204, 200);
     rect(-XCHANGE, -YCHANGE+displayHeight/4, displayWidth, displayHeight/2);
     fill(15);
