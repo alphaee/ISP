@@ -92,6 +92,8 @@ int activeMillis;
 boolean start;
 int startMillis;
 
+boolean jCheck;
+
 PFont font;
 
 void setup() {
@@ -119,9 +121,6 @@ void setup() {
   bounce_spawning = new Animation("SpawnGreen", 10, 240, 200);
   bounce_moving = new Animation("MovingGreen", 13, 240, 200);
   bounce_dying = new Animation("DieGreen", 10, 240, 200);
-  //bounce_dying2 = new Animation("SecondDieGreen", 10, 240, 200);
-  gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
-
 
   //home screen
   button_play = loadImage("Button_Play.png");
@@ -174,6 +173,7 @@ void setup2() {
   counter = 0;
 
   start = true;
+  jCheck = true;
   startMillis = millis();
   score = 0;
 }
@@ -185,9 +185,6 @@ void draw() {
     background(0);
 
     fill(#647775);
-    rectMode(CENTER);
-    //rect(displayWidth/2, displayHeight/2, displayWidth/3, displayHeight/7, displayHeight/20);
-    rectMode(CORNER);
 
     textAlign(CENTER, CENTER);
     fill(#32CCD8);
@@ -449,9 +446,10 @@ boolean touchDetection() {
     thumbCircle.pause = false;
     controlAngle = thumbCircle.calcAngle();
     controlDistance = thumbCircle.calcDistance();
+    jCheck = false;
     return true;
   } 
-  else {
+  else if(!jCheck){
     enemiesDisplay();
     fill(0, 153, 204, 200);
     rect(-XCHANGE, -YCHANGE+displayHeight/4, displayWidth, displayHeight/2);
@@ -464,8 +462,15 @@ boolean touchDetection() {
     controlAngle = 0;
     controlDistance = 0;
     noTint();
-    return false;
   }
+  else{
+    fill(0);
+    textAlign(CENTER, CENTER);
+    textSize(50);
+    textFont(font);
+    text("GO!", pxCor, pyCor-displayHeight/10);
+  }
+  return false;
 }
 
 void displayStats() {

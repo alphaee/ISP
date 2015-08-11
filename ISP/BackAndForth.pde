@@ -7,6 +7,7 @@ class BackAndForth implements Enemy {
   int tempFrameCount;
   int iBafCounter;
   int deathCounter, spawnCounter;
+  boolean invincible;
 
   BackAndForth() {
     xCor = random(0, XSIZE);
@@ -19,6 +20,7 @@ class BackAndForth implements Enemy {
     deathCounter = 14;
     spawnCounter = 10;
     spawning = true;
+    invincible = false;
   }
 
   BackAndForth(float x, float y, float speedX, float speedY) {
@@ -31,6 +33,7 @@ class BackAndForth implements Enemy {
     iBafCounter = 0;
     step = 5;// may change to increase speed
     deathCounter = 14;
+    invincible = true;
   }
 
   float xCor() {
@@ -124,6 +127,7 @@ class BackAndForth implements Enemy {
     inLife = j;
     println(iBafCounter);
     if (isAlive){// && iBafCounter >= fps*3) {
+      println("comp");
       //tempFrameCount = counter;
       tempFrameCount = millis();
       isAlive = false;
