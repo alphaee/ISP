@@ -31,9 +31,11 @@ final int bouncerTime = (int)fps*7;
 Animation chas_dying;
 Animation baf_moving_hori;
 Animation baf_moving_vert;
+Animation baf_merge;
 Animation baf_dying; 
 Animation bounce_moving;
 Animation bounce_dying;
+Animation bounce_dying2;
 
 //POWERUP VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ArrayList<Powerup>[] powerups;
@@ -111,8 +113,10 @@ void setup() {
   baf_dying = new Animation("DieYellow", 5, 240, 200);
   baf_moving_hori = new Animation("MovingYellow", 13, 180, 150);
   baf_moving_vert = new Animation("MovingYellowVert", 13, 150, 180);
+  baf_merge = new Animation("MergeYellow", 14, 240, 200);
   bounce_moving = new Animation("MovingGreen", 13, 240, 200);
   bounce_dying = new Animation("DieGreen", 10, 240, 200);
+  bounce_dying2 = new Animation("SecondDieGreen", 10, 240, 200);
 
   //home screen
   button_play = loadImage("Button_Play.png");
@@ -153,11 +157,11 @@ void setup2() {
     powerups[i] = new ArrayList<Powerup>();
   }
 
-  for (int i = 0; i < 100; i ++) { //FOR TESTING PURPOSES ONLY
-    Chaser temp = new Chaser();
-    enemies[0].add(temp);
-    //    BackAndForth temp2 = new BackAndForth();
-    //     enemies[1].add(temp2);
+  for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
+    //Chaser temp = new Chaser();
+    //enemies[0].add(temp);
+        BackAndForth temp2 = new BackAndForth();
+         enemies[1].add(temp2);
     //Bouncer temp3 = new Bouncer();
     //enemies[2].add(temp3);
   }
@@ -596,4 +600,3 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
-

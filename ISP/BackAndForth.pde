@@ -2,11 +2,11 @@ class BackAndForth implements Enemy {
   float xCor, yCor;
   int direction;
   int step;
-  boolean avoid, isAlive;
+  boolean avoid, isAlive, merge;
   int myPlace, inLife;
   int tempFrameCount;
   int iBafCounter;
-  int deathCounter;
+  int deathCounter, mergeCounter;
 
   BackAndForth() {
     xCor = random(0, XSIZE);
@@ -17,6 +17,7 @@ class BackAndForth implements Enemy {
     tempFrameCount = 0;
     step = 5;// may change to increase speed
     deathCounter = 14;
+    mergeCounter = 14;
   }
 
   BackAndForth(float x, float y, float speedX, float speedY) {
@@ -102,8 +103,9 @@ class BackAndForth implements Enemy {
 
   void event(Enemy e, int i, int j) {
     if (collide(e)) {
-      if (random(10) < 3) { //30% chance of merging
+      if (random(10) < 3 || merge ) { //30% chance of merging
         merge(e, i, j);
+        merge = true;
       } else { //if it doesn't merge, goes off border
         avoid = true;
       }
@@ -111,10 +113,13 @@ class BackAndForth implements Enemy {
   }
 
   void merge(Enemy e, int i, int j) {
-    Bouncer temp = new Bouncer(xCor, yCor);
-    enemies[2].add(temp);
-    enemies[1].remove(j);
-    enemies[1].remove(i);
+    if (mergeCounter < 0){
+      merge = false;
+      Bouncer temp = new Bouncer(xCor, yCor);
+      enemies[2].add(temp);
+      enemies[1].remove(j);
+      enemies[1].remove(i);
+    }
   }
 
   void dead(int i, int j) {
@@ -154,11 +159,14 @@ class BackAndForth implements Enemy {
   }
 
   void display() {//display() should only display
-    if (direction % 4 == 2 || direction % 4 == 3) {
+    if (merge){
+      baf_merge.show(xCor,yCor, 10);
+      mergeCounter--;
+    }
+    else if (direction % 4 == 2 || direction % 4 == 3) {
       baf_moving_vert.show(xCor, yCor, 10);
     } else {
       baf_moving_hori.show(xCor, yCor, 10);
     }
   }
 }
-

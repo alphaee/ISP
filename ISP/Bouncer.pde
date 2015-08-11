@@ -87,7 +87,7 @@ class Bouncer implements Enemy {
 
   void dying() {
     if (!isAlive) {
-      bounce_dying.show(xCor, yCor, 8);
+      bounce_dying2.show(xCor, yCor, 8);
       deathCounter--;  
       if (deathCounter < 0) {
         if (inLife>=enemies[myPlace].size())
@@ -116,4 +116,3 @@ class Bouncer implements Enemy {
     bounce_moving.show(xCor, yCor, 20);
   }
 }
-
