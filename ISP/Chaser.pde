@@ -43,7 +43,14 @@ class Chaser implements Enemy {
   }
 
   void act() {
-    if (isAlive) {
+    if (spawning){
+      chas_spawning.show(xCor, yCor, 20);
+      spawnCounter--;
+      if (spawnCounter < 0){
+        spawning = false;
+      }
+    }
+    else if (isAlive) {
       if (xCor < pxCor + displayWidth/2 && xCor > pxCor - displayWidth/2 && yCor < pyCor + displayHeight/2 && yCor > pyCor - displayHeight/2)
         display();
       attack();
@@ -81,11 +88,7 @@ class Chaser implements Enemy {
 
   void display() {
     if (spawning){
-      chas_spawning.show(xCor, yCor, 20);
-      spawnCounter--;
-      if (spawnCounter < 0){
-        spawning = false;
-      }
+      
     }
     else{
       fill(#DE1616);

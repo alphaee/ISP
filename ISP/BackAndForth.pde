@@ -145,7 +145,14 @@ class BackAndForth implements Enemy {
   }
 
   void act() {
-    if (isAlive) {
+    if (spawning){
+      baf_spawning.show(xCor, yCor, 20);
+      spawnCounter--;
+      if (spawnCounter < 0){
+        spawning = false;
+      }
+    }
+    else if (isAlive) {
       if (xCor < pxCor + displayWidth/2 && xCor > pxCor - displayWidth/2 && yCor < pyCor + displayHeight/2 && yCor > pyCor - displayHeight/2)
         display();
       attack();
@@ -157,11 +164,7 @@ class BackAndForth implements Enemy {
 
   void display() {//display() should only display
     if (spawning){
-      baf_spawning.show(xCor, yCor, 20);
-      spawnCounter--;
-      if (spawnCounter < 0){
-        spawning = false;
-      }
+      
     }
     else if (direction % 4 == 2 || direction % 4 == 3) {
       baf_moving_vert.show(xCor, yCor, 10);
