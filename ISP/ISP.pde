@@ -33,7 +33,8 @@ Animation chas_dying;
 Animation baf_spawning;
 Animation baf_moving_hori;
 Animation baf_moving_vert;
-Animation baf_dying; 
+Animation baf_dying;
+Animation baf_merge;
 Animation bounce_spawning;
 Animation bounce_moving;
 Animation bounce_dying;
@@ -59,6 +60,7 @@ PImage shield;
 PImage mineActive;
 PImage minePassive;
 PImage railgun;
+Animation gunMoving;
 
 //JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Joystick thumbCircle;
@@ -116,6 +118,7 @@ void setup() {
   baf_dying = new Animation("DieYellow", 5, 240, 200);
   baf_moving_hori = new Animation("MovingYellow", 13, 180, 150);
   baf_moving_vert = new Animation("MovingYellowVert", 13, 150, 180);
+  baf_merge = new Animation("MergeYellow", 14, 480, 400);
   bounce_spawning = new Animation("SpawnGreen", 10, 240, 200);
   bounce_moving = new Animation("MovingGreen", 13, 240, 200);
   bounce_dying = new Animation("DieGreen", 10, 240, 200);
