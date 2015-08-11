@@ -4,7 +4,7 @@ import java.io.*;
 //FIXED CONSTANTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int XSIZE, YSIZE;
 float XCHANGE, YCHANGE;
-final int fps = 60;
+final int fps = 30;
 
 //PLAYER VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Player hero;
@@ -473,7 +473,6 @@ void checkShield() {
   for (int i = 0; i < powerups[0].size (); i ++) {
     if (powerups[0].get(i).detect()) {
       hero.addShield();
-      powerups[0].get(i).dying();
       powerups[0].remove(i);
       i--;
     }

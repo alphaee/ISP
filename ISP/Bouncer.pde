@@ -1,6 +1,7 @@
 class Bouncer implements Enemy {
   float xCor, yCor;
   float speedX, speedY;
+  int rotation;
   boolean isAlive, spawning;
   int myPlace, inLife;
   int tempFrameCount;
@@ -10,26 +11,28 @@ class Bouncer implements Enemy {
   Bouncer() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-    speedX = 5 - random( 10 );
-    speedY = 5 - random( 10 );
+    speedX = 10 - random( 20 ); //speed
+    speedY = 10 - random( 20 );
     isAlive = true;
     tempFrameCount = 0;
     spawnDelay = fps*2;
     spawnCounter = 10;
     deathCounter = 28;
     spawning = true;
+    rotation = (int)random(PI*2/3);
   }
 
   Bouncer(float x, float y) {
     xCor = x;
     yCor = y;
-    speedX = 5 - random( 10 );
-    speedY = 5 - random( 10 );
+    speedX = 10 - random( 20 ); //speed
+    speedY = 10 - random( 20 );
     isAlive = true;
     tempFrameCount = 0;
     spawnDelay = fps*2;
     spawnCounter = 10;
     deathCounter = 28;
+    rotation = (int)random(PI*2/3);
   }
 
   float xCor() {
@@ -55,13 +58,13 @@ class Bouncer implements Enemy {
     if ( xCor <= 0 || xCor >= XSIZE ) {
       speedX *= -multiplier;
 
-      if (abs(speedX)> 8)
+      if (abs(speedX)> 16) //change this to change speed
         speedX = 8*speedX/abs(speedX);
     }
     if ( yCor < 0 || yCor > YSIZE ) {
       speedY *= -multiplier;
 
-      if (abs(speedY)> 8)
+      if (abs(speedY)> 16) //change this to change speed
         speedY = 8*speedY/abs(speedY);
     }
   }
@@ -122,10 +125,13 @@ class Bouncer implements Enemy {
 
   void display() {
     if (spawning){
-      
     }
     else{
-    bounce_moving.show(xCor, yCor, 20);
+      pushMatrix();
+      translate(xCor,yCor);
+      rotate(rotation);
+      bounce_moving.show(0, 0, 20);
+      popMatrix();
     }
   }
 }

@@ -9,7 +9,7 @@ class Chaser implements Enemy {
   Chaser() {
     xCor = random(0, XSIZE);
     yCor = random(0, YSIZE);
-    step = (int) random(2, 5);
+    step = (int) random(4, 10);
     isAlive = true;
     tempFrameCount = 0;
     deathCounter = 14;

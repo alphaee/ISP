@@ -23,9 +23,6 @@ class Mine implements Powerup {
     duration = fps * 1;
   }
 
-  void dying() {
-  }
-
   boolean detect() {
     return( dist(xCor, yCor, pxCor, pyCor) <  35 );
   }

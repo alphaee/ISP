@@ -18,9 +18,6 @@ class Railgun implements Powerup {
     yCor = pyCor;
   }
 
-  void dying() {
-  }
-
   boolean detect() {
     return( dist(xCor, yCor, pxCor, pyCor) <  50 );
   }
@@ -54,20 +51,20 @@ class Railgun implements Powerup {
     yCor += speedY;
   }
 
-  void display() {
-    if (activated) 
-      fill(#53A58C);
-    else
-      fill(#048B29);
-    image(railgun,xCor,yCor);
-  }
-
   boolean checkBounds() {
     if ( xCor < 0 || xCor > XSIZE) 
       return true;
     if ( yCor < 0 || yCor > YSIZE)
       return true;
     return false;
+  }
+  
+  void display() {
+    if (activated) 
+      fill(#53A58C);
+    else
+      fill(#048B29);
+    image(railgun,xCor,yCor);
   }
 }
 

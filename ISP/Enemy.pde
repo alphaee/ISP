@@ -9,7 +9,7 @@ interface Enemy {
 
   void dying(); //How the character dies ie. splitting into smaller or disappearing
 
-    void dead(int i, int j);
+  void dead(int i, int j);
 
   void display(); //Draws the character with image import
 

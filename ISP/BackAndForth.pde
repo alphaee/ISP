@@ -15,7 +15,7 @@ class BackAndForth implements Enemy {
     avoid = false;
     isAlive = true;
     tempFrameCount = 0;
-    step = 5;// may change to increase speed
+    step = 10;// may change to increase speed
     deathCounter = 14;
     spawnCounter = 10;
     spawning = true;
