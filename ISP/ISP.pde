@@ -424,10 +424,14 @@ void enemiesDisplay() {
 
 
 void createBoundary() {
-  stroke(204, 102, 0); 
   fill(180);
   rect(0, 0, XSIZE, YSIZE);
-  stroke(0);
+  stroke(255);
+  strokeWeight(10);
+  line(0,-displayHeight/10,0,YSIZE+displayHeight/10);
+  line(XSIZE,-displayHeight/10,XSIZE,YSIZE+displayHeight/10);
+  line(-displayHeight/10,0,XSIZE+displayHeight/10,0);
+  line(-displayHeight/10,YSIZE,XSIZE+displayHeight/10,YSIZE);
 }
 
 boolean touchDetection() {
