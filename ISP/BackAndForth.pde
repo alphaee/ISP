@@ -7,6 +7,8 @@ class BackAndForth implements Enemy {
   int tempFrameCount;
   int iBafCounter;
   int deathCounter, mergeCounter;
+  Enemy toBeMerged;
+  int myPartner, tilDeath;
 
   BackAndForth() {
     xCor = random(0, XSIZE);
@@ -113,12 +115,24 @@ class BackAndForth implements Enemy {
   }
 
   void merge(Enemy e, int i, int j) {
-    if (mergeCounter < 0){
+    toBeMerged = e;
+    myPartner = i;
+    tilDeath = j;
+    if (tilDeath>=enemies[1].size())
+      tilDeath = enemies[1].size()-1;
+    enemies[1].remove(tilDeath);
+  }
+  
+  void merging(){  
+    baf_merge.show(xCor, yCor, 20);
+    mergeCounter--;
+    if (mergeCounter < 0) {
       merge = false;
       Bouncer temp = new Bouncer(xCor, yCor);
       enemies[2].add(temp);
-      enemies[1].remove(j);
-      enemies[1].remove(i);
+      if (myPartner>=enemies[1].size())
+        myPartner = enemies[1].size()-1;
+      enemies[1].remove(myPartner);
     }
   }
 
@@ -151,7 +165,11 @@ class BackAndForth implements Enemy {
     if (isAlive) {
       if (xCor < pxCor + displayWidth/2 && xCor > pxCor - displayWidth/2 && yCor < pyCor + displayHeight/2 && yCor > pyCor - displayHeight/2)
         display();
-      attack();
+      if (merge) {
+        merging();
+      } else {
+        attack();
+      }
       iBafCounter++;
     } else {
       dying();
@@ -159,14 +177,12 @@ class BackAndForth implements Enemy {
   }
 
   void display() {//display() should only display
-    if (merge){
-      baf_merge.show(xCor,yCor, 10);
-      mergeCounter--;
-    }
-    else if (direction % 4 == 2 || direction % 4 == 3) {
+    if (merge) {
+    } else if (direction % 4 == 2 || direction % 4 == 3) {
       baf_moving_vert.show(xCor, yCor, 10);
     } else {
       baf_moving_hori.show(xCor, yCor, 10);
     }
   }
 }
+

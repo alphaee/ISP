@@ -55,11 +55,10 @@ class Railgun implements Powerup {
   }
 
   void display() {
-    if (activated) 
-      fill(#53A58C);
+    if (activated)
+      gunMoving.show(xCor, yCor, 2); 
     else
-      fill(#048B29);
-    image(railgun,xCor,yCor);
+      image(railgun, xCor, yCor);
   }
 
   boolean checkBounds() {

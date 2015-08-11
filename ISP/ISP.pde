@@ -37,6 +37,7 @@ Animation bounce_moving;
 Animation bounce_dying;
 Animation bounce_dying2;
 
+
 //POWERUP VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ArrayList<Powerup>[] powerups;
 final int powerupSize = 3;
@@ -58,6 +59,7 @@ PImage shield;
 PImage mineActive;
 PImage minePassive;
 PImage railgun;
+Animation gunMoving;
 
 //JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Joystick thumbCircle;
@@ -117,6 +119,7 @@ void setup() {
   bounce_moving = new Animation("MovingGreen", 13, 240, 200);
   bounce_dying = new Animation("DieGreen", 10, 240, 200);
   bounce_dying2 = new Animation("SecondDieGreen", 10, 240, 200);
+  gunMoving = new Animation("Railgun", 7, displayHeight/14, displayHeight/14);
 
   //home screen
   button_play = loadImage("Button_Play.png");
