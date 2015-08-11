@@ -116,7 +116,7 @@ void setup() {
   baf_dying = new Animation("DieYellow", 5, 240, 200);
   baf_moving_hori = new Animation("MovingYellow", 13, 180, 150);
   baf_moving_vert = new Animation("MovingYellowVert", 13, 150, 180);
-  bounce_spawning = new  Animation("SpawnGreen", 10, 240,200);
+  bounce_spawning = new  Animation("SpawnGreen", 10, 240, 200);
   bounce_moving = new Animation("MovingGreen", 13, 240, 200);
   bounce_dying = new Animation("DieGreen", 10, 240, 200);
 
@@ -140,7 +140,7 @@ void setup() {
   minePassive = loadImage("LandMine1.png");
   minePassive.resize(65, 65);
   railgun = loadImage("Railgun.png");
-  railgun.resize(65,65);
+  railgun.resize(65, 65);
 
   font = loadFont("Kuro-Regular-120.vlw");
   textFont(font);
@@ -160,12 +160,12 @@ void setup2() {
   }
 
   for (int i = 0; i < 20; i ++) { //FOR TESTING PURPOSES ONLY
-    Chaser temp = new Chaser();
-    enemies[0].add(temp);
-        //BackAndForth temp2 = new BackAndForth();
-         //enemies[1].add(temp2);
-    // Bouncer temp3 = new Bouncer();
-    // enemies[2].add(temp3);
+    //Chaser temp = new Chaser();
+    //enemies[0].add(temp);
+    //BackAndForth temp2 = new BackAndForth();
+    //enemies[1].add(temp2);
+    Bouncer temp3 = new Bouncer();
+    enemies[2].add(temp3);
   }
 
   counter = 0;
@@ -602,3 +602,4 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
+

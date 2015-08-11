@@ -122,7 +122,9 @@ class BackAndForth implements Enemy {
   void dead(int i, int j) {
     myPlace = i;
     inLife = j;
-    if (isAlive) {// && iBafCounter>=fps*3) {
+    println(iBafCounter);
+    if (isAlive){// && iBafCounter >= fps*3) {
+      println("comp");
       //tempFrameCount = counter;
       tempFrameCount = millis();
       isAlive = false;
@@ -145,31 +147,28 @@ class BackAndForth implements Enemy {
   }
 
   void act() {
-    if (spawning){
+    if (spawning) {
       baf_spawning.show(xCor, yCor, 20);
       spawnCounter--;
-      if (spawnCounter < 0){
+      if (spawnCounter < 0) {
         spawning = false;
       }
-    }
-    else if (isAlive) {
+    } else if (isAlive) {
       if (xCor < pxCor + displayWidth/2 && xCor > pxCor - displayWidth/2 && yCor < pyCor + displayHeight/2 && yCor > pyCor - displayHeight/2)
         display();
       attack();
-      iBafCounter++;
     } else {
       dying();
     }
   }
 
   void display() {//display() should only display
-    if (spawning){
-      
-    }
-    else if (direction % 4 == 2 || direction % 4 == 3) {
+    if (spawning) {
+    } else if (direction % 4 == 2 || direction % 4 == 3) {
       baf_moving_vert.show(xCor, yCor, 10);
     } else {
       baf_moving_hori.show(xCor, yCor, 10);
     }
   }
 }
+
