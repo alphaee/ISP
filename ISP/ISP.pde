@@ -92,6 +92,8 @@ int activeMillis;
 boolean start;
 int startMillis;
 
+boolean jCheck;
+
 PFont font;
 
 void setup() {
@@ -176,6 +178,7 @@ void setup2() {
   counter = 0;
 
   start = true;
+  jCheck = true;
   startMillis = millis();
   score = 0;
 }
@@ -451,9 +454,10 @@ boolean touchDetection() {
     thumbCircle.pause = false;
     controlAngle = thumbCircle.calcAngle();
     controlDistance = thumbCircle.calcDistance();
+    jCheck = false;
     return true;
   } 
-  else {
+  else if(!jCheck){
     enemiesDisplay();
     fill(0, 153, 204, 200);
     rect(-XCHANGE, -YCHANGE+displayHeight/4, displayWidth, displayHeight/2);
@@ -466,8 +470,14 @@ boolean touchDetection() {
     controlAngle = 0;
     controlDistance = 0;
     noTint();
-    return false;
   }
+  else{
+    fill(0);
+    textAlign(CENTER, CENTER);
+    textSize(50);
+    textFont(font);
+    text("GO!", pxCor, pyCor-displayHeight/10);
+  return false;
 }
 
 void displayStats() {
