@@ -23,14 +23,28 @@ class Player {
     pushMatrix();
     translate(xCor, yCor);
     rotate(controlAngle + PI/2); //rotations are always done over the origin
-    if (shieldNum == 0)
-      image(img, 0, 0);
-    else if (shieldNum == 1)
-      image(img2, 0, 0);
-    else if (shieldNum == 2)
-      image(img3, 0, 0);
-    else 
-      image(img4, 0, 0);
+    if((iCounter < frameRate/2)&&(counter > frameRate/2)){
+      if(iCounter % 2 == 0){
+        if (shieldNum == 0)
+          image(img, 0, 0);
+        else if (shieldNum == 1)
+          image(img2, 0, 0);
+        else if (shieldNum == 2)
+          image(img3, 0, 0);
+        else 
+          image(img4, 0, 0);
+      }
+    }
+    else{
+      if (shieldNum == 0)
+        image(img, 0, 0);
+      else if (shieldNum == 1)
+        image(img2, 0, 0);
+      else if (shieldNum == 2)
+        image(img3, 0, 0);
+      else 
+        image(img4, 0, 0);
+    }
     popMatrix();
   }
 
