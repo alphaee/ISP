@@ -2,13 +2,15 @@ class BackAndForth implements Enemy {
   float xCor, yCor;
   int direction;
   int step;
-  boolean avoid, isAlive, merge;
+  boolean avoid, isAlive, spawning, merge;
   int myPlace, inLife;
   int tempFrameCount;
   int iBafCounter;
-  int deathCounter, mergeCounter;
+  int deathCounter, spawnCounter, mergeCounter;
   Enemy toBeMerged;
   int myPartner, tilDeath;
+  boolean invincible;
+  int invinMillis;
 
   BackAndForth() {
     xCor = random(0, XSIZE);
@@ -17,8 +19,11 @@ class BackAndForth implements Enemy {
     avoid = false;
     isAlive = true;
     tempFrameCount = 0;
-    step = 5;// may change to increase speed
+    step = 10;// may change to increase speed
     deathCounter = 14;
+    spawnCounter = 10;
+    spawning = true;
+    invincible = false;
     mergeCounter = 14;
   }
 
@@ -32,6 +37,9 @@ class BackAndForth implements Enemy {
     iBafCounter = 0;
     step = 5;// may change to increase speed
     deathCounter = 14;
+    invincible = true;
+    invinMillis = millis();
+    mergeCounter = 14;
   }
 
   float xCor() {
@@ -46,12 +54,16 @@ class BackAndForth implements Enemy {
     return isAlive;
   }
 
+  boolean invincible() {
+    return invincible;
+  }
+
   boolean detect() {
     if (xCor >= XSIZE) {
       //direction = 0;//left
       direction = (int)random(3f);
       if (direction > 0) {
-        direction ++; //only 0,2, or 3
+        direction++; //only 0,2, or 3
       }
       xCor -= step; // to move away from the border so it doesn't get caught here again
     } else if (xCor <= 0) {
@@ -105,7 +117,7 @@ class BackAndForth implements Enemy {
 
   void event(Enemy e, int i, int j) {
     if (collide(e)) {
-      if (random(10) < 3 || merge ) { //30% chance of merging
+      if (random(10) < 3) { //30% chance of merging
         merge(e, i, j);
         merge = true;
       } else { //if it doesn't merge, goes off border
@@ -122,8 +134,8 @@ class BackAndForth implements Enemy {
       tilDeath = enemies[1].size()-1;
     enemies[1].remove(tilDeath);
   }
-  
-  void merging(){  
+
+  void merging() {  
     baf_merge.show(xCor, yCor, 20);
     mergeCounter--;
     if (mergeCounter < 0) {
@@ -139,7 +151,9 @@ class BackAndForth implements Enemy {
   void dead(int i, int j) {
     myPlace = i;
     inLife = j;
-    if (isAlive) {// && iBafCounter>=fps*3) {
+    //    println(iBafCounter);
+    if (isAlive) {// && iBafCounter >= fps*3) {
+      //println("comp");
       //tempFrameCount = counter;
       tempFrameCount = millis();
       isAlive = false;
@@ -162,7 +176,16 @@ class BackAndForth implements Enemy {
   }
 
   void act() {
-    if (isAlive) {
+    if ( invincible && invinMillis+1000 > millis()) {
+      invincible = false;
+    }
+    if (spawning) {
+      baf_spawning.show(xCor, yCor, 20);
+      spawnCounter--;
+      if (spawnCounter < 0) {
+        spawning = false;
+      }
+    } else if (isAlive) {
       if (xCor < pxCor + displayWidth/2 && xCor > pxCor - displayWidth/2 && yCor < pyCor + displayHeight/2 && yCor > pyCor - displayHeight/2)
         display();
       if (merge) {
@@ -170,13 +193,14 @@ class BackAndForth implements Enemy {
       } else {
         attack();
       }
-      iBafCounter++;
     } else {
       dying();
     }
   }
 
   void display() {//display() should only display
+    if (spawning) {
+    } 
     if (merge) {
     } else if (direction % 4 == 2 || direction % 4 == 3) {
       baf_moving_vert.show(xCor, yCor, 10);
