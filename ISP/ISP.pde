@@ -33,10 +33,13 @@ Animation chas_dying;
 Animation baf_spawning;
 Animation baf_moving_hori;
 Animation baf_moving_vert;
+Animation baf_merge;
 Animation baf_dying; 
 Animation bounce_spawning;
 Animation bounce_moving;
 Animation bounce_dying;
+Animation gunMoving;
+
 
 //POWERUP VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ArrayList<Powerup>[] powerups;
@@ -98,7 +101,7 @@ PFont font;
 
 void setup() {
   orientation(LANDSCAPE);
-  size(displayWidth, displayHeight,P2D);
+  size(displayWidth, displayHeight);
 
   XSIZE = (int)(displayWidth*1.4); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.4);
@@ -121,6 +124,7 @@ void setup() {
   bounce_spawning = new Animation("SpawnGreen", 10, 240, 200);
   bounce_moving = new Animation("MovingGreen", 13, 240, 200);
   bounce_dying = new Animation("DieGreen", 10, 240, 200);
+  baf_merge = new Animation("MergeYellow", 14, 240, 200);
   gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
   println(displayHeight);
   
