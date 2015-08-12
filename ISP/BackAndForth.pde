@@ -125,9 +125,9 @@ class BackAndForth implements Enemy {
   void dead(int i, int j) {
     myPlace = i;
     inLife = j;
-    println(iBafCounter);
+//    println(iBafCounter);
     if (isAlive){// && iBafCounter >= fps*3) {
-      println("comp");
+      //println("comp");
       //tempFrameCount = counter;
       tempFrameCount = millis();
       isAlive = false;
