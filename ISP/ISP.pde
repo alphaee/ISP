@@ -68,6 +68,13 @@ Joystick thumbCircle;
 float controlAngle;
 float controlDistance;
 
+//SPAWN VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+int prevMillis;
+int percentBAF;
+int numSpawn;
+int intervalTime;
+boolean init, initEnemy;
+
 //HOME SCREEN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 PImage button_play;
 PImage button_instructions;
@@ -108,6 +115,13 @@ void setup() {
 
   thumbCircle = new Joystick();
 
+  prevMillis = startMillis;
+  percentBAF = 8;
+  numSpawn = 1;
+  intervalTime = 3000;
+  init = true;
+  initEnemy = true;
+
   enemies = (ArrayList<Enemy>[])new ArrayList[enemySize];
 
   powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
@@ -127,7 +141,7 @@ void setup() {
   baf_merge = new Animation("MergeYellow", 14, 240, 200);
   gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
   println(displayHeight);
-  
+
   //home screen
   button_play = loadImage("Button_Play.png");
   button_instructions = loadImage("Button_Instructions.png");
@@ -167,14 +181,14 @@ void setup2() {
     powerups[i] = new ArrayList<Powerup>();
   }
 
-  for (int i = 0; i < 20; i ++) { //FOR TESTING PURPOSES ONLY
-    //Chaser temp = new Chaser();
-    //enemies[0].add(temp);
-    BackAndForth temp2 = new BackAndForth();
-    enemies[1].add(temp2);
-    //Bouncer temp3 = new Bouncer();
-    //enemies[2].add(temp3);
-  }
+  // for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
+  //   //Chaser temp = new Chaser();
+  //   //enemies[0].add(temp);
+  //   BackAndForth temp2 = new BackAndForth();
+  //   enemies[1].add(temp2);
+  //   //Bouncer temp3 = new Bouncer();
+  //   //enemies[2].add(temp3);
+  // }
 
   counter = 0;
 
@@ -241,12 +255,12 @@ void draw() {
     text("Mine:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*5/20);
     text("Shield:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*7/20);
     text("Railgun:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*9/20);
-    
+
     imageMode(CENTER);
     image(minePassive, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*5/20);
     image(shield, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*7/20);
     image(railgun, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*9/20);
-    
+
     textAlign(CENTER, CENTER);
     text("Tap Anywhere To Return!", displayWidth/2, displayHeight*6/7);
 
@@ -304,11 +318,10 @@ void draw() {
 
     if (start) {
       countdown(startMillis);
-    } 
-    else {
+    } else {
       if (touchDetection()) {
         checkPowerupCounter();
-        //checkEnemyCounter();
+        spawn();
         enemiesAct();
         enemiesCollide();
         checkShield();
@@ -434,17 +447,17 @@ void createBoundary() {
   rect(0, 0, XSIZE, YSIZE);
   stroke(255);
   strokeWeight(10);
-  line(0,-displayHeight/10,0,YSIZE+displayHeight/10);
-  line(XSIZE,-displayHeight/10,XSIZE,YSIZE+displayHeight/10);
-  line(-displayHeight/10,0,XSIZE+displayHeight/10,0);
-  line(-displayHeight/10,YSIZE,XSIZE+displayHeight/10,YSIZE);
-  
+  line(0, -displayHeight/10, 0, YSIZE+displayHeight/10);
+  line(XSIZE, -displayHeight/10, XSIZE, YSIZE+displayHeight/10);
+  line(-displayHeight/10, 0, XSIZE+displayHeight/10, 0);
+  line(-displayHeight/10, YSIZE, XSIZE+displayHeight/10, YSIZE);
+
   fill(0);
   strokeWeight(5);
-  ellipse(-displayHeight/20,-displayHeight/20,displayHeight/50,displayHeight/50);
-  ellipse(-displayHeight/20,YSIZE+displayHeight/20,displayHeight/50,displayHeight/50);
-  ellipse(XSIZE+displayHeight/20,-displayHeight/20,displayHeight/50,displayHeight/50);
-  ellipse(XSIZE+displayHeight/20,YSIZE+displayHeight/20,displayHeight/50,displayHeight/50);
+  ellipse(-displayHeight/20, -displayHeight/20, displayHeight/50, displayHeight/50);
+  ellipse(-displayHeight/20, YSIZE+displayHeight/20, displayHeight/50, displayHeight/50);
+  ellipse(XSIZE+displayHeight/20, -displayHeight/20, displayHeight/50, displayHeight/50);
+  ellipse(XSIZE+displayHeight/20, YSIZE+displayHeight/20, displayHeight/50, displayHeight/50);
 }
 
 boolean touchDetection() {
@@ -454,8 +467,7 @@ boolean touchDetection() {
     controlDistance = thumbCircle.calcDistance();
     jCheck = false;
     return true;
-  } 
-  else if(!jCheck){
+  } else if (!jCheck) {
     enemiesDisplay();
     fill(0, 153, 204, 200);
     rect(-XCHANGE, -YCHANGE+displayHeight/4, displayWidth, displayHeight/2);
@@ -468,8 +480,7 @@ boolean touchDetection() {
     controlAngle = 0;
     controlDistance = 0;
     noTint();
-  }
-  else{
+  } else {
     fill(0);
     textAlign(CENTER, CENTER);
     textSize(50);
@@ -574,28 +585,93 @@ void mineExploding() {
 }
 
 void checkPowerupCounter() {
-  if (counter % shieldTime == 0) {
-    Shield temp = new Shield();
-    powerups[0].add(temp);
+  // if (counter % shieldTime == 0) {
+  //   Shield temp = new Shield();
+  //   powerups[0].add(temp);
+  // }
+  // if (counter % mineTime == 0) {
+  //   Mine temp = new Mine();
+  //   powerups[1].add(temp);
+  // }
+  // if (counter % railgunTime == 0) {
+  //   Railgun temp = new Railgun();
+  //   powerups[2].add(temp);
+  // }
+  if (init) {
+    float guess = random(10);
+    for (int i = 0; i < 5; i++) {
+      if (guess < 4) {
+        Mine temp = new Mine();
+        powerups[1].add(temp);
+      } else if (guess > 8) {
+        Shield temp2 = new Shield();
+        powerups[0].add(temp2);
+      } else {
+        Railgun temp3 = new Railgun();
+          powerups[2].add(temp3);
+      }
+    }
+    init = false;
   }
-  if (counter % mineTime == 0) {
-    Mine temp = new Mine();
-    powerups[1].add(temp);
-  }
-  if (counter % railgunTime == 0) {
-    Railgun temp = new Railgun();
-    powerups[2].add(temp);
+  //subsequent spawn
+  if (millis() >= prevMillis + 5000) {
+    prevMillis = millis();
+    float guess = random(3);
+    for (int i = 0; i < random (3); i++) {
+      if (guess < 4) {
+        Mine temp = new Mine();
+        powerups[1].add(temp);
+      } else if (guess > 8) {
+        Shield temp2 = new Shield();
+        powerups[0].add(temp2);
+      } else {
+        Railgun temp3 = new Railgun();
+          powerups[2].add(temp3);
+      }
+    }
   }
 }
 
-void checkEnemyCounter() {
-  if (counter % chaserTime == 0) {
-    Chaser temp = new Chaser();
-    enemies[0].add(temp);
+void spawn() {
+  // if (counter % chaserTime == 0) {
+  //   Chaser temp = new Chaser();
+  //   enemies[0].add(temp);
+  // }
+  // if (counter % backAndForthTime == 0) {
+  //   BackAndForth temp = new BackAndForth();
+  //   enemies[1].add(temp);
+  // }
+  //initial spawn
+  if (initEnemy) {
+    for (int i = 0; i < 5; i++) {
+      if (random(10) < percentBAF) {
+        BackAndForth temp = new BackAndForth();
+        enemies[1].add(temp);
+      } else {
+        Bouncer temp2 = new Bouncer();
+        enemies[2].add(temp2);
+      }
+    }
+    initEnemy = false;
   }
-  if (counter % backAndForthTime == 0) {
-    BackAndForth temp = new BackAndForth();
-    enemies[1].add(temp);
+  //subsequent spawn
+  if (millis() >= prevMillis + intervalTime) {
+    prevMillis = millis();
+    for (int i = 0; i < numSpawn; i++) {
+      if (random(10) < percentBAF) {
+        BackAndForth temp0 = new BackAndForth();
+        enemies[1].add(temp0);
+      } else {
+        Bouncer temp02 = new Bouncer();
+        enemies[2].add(temp02);
+      }
+    }
+  }
+  //need to fix this function
+  numSpawn = (int)(millis()/20000) + 1;
+  intervalTime = -1*(int)(millis()/40000) + 3000;
+  if (millis() >= 20000) {
+    percentBAF = 6;
   }
 }
 
@@ -627,8 +703,7 @@ void checkHighScores() throws IOException {
     i = index;
     if (i == 1) {
       res[2] = res[1];
-    } 
-    else if (i == 0) {
+    } else if (i == 0) {
       res[2] = res[1];
       res[1] = res[0];
     }
@@ -644,4 +719,3 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
-
