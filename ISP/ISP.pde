@@ -101,7 +101,7 @@ PFont font;
 
 void setup() {
   orientation(LANDSCAPE);
-  size(displayWidth, displayHeight);
+  size(displayWidth, displayHeight); //Disable for mobile
 
   XSIZE = (int)(displayWidth*1.4); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.4);
