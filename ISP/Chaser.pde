@@ -3,7 +3,6 @@ class Chaser implements Enemy {
   int step;
   int myPlace, inLife;
   boolean isAlive, spawning;
-  int tempFrameCount;
   int deathCounter, spawnCounter;
   boolean invincible;
 
@@ -12,7 +11,6 @@ class Chaser implements Enemy {
     yCor = random(0, YSIZE);
     step = (int) random(4, 10);
     isAlive = true;
-    tempFrameCount = 0;
     deathCounter = 14;
     spawnCounter = 5;
     spawning = true;
@@ -68,8 +66,6 @@ class Chaser implements Enemy {
     myPlace = i;
     inLife = j;
     if (isAlive) {
-      //tempFrameCount = counter;
-      tempFrameCount = millis();
       isAlive = false;
     }
   }
@@ -79,7 +75,6 @@ class Chaser implements Enemy {
       chas_dying.show(xCor, yCor, 4);
       deathCounter--;
       if (deathCounter < 0) {
-        //if (millis() >= tempFrameCount + 250) {
         if (inLife>=enemies[myPlace].size())
           inLife = enemies[myPlace].size()-1;
         enemies[myPlace].remove(inLife);

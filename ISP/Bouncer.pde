@@ -4,7 +4,6 @@ class Bouncer implements Enemy {
   int rotation;
   boolean isAlive, spawning;
   int myPlace, inLife;
-  int tempFrameCount;
   int spawnDelay, spawnCounter;
   int deathCounter;
   boolean invincible;
@@ -15,7 +14,6 @@ class Bouncer implements Enemy {
     speedX = 10 - random( 10 ); //speed
     speedY = 10 - random( 10 );
     isAlive = true;
-    tempFrameCount = 0;
     spawnDelay = fps*2;
     spawnCounter = 10;
     deathCounter = 28;
@@ -29,7 +27,6 @@ class Bouncer implements Enemy {
     speedX = 10 - random( 20 ); //speed
     speedY = 10 - random( 20 );
     isAlive = true;
-    tempFrameCount = 0;
     spawnDelay = fps*2;
     spawnCounter = 10;
     deathCounter = 28;
@@ -95,8 +92,6 @@ class Bouncer implements Enemy {
     myPlace = i;
     inLife = j;
     if (isAlive) {
-      //tempFrameCount = counter;
-      tempFrameCount = millis();
       isAlive = false;
     }
   }

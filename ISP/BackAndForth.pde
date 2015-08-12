@@ -4,7 +4,6 @@ class BackAndForth implements Enemy {
   int step;
   boolean avoid, isAlive, spawning, merge;
   int myPlace, inLife;
-  int tempFrameCount;
   int iBafCounter;
   int deathCounter, spawnCounter, mergeCounter;
   Enemy toBeMerged;
@@ -18,7 +17,6 @@ class BackAndForth implements Enemy {
     direction = (int)random(4f);
     avoid = false;
     isAlive = true;
-    tempFrameCount = 0;
     step = 10;// may change to increase speed
     deathCounter = 14;
     spawnCounter = 10;
@@ -33,7 +31,6 @@ class BackAndForth implements Enemy {
     direction = (int)random(4f);
     avoid = false;
     isAlive = true;
-    tempFrameCount = 0;
     iBafCounter = 0;
     step = 5;// may change to increase speed
     deathCounter = 14;
@@ -154,8 +151,6 @@ class BackAndForth implements Enemy {
     //    println(iBafCounter);
     if (isAlive) {// && iBafCounter >= fps*3) {
       //println("comp");
-      //tempFrameCount = counter;
-      tempFrameCount = millis();
       isAlive = false;
     }
   }
@@ -166,7 +161,6 @@ class BackAndForth implements Enemy {
       baf_dying.show(xCor, yCor, 4);
       deathCounter--;
       if (deathCounter < 0) {
-        //if (counter >= tempFrameCount) {
         if (inLife>=enemies[myPlace].size())
           inLife = enemies[myPlace].size()-1;
         enemies[myPlace].remove(inLife);
@@ -209,4 +203,3 @@ class BackAndForth implements Enemy {
     }
   }
 }
-
