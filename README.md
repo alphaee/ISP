@@ -6,14 +6,14 @@
 [Google Doc!](https://docs.google.com/document/d/1bsUmQ39Tuk8-FGRpbGtZ056lpED07QvHCmKS6JtyHVg/edit?usp=sharing)
 
 *To-Do*  
-- Animate character die
-- Explosion animations
+- Fix restart
+- Animations: Character, Mine
 - Fix dying for Bouncer to make it work 100%
 - Background screen
-- Game should not immediately pause after starting
-- Dan: Spawning and merging, Animation tweaking, secondary dying bouncer
-- Young: (optional: music), Instructions/Credits
-- Franklin Enemy invincibility, pause display
+- Tweak animations
+- Dan: Spawning Algorithm
+- Young: Look for bugs, music, sound effects
+- Franklin: Replay
 
 *Update Log*
 
@@ -24,6 +24,7 @@
 - Fixed enemies not showing during pause screen
 - Bouncer rotation
 - Changed frame count from 60 to 30
+- Fixed mine
 
 8/5/15
 - Act fxn implemented
