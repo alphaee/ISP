@@ -2,6 +2,7 @@ interface Enemy {
   float xCor();
   float yCor();
   boolean isAlive();
+  boolean invincible();
 
   boolean detect(); //Detects borders and player
 

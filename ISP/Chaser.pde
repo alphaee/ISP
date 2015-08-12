@@ -5,6 +5,7 @@ class Chaser implements Enemy {
   boolean isAlive, spawning;
   int tempFrameCount;
   int deathCounter, spawnCounter;
+  boolean invincible;
 
   Chaser() {
     xCor = random(0, XSIZE);
@@ -26,6 +27,10 @@ class Chaser implements Enemy {
 
   boolean isAlive() {
     return isAlive;
+  }
+  
+  boolean invincible(){
+    return false;
   }
 
   boolean detect() {

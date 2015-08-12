@@ -40,7 +40,7 @@ class Mine implements Powerup {
         exploded = true;
       }
     }
-    if (exploding<=fps*10&&detect(e)&&activated)
+    if (exploding<=fps*10&&detect(e)&&activated&&!e.invincible())
       return true;
 
     return false;

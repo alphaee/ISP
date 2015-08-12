@@ -7,6 +7,7 @@ class Bouncer implements Enemy {
   int tempFrameCount;
   int spawnDelay, spawnCounter;
   int deathCounter;
+  boolean invincible;
 
   Bouncer() {
     xCor = random(0, XSIZE);
@@ -48,6 +49,10 @@ class Bouncer implements Enemy {
 
   boolean detect() { 
     return true;
+  }
+  
+  boolean invincible(){
+    return false;
   }
 
   void attack() { 

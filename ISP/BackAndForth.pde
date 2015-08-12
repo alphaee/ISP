@@ -8,6 +8,7 @@ class BackAndForth implements Enemy {
   int iBafCounter;
   int deathCounter, spawnCounter;
   boolean invincible;
+  int invinMillis;
 
   BackAndForth() {
     xCor = random(0, XSIZE);
@@ -34,6 +35,7 @@ class BackAndForth implements Enemy {
     step = 5;// may change to increase speed
     deathCounter = 14;
     invincible = true;
+    invinMillis = millis();
   }
 
   float xCor() {
@@ -46,6 +48,10 @@ class BackAndForth implements Enemy {
 
   boolean isAlive() {
     return isAlive;
+  }
+  
+  boolean invincible(){
+    return invincible;
   }
 
   boolean detect() {
@@ -150,6 +156,9 @@ class BackAndForth implements Enemy {
   }
 
   void act() {
+    if ( invincible && invinMillis+1000 > millis()) {
+      invincible = false;
+    }
     if (spawning) {
       baf_spawning.show(xCor, yCor, 20);
       spawnCounter--;
