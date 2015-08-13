@@ -129,16 +129,16 @@ void setup() {
   frameRate(fps);
 
   //loading animations
-  chas_spawning = new Animation("SpawnRed", 5, 240, 200);
-  chas_dying = new Animation("DieRed", 7, 240, 200);
-  baf_spawning = new Animation("SpawnYellow", 10, 240, 200);
-  baf_dying = new Animation("DieYellow", 5, 240, 200);
-  baf_moving_hori = new Animation("MovingYellow", 13, 180, 150);
-  baf_moving_vert = new Animation("MovingYellowVert", 13, 150, 180);
-  bounce_spawning = new Animation("SpawnGreen", 10, 240, 200);
-  bounce_moving = new Animation("MovingGreen", 13, 240, 200);
-  bounce_dying = new Animation("DieGreen", 10, 240, 200);
-  baf_merge = new Animation("MergeYellow", 14, 240, 200);
+  chas_spawning = new Animation("SpawnRed", 5, 240*displayHeight/768, 200*displayHeight/768);
+  chas_dying = new Animation("DieRed", 7, 240*displayHeight/768, 200*displayHeight/768);
+  baf_spawning = new Animation("SpawnYellow", 10, 240*displayHeight/768, 200*displayHeight/768);
+  baf_dying = new Animation("DieYellow", 5, 240*displayHeight/768, 200*displayHeight/768);
+  baf_moving_hori = new Animation("MovingYellow", 13, 180*displayHeight/768, 150*displayHeight/768);
+  baf_moving_vert = new Animation("MovingYellowVert", 13, 150*displayHeight/768, 180*displayHeight/768);
+  bounce_spawning = new Animation("SpawnGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
+  bounce_moving = new Animation("MovingGreen", 13, 240*displayHeight/768, 200*displayHeight/768);
+  bounce_dying = new Animation("DieGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
+  baf_merge = new Animation("MergeYellow", 14, 240*displayHeight/768, 200*displayHeight/768);
   gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
   println(displayHeight);
 
@@ -598,8 +598,8 @@ void checkPowerupCounter() {
   //   powerups[2].add(temp);
   // }
   if (init) {
-    float guess = random(10);
     for (int i = 0; i < 5; i++) {
+      float guess = random(10);
       if (guess < 4) {
         Mine temp = new Mine();
         powerups[1].add(temp);
@@ -616,8 +616,8 @@ void checkPowerupCounter() {
   //subsequent spawn
   if (millis() >= prevMillis + 5000) {
     prevMillis = millis();
-    float guess = random(3);
-    for (int i = 0; i < random (3); i++) {
+    for (int i = 0; i < numSpawn; i++) {
+      float guess = random(10);
       if (guess < 4) {
         Mine temp = new Mine();
         powerups[1].add(temp);
@@ -630,6 +630,8 @@ void checkPowerupCounter() {
       }
     }
   }
+  //need to fix this function
+  numSpawn = (int)(millis()/10000) + 2;
 }
 
 void spawn() {
