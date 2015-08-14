@@ -101,6 +101,8 @@ boolean released;
 
 PFont font;
 
+int borderColorR, borderColorG, borderColorB, borderStroke;
+
 void setup() {
   orientation(LANDSCAPE);
   size(displayWidth, displayHeight); //Disable for mobile
@@ -119,6 +121,11 @@ void setup() {
   spikesCounter = 0;
 
   frameRate(fps);
+  
+  borderColorR = 255;
+  borderColorG = 255;
+  borderColorB = 255;
+  borderStroke = 10;
 
   //loading animations
   chas_spawning = new Animation("SpawnRed", 5, displayWidth/8, displayHeight/5);
@@ -458,8 +465,8 @@ void enemiesDisplay() {
 void createBoundary() {
   fill(180);
   rect(0, 0, XSIZE, YSIZE);
-  stroke(255);
-  strokeWeight(10);
+  stroke(borderColorR, borderColorG, borderColorB);
+  strokeWeight(borderStroke);
   line(0, -displayHeight/10, 0, YSIZE+displayHeight/10);
   line(XSIZE, -displayHeight/10, XSIZE, YSIZE+displayHeight/10);
   line(-displayHeight/10, 0, XSIZE+displayHeight/10, 0);
@@ -629,6 +636,10 @@ void checkSpikes() {
 
 void spikeCollision() {
   spikesCounter=0;
+  borderColorR = 209;
+  borderColorB = 209;
+  borderColorG = 96*(int)cos(PI/60*counter)+113;
+  borderStroke = 10*(int)sin(PI/60*counter)+10;
   if (spikesCounter > 0) {
     for (int i = 0; i < enemySize; i ++) {
       for (int j = 0; j < enemies[i].size (); j ++) {
