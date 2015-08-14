@@ -6,14 +6,11 @@
 [Google Doc!](https://docs.google.com/document/d/1bsUmQ39Tuk8-FGRpbGtZ056lpED07QvHCmKS6JtyHVg/edit?usp=sharing)
 
 *To-Do*  
-- Fix restart
 - Animations: Character, Mine
-- Fix dying for Bouncer to make it work 100%
 - Background screen
 - Tweak animations
 - Dan: Spawning Algorithm
 - Young: Look for bugs, music, sound effects
-- Franklin: Replay
 
 *Update Log*
 
