@@ -104,6 +104,8 @@ int startMillis;
 
 boolean jCheck;
 
+boolean released;
+
 PFont font;
 
 void setup() {
@@ -121,6 +123,8 @@ void setup() {
   intervalTime = 3000;
   init = true;
   initEnemy = true;
+  
+  released = false;
 
   enemies = (ArrayList<Enemy>[])new ArrayList[enemySize];
 
@@ -399,6 +403,7 @@ void countdown(int t) {
 }
 
 void mouseReleased() {
+//  boolean released = false;
   if (get(mouseX, mouseY) == #D130A4)
     state = 00;
   if (get(mouseX, mouseY) == #5BD832) {
@@ -406,7 +411,9 @@ void mouseReleased() {
     startMillis = millis();
     state = 10;
   }
-  if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590) && state == 20) {
+  if (state == 20 && !(get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590))
+  released = true;
+  if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590) && state == 20 && released) {
     if (mouseX > displayWidth/2) {
       setup2();
       state = 10;
