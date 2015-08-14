@@ -9,8 +9,9 @@
 - Animations: Character, Mine
 - Background screen
 - Tweak animations
-- Dan:
-- Young: Look for bugs, music, sound effects
+- Fix weird background thing
+- Dan: limit enemy 
+- Young: Look for bugs, music, sound effects, highscore?
 - Franklin: SPIKES FIX THE DAMN SPIKES, replay button stuff
 
 *Update Log*
@@ -18,7 +19,6 @@
 8/14/15
 - Tweaked spawn algorithm
 - Make player invincible when the enemy is spawning
-- Fix replay problem
 
 8/11/15
 - Changed border around game
