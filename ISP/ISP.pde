@@ -50,6 +50,7 @@ PImage shield;
 PImage mineActive;
 PImage minePassive;
 PImage railgun;
+PImage spikes;
 
 //JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Joystick thumbCircle;
@@ -145,6 +146,8 @@ void setup() {
   minePassive.resize(displayHeight/14, displayHeight/14);
   railgun = loadImage("Railgun.png");
   railgun.resize(displayHeight/14, displayHeight/14);
+  spikes = loadImage("Spikes.png");
+  spikes.resize(displayHeight/14, displayHeight/14);
 
   font = loadFont("Kuro-Regular-120.vlw");
   textFont(font);
@@ -175,7 +178,7 @@ void setup2() {
   numSpawn = 1;
   intervalTime = 3000;
   initEnemy = true;
-  
+
   score = 0;
   numMines = 3;
   numRailguns = 2;
@@ -303,15 +306,24 @@ void draw() {
       countdown(startMillis);
     } else {
       if (touchDetection()) {
+
         spawnPowerups();
         spawnEnemies();
+
         enemiesAct();
         enemiesCollide();
+
         checkShield();
+
         mineCollision();
         mineExploding();
+
         railgunCollision();
         railgunMove();
+
+        checkSpikes();
+        spikeCollision();
+
         iCounter++;
         counter++;
       }
@@ -488,18 +500,21 @@ void spawnPowerups() {
   //subsequent spawn
   if (millis() >= prevMillisP + 6000) {
     prevMillisP = millis();
-    for (int i = 0; i < 1; i++) {
-      float guess = random(10);
-      if (guess > 9 && hero.shieldNum < 3) {
-        Shield temp = new Shield();
-        powerups[0].add(temp);
-      } else if (guess > 8 && hero.shieldNum < 2) {
-        Shield temp = new Shield();
-        powerups[0].add(temp);
-      } else if (guess > 2 && hero.shieldNum < 1){
-        Shield temp = new Shield();
-        powerups[0].add(temp);
-      }
+    float guess = random(10);
+    if (guess > 9 && hero.shieldNum < 3) {
+      Shield temp = new Shield();
+      powerups[0].add(temp);
+    } else if (guess > 8 && hero.shieldNum < 2) {
+      Shield temp = new Shield();
+      powerups[0].add(temp);
+    } else if (guess > 2 && hero.shieldNum < 1) {
+      Shield temp = new Shield();
+      powerups[0].add(temp);
+    }
+    float guess2 = random(10);
+    if (guess2 > 1) {
+      Spikes temp = new Spikes();
+      powerups[3].add(temp);
     }
   }
   if (millis() - startMillis >= 15000) {
@@ -575,6 +590,33 @@ void checkShield() {
       hero.addShield();
       powerups[0].remove(i);
       i--;
+    }
+  }
+}
+
+void checkSpikes() {
+  for (int i = 0; i < powerups[3].size (); i ++) {
+    if (powerups[3].get(i).detect()) {
+      spikesCounter = fps*3;
+      powerups[3].remove(i);
+      i--;
+    }
+  }
+}
+
+void spikeCollision() {
+  spikesCounter=0;
+  if (spikesCounter > 0) {
+    for (int i = 0; i < enemySize; i ++) {
+      for (int j = 0; j < enemies[i].size (); j ++) {
+        if (enemies[i].get(j).checkSpikeDeath()) {
+          //println(spikesCounter);
+          enemies[i].get(j).dead(i, j);
+          j--;
+          if (j<0)
+            j=0;
+        }
+      }
     }
   }
 }
