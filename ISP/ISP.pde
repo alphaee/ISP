@@ -110,8 +110,8 @@ void setup() {
   orientation(LANDSCAPE);
   size(displayWidth, displayHeight); //Disable for mobile
 
-  XSIZE = (int)(displayWidth*1.4); //You want the gamebox size to be larger than the size of the screen
-  YSIZE = (int)(displayHeight*1.4);
+  XSIZE = (int)(displayWidth*1.2); //You want the gamebox size to be larger than the size of the screen
+  YSIZE = (int)(displayHeight*1.2);
 
   thumbCircle = new Joystick();
 
@@ -421,8 +421,8 @@ boolean sketchFullScreen() { //Necessary to start in full screen
 void updatePlayerCors() {
   pxCor = hero.xCor;
   pyCor = hero.yCor;
-  XCHANGE = XSIZE/2.8 - pxCor;
-  YCHANGE = YSIZE/2.8 - pyCor;
+  XCHANGE = XSIZE/2.4 - pxCor;
+  YCHANGE = YSIZE/2.4 - pyCor;
 }
 
 void enemiesAct() {
