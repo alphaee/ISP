@@ -46,8 +46,6 @@ final int powerupSize = 4;
  2: Railgun
  3: Spikes
  */
- 
- int spikesCounter;
 
 int spikesCounter;
 
@@ -110,11 +108,11 @@ void setup() {
 
   XSIZE = (int)(displayWidth*1.2); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.2);
-  
+
   background = loadImage("background.png");
-  
+
   thumbCircle = new Joystick();
-  
+
   released = false;
 
   enemies = (ArrayList<Enemy>[])new ArrayList[enemySize];
@@ -122,7 +120,7 @@ void setup() {
   powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
 
   frameRate(fps);
-  
+
   borderColorR = 255;
   borderColorG = 255;
   borderColorB = 255;
@@ -405,7 +403,7 @@ void countdown(int t) {
 }
 
 void mouseReleased() {
-//  boolean released = false;
+  //  boolean released = false;
   if (get(mouseX, mouseY) == #D130A4)
     state = 00;
   if (get(mouseX, mouseY) == #5BD832) {
@@ -414,7 +412,7 @@ void mouseReleased() {
     state = 10;
   }
   if (state == 20 && !(get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590))
-  released = true;
+    released = true;
   if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590) && state == 20 && released) {
     if (mouseX > displayWidth/2) {
       setup2();
@@ -458,7 +456,7 @@ void createBoundary() {
   stroke(borderColorR, borderColorG, borderColorB);
   strokeWeight(borderStroke);
 
-  image(background,XSIZE/2, YSIZE/2, XSIZE, YSIZE);
+  image(background, XSIZE/2, YSIZE/2, XSIZE, YSIZE);
 
   line(0, -displayHeight/10, 0, YSIZE+displayHeight/10);
   line(XSIZE, -displayHeight/10, XSIZE, YSIZE+displayHeight/10);
@@ -504,11 +502,11 @@ boolean touchDetection() {
 }
 
 void spawnPowerups() {
-  for(int i = 0; i < numMines - powerups[1].size(); i++){
+  for (int i = 0; i < numMines - powerups[1].size (); i++) {
     Mine temp = new Mine();
     powerups[1].add(temp);
   }
-  for(int i = 0; i < numRailguns - powerups[2].size(); i++){
+  for (int i = 0; i < numRailguns - powerups[2].size (); i++) {
     Railgun temp = new Railgun();
     powerups[2].add(temp);
   }
@@ -742,3 +740,4 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
+
