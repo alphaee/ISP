@@ -127,15 +127,15 @@ void setup() {
   borderStroke = 10;
 
   //loading animations
-  chas_spawning = new Animation("SpawnRed", 5, displayWidth/8, displayHeight/5);
-  chas_dying = new Animation("DieRed", 7, displayWidth/8, displayHeight/5);
-  baf_spawning = new Animation("SpawnYellow", 10, displayWidth/8, displayHeight/5);
-  baf_dying = new Animation("DieYellow", 5, displayWidth/8, displayHeight/5);
-  baf_moving_hori = new Animation("MovingYellow", 13, displayWidth/10, displayWidth/13);
-  baf_moving_vert = new Animation("MovingYellowVert", 13, displayWidth/13, displayWidth/10);
-  bounce_spawning = new Animation("SpawnGreen", 10, displayWidth/8, displayHeight/5);
-  bounce_moving = new Animation("MovingGreen", 13, displayWidth/8, displayHeight/5);
-  bounce_dying = new Animation("DieGreen", 10, displayWidth/8, displayHeight/5);
+  chas_spawning = new Animation("SpawnRed", 5, displayWidth/8, displayHeight/6);
+  chas_dying = new Animation("DieRed", 7, displayWidth/8, displayHeight/6);
+  baf_spawning = new Animation("SpawnYellow", 10, displayWidth/8, displayHeight/6);
+  baf_dying = new Animation("DieYellow", 5, displayWidth/8, displayHeight/6);
+  baf_moving_hori = new Animation("MovingYellow", 13, 4*displayWidth/39, displayWidth/13);
+  baf_moving_vert = new Animation("MovingYellowVert", 13, displayWidth/13, 4*displayWidth/39);
+  bounce_spawning = new Animation("SpawnGreen", 10, displayWidth/8, displayHeight/6);
+  bounce_moving = new Animation("MovingGreen", 13, displayWidth/8, displayHeight/6);
+  bounce_dying = new Animation("DieGreen", 10, displayWidth/8, displayHeight/6);
   baf_merge = new Animation("MergeYellow", 14, displayWidth/8, displayHeight/5);
   gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
   println(displayHeight);
@@ -746,4 +746,3 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
-
