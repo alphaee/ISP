@@ -49,6 +49,8 @@ final int powerupSize = 4;
  
  int spikesCounter;
 
+int spikesCounter;
+
 PImage shield;
 PImage mineActive;
 PImage minePassive;
@@ -388,7 +390,7 @@ void keyPressed() {
 }
 
 void countdown(int t) {
-  fill(0);
+  fill(250);
   textAlign(CENTER, CENTER);
   textSize(50);
   textFont(font);
@@ -492,7 +494,7 @@ boolean touchDetection() {
     controlDistance = 0;
     noTint();
   } else {
-    fill(0);
+    fill(250);
     textAlign(CENTER, CENTER);
     textSize(50);
     textFont(font);
