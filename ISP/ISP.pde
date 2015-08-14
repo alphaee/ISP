@@ -96,6 +96,8 @@ boolean jCheck;
 
 boolean released;
 
+boolean spiking;
+
 PFont font;
 PImage background;
 
@@ -177,6 +179,8 @@ void setup2() {
   }
 
   counter = 0;
+  
+  spiking = false;
 
   start = true;
   jCheck = true;
@@ -613,6 +617,7 @@ void checkSpikes() {
       spikesCounter = fps*3;
       powerups[3].remove(i);
       i--;
+      spiking = true;
     }
   }
 }
@@ -637,11 +642,18 @@ void spikeCollision() {
     }
   }
   else{
+    if (spiking == true){
+      setBoundaryNormal();
+    }
+    spiking = false;
+  }
+}
+
+void setBoundaryNormal(){
     borderColorR = 255;
     borderColorG = 255;
     borderColorB = 255;
     borderStroke = 10;
-  }
 }
 
 void mineCollision() {
