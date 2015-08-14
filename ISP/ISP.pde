@@ -37,14 +37,17 @@ Animation gunMoving;
 
 //POWERUP VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ArrayList<Powerup>[] powerups;
-final int powerupSize = 3;
+final int powerupSize = 4;
 
 /*
  Indices:
  0: Shield
  1: Mine
  2: Railgun
+ 3: Spikes
  */
+ 
+ int spikesCounter;
 
 PImage shield;
 PImage mineActive;
@@ -618,8 +621,8 @@ void spikeCollision() {
   spikesCounter=0;
   borderColorR = 209;
   borderColorB = 209;
-  borderColorG = 96*(int)cos(PI/60*counter)+113;
-  borderStroke = 10*(int)sin(PI/60*counter)+10;
+  borderColorG = 96*(int)cos(PI/30*counter)+113;
+  borderStroke = 10*(int)sin(PI/30*counter)+10;
   if (spikesCounter > 0) {
     for (int i = 0; i < enemySize; i ++) {
       for (int j = 0; j < enemies[i].size (); j ++) {
