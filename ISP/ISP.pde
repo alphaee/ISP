@@ -599,8 +599,8 @@ void checkPowerupCounter() {
   //   powerups[2].add(temp);
   // }
   if (init) {
-    float guess = random(10);
     for (int i = 0; i < 5; i++) {
+      float guess = random(10);
       if (guess < 4) {
         Mine temp = new Mine();
         powerups[1].add(temp);
@@ -617,20 +617,23 @@ void checkPowerupCounter() {
   //subsequent spawn
   if (millis() >= prevMillis + 5000) {
     prevMillis = millis();
-    float guess = random(3);
-    for (int i = 0; i < random (3); i++) {
-      if (guess < 4) {
+    for (int i = 0; i < 4; i++) {
+      float guess2 = random(10);
+      println(guess2);
+      if (guess2 < 4) {
         Mine temp = new Mine();
         powerups[1].add(temp);
-      } else if (guess > 8) {
+      } else if (guess2 > 8) {
         Shield temp2 = new Shield();
         powerups[0].add(temp2);
       } else {
         Railgun temp3 = new Railgun();
-          powerups[2].add(temp3);
+        powerups[2].add(temp3);
       }
     }
   }
+  //need to fix this function
+  //numSpawn = (int)(millis()/10000) + 2;
 }
 
 void spawn() {
