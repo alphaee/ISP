@@ -511,7 +511,7 @@ void spawnPowerups() {
     powerups[2].add(temp);
   }
   //subsequent spawn
-  if (millis() >= prevMillisP + 6000) {
+  if ((millis() >= prevMillisP + 6000) && (powerups[0].size() <= 2)) {
     prevMillisP = millis();
     float guess = random(10);
     if (guess > 9 && hero.shieldNum < 3) {
@@ -619,11 +619,11 @@ void checkSpikes() {
 
 void spikeCollision() {
   spikesCounter=0;
+  borderColorR = 209;
+  borderColorB = 209;
+  borderColorG = 96*(int)cos(PI/30*counter)+113;
+  borderStroke = 10*(int)sin(PI/30*counter)+10;
   if (spikesCounter > 0) {
-    borderColorR = 209;
-    borderColorB = 209;
-    borderColorG = (int)(96*cos(PI/30*counter))+113;
-    borderStroke = (int)(10*sin(PI/30*counter))+10;
     for (int i = 0; i < enemySize; i ++) {
       for (int j = 0; j < enemies[i].size (); j ++) {
         if (enemies[i].get(j).checkSpikeDeath()) {
@@ -635,12 +635,6 @@ void spikeCollision() {
         }
       }
     }
-  }
-  else{
-    borderColorR = 255;
-    borderColorG = 255;
-    borderColorB = 255;
-    borderStroke = 10;
   }
 }
 

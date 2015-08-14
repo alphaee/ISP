@@ -10,7 +10,7 @@ class Bouncer implements Enemy {
 
   Bouncer() {
     xCor = random(0, XSIZE);
-    yCor = random(0, YSIZE);
+    yCor = random(0, YSIZE);;
     speedX = 10 - random( 10 ); //speed
     speedY = 10 - random( 10 );
     isAlive = true;

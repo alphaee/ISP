@@ -5,8 +5,8 @@ class Railgun implements Powerup {
   boolean activated;
 
   Railgun() {
-    xCor = random(0, XSIZE);
-    yCor = random(0, YSIZE);
+    xCor = random(XSIZE/20, XSIZE*19/20);
+    yCor = random(YSIZE/20, YSIZE*19/20);
     step = 60;
     activated = false;
   }
