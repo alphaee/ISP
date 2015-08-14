@@ -44,7 +44,10 @@ final int powerupSize = 3;
  0: Shield
  1: Mine
  2: Railgun
+ 3: Spike
  */
+
+int spikesCounter;
 
 PImage shield;
 PImage mineActive;
@@ -385,7 +388,7 @@ void keyPressed() {
 }
 
 void countdown(int t) {
-  fill(0);
+  fill(250);
   textAlign(CENTER, CENTER);
   textSize(50);
   textFont(font);
@@ -489,7 +492,7 @@ boolean touchDetection() {
     controlDistance = 0;
     noTint();
   } else {
-    fill(0);
+    fill(250);
     textAlign(CENTER, CENTER);
     textSize(50);
     textFont(font);
