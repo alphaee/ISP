@@ -181,14 +181,14 @@ void setup2() {
     powerups[i] = new ArrayList<Powerup>();
   }
 
-  // for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
-  //   //Chaser temp = new Chaser();
-  //   //enemies[0].add(temp);
-  //   BackAndForth temp2 = new BackAndForth();
-  //   enemies[1].add(temp2);
-  //   //Bouncer temp3 = new Bouncer();
-  //   //enemies[2].add(temp3);
-  // }
+//  for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
+//     //Chaser temp = new Chaser();
+//     //enemies[0].add(temp);
+//     BackAndForth temp2 = new BackAndForth();
+//     enemies[1].add(temp2);
+//     //Bouncer temp3 = new Bouncer();
+//     //enemies[2].add(temp3);
+//   }
 
   counter = 0;
 
@@ -196,7 +196,6 @@ void setup2() {
   jCheck = true;
   startMillis = millis();
   score = 0;
-  
   numMines = 3;
   numRailguns = 2;
 }
@@ -668,7 +667,7 @@ void mineExploding() {
 void checkDeath() {
   for (int i = 0; i < enemySize; i ++) { //2-D parsing
     for (Enemy e : enemies[i]) {
-      if (hero.isDead(e)) {
+      if (hero.isDead(e) && !e.spawning()) {
         try {
           checkHighScores();
           scores = highScores();

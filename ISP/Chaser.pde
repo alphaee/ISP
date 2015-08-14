@@ -30,6 +30,10 @@ class Chaser implements Enemy {
   boolean invincible(){
     return false;
   }
+  
+  boolean spawning(){
+    return spawning;
+  }
 
   boolean detect() {
     return dist(xCor, yCor, pxCor, pyCor) < YSIZE/5;

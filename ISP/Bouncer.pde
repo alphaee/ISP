@@ -52,6 +52,10 @@ class Bouncer implements Enemy {
     return false;
   }
 
+  boolean spawning(){
+    return spawning;
+  }
+
   void attack() { 
     xCor += speedX;
     yCor += speedY;

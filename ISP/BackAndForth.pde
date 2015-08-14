@@ -55,6 +55,10 @@ class BackAndForth implements Enemy {
     return invincible;
   }
 
+  boolean spawning(){
+    return spawning;
+  }
+
   boolean detect() {
     if (xCor >= XSIZE) {
       //direction = 0;//left

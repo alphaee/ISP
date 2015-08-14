@@ -3,7 +3,7 @@ interface Enemy {
   float yCor();
   boolean isAlive();
   boolean invincible();
-
+  boolean spawning();
   boolean detect(); //Detects borders and player
 
   void attack(); //Defines how the character attacks
