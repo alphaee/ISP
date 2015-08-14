@@ -52,12 +52,6 @@ final int powerupSize = 3;
  2: Railgun
  */
 
-final int shieldTime = (int)fps*30;
-
-final int mineTime = (int)fps*10;
-
-final int railgunTime = (int)fps*10;
-
 PImage shield;
 PImage mineActive;
 PImage minePassive;
@@ -73,7 +67,9 @@ int prevMillis;
 int percentBAF;
 int numSpawn;
 int intervalTime;
-boolean init, initEnemy;
+boolean initEnemy;
+
+int numMines, numRailguns;
 
 //HOME SCREEN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 PImage button_play;
@@ -121,7 +117,6 @@ void setup() {
   percentBAF = 8;
   numSpawn = 1;
   intervalTime = 3000;
-  init = true;
   initEnemy = true;
   
   released = false;
@@ -201,6 +196,9 @@ void setup2() {
   jCheck = true;
   startMillis = millis();
   score = 0;
+  
+  numMines = 3;
+  numRailguns = 2;
 }
 
 void draw() {
@@ -499,54 +497,35 @@ boolean touchDetection() {
 }
 
 void spawnPowerups() {
-  // if (counter % shieldTime == 0) {
-  //   Shield temp = new Shield();
-  //   powerups[0].add(temp);
-  // }
-  // if (counter % mineTime == 0) {
-  //   Mine temp = new Mine();
-  //   powerups[1].add(temp);
-  // }
-  // if (counter % railgunTime == 0) {
-  //   Railgun temp = new Railgun();
-  //   powerups[2].add(temp);
-  // }
-  if (init) {
-    for (int i = 0; i < 5; i++) {
-      float guess = random(10);
-      if (guess < 4) {
-        Mine temp = new Mine();
-        powerups[1].add(temp);
-      } else if (guess > 8) {
-        Shield temp2 = new Shield();
-        powerups[0].add(temp2);
-      } else {
-        Railgun temp3 = new Railgun();
-          powerups[2].add(temp3);
-      }
-    }
-    init = false;
+  for(int i = 0; i < numMines - powerups[1].size(); i++){
+    Mine temp = new Mine();
+    powerups[1].add(temp);
+  }
+  for(int i = 0; i < numRailguns - powerups[2].size(); i++){
+    Railgun temp = new Railgun();
+    powerups[2].add(temp);
   }
   //subsequent spawn
-  if (millis() >= prevMillis + 5000) {
+  if (millis() >= prevMillis + 8000) {
     prevMillis = millis();
-    for (int i = 0; i < 4; i++) {
-      float guess2 = random(10);
-      println(guess2);
-      if (guess2 < 4) {
-        Mine temp = new Mine();
-        powerups[1].add(temp);
-      } else if (guess2 > 8) {
-        Shield temp2 = new Shield();
-        powerups[0].add(temp2);
-      } else {
-        Railgun temp3 = new Railgun();
-        powerups[2].add(temp3);
+    for (int i = 0; i < 1; i++) {
+      float guess = random(10);
+      if (guess > 8 && hero.shieldNum < 3) {
+        Shield temp = new Shield();
+        powerups[0].add(temp);
+      } else if (guess > 7 && hero.shieldNum < 2) {
+        Shield temp = new Shield();
+        powerups[0].add(temp);
+      } else if (guess > 2 && hero.shieldNum < 1){
+        Shield temp = new Shield();
+        powerups[0].add(temp);
       }
     }
   }
-  //need to fix this function
-  //numSpawn = (int)(millis()/10000) + 2;
+  if (millis() - startMillis >= 15000) {
+    numMines = 4;
+    numRailguns = 3;
+  }
 }
 
 void spawnEnemies() {
@@ -585,9 +564,9 @@ void spawnEnemies() {
     }
   }
   //need to fix this function
-  numSpawn = (int)(millis()/20000) + 1;
-  intervalTime = -1*(int)(millis()/40000) + 3000;
-  if (millis() >= 20000) {
+  numSpawn = (int)(startMillis/15000) + 1;
+  intervalTime = -1*(int)(startMillis/40000) + 3000;
+  if (millis() - startMillis >= 20000) {
     percentBAF = 6;
   }
 }
