@@ -63,8 +63,7 @@ float controlAngle;
 float controlDistance;
 
 //SPAWN VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-int prevMillisE;
-int prevMillisP;
+int prevMillis;
 int percentBAF;
 int numSpawn;
 int intervalTime;
@@ -114,6 +113,7 @@ void setup() {
 
   thumbCircle = new Joystick();
 
+  prevMillis = startMillis;
   percentBAF = 8;
   numSpawn = 1;
   intervalTime = 3000;
@@ -139,8 +139,6 @@ void setup() {
   bounce_dying = new Animation("DieGreen", 10, displayWidth/8, displayHeight/5);
   baf_merge = new Animation("MergeYellow", 14, displayWidth/8, displayHeight/5);
   gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
-  println(displayHeight);
-  println(displayWidth);
 
   //home screen
   button_play = loadImage("Button_Play.png");
@@ -195,9 +193,6 @@ void setup2() {
   start = true;
   jCheck = true;
   startMillis = millis();
-  prevMillisE = startMillis;
-  prevMillisP = startMillis;
-
   score = 0;
   numMines = 3;
   numRailguns = 2;
@@ -508,14 +503,14 @@ void spawnPowerups() {
     powerups[2].add(temp);
   }
   //subsequent spawn
-  if (millis() >= prevMillisP + 6000) {
-    prevMillisP = millis();
+  if (millis() >= prevMillis + 8000) {
+    prevMillis = millis();
     for (int i = 0; i < 1; i++) {
       float guess = random(10);
-      if (guess > 9 && hero.shieldNum < 3) {
+      if (guess > 8 && hero.shieldNum < 3) {
         Shield temp = new Shield();
         powerups[0].add(temp);
-      } else if (guess > 8 && hero.shieldNum < 2) {
+      } else if (guess > 7 && hero.shieldNum < 2) {
         Shield temp = new Shield();
         powerups[0].add(temp);
       } else if (guess > 2 && hero.shieldNum < 1){
@@ -553,8 +548,8 @@ void spawnEnemies() {
     initEnemy = false;
   }
   //subsequent spawn
-  if (millis() >= prevMillisE + intervalTime) {
-    prevMillisE = millis();
+  if (millis() >= prevMillis + intervalTime) {
+    prevMillis = millis();
     for (int i = 0; i < numSpawn; i++) {
       if (random(10) < percentBAF) {
         BackAndForth temp0 = new BackAndForth();
