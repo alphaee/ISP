@@ -11,6 +11,7 @@
 - Tweak animations
 - Dan:
 - Young: Look for bugs, music, sound effects
+- Franklin: SPIKES FIX THE DAMN SPIKES
 
 *Update Log*
 
