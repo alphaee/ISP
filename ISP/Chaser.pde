@@ -86,6 +86,10 @@ class Chaser implements Enemy {
       }
     }
   }
+  
+  boolean checkSpikeDeath(){
+    return xCor > XSIZE-35 || xCor < 35 || yCor < 35 || yCor > YSIZE-35;
+  }
 
   void event(Enemy e, int i, int j) {
   }

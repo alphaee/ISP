@@ -43,14 +43,17 @@ Animation gunMoving;
 
 //POWERUP VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ArrayList<Powerup>[] powerups;
-final int powerupSize = 3;
+final int powerupSize = 4;
 
 /*
  Indices:
  0: Shield
  1: Mine
  2: Railgun
+ 3: Spikes
  */
+
+int spikesCounter;
 
 PImage shield;
 PImage mineActive;
@@ -118,12 +121,14 @@ void setup() {
   numSpawn = 1;
   intervalTime = 3000;
   initEnemy = true;
-  
+
   released = false;
 
   enemies = (ArrayList<Enemy>[])new ArrayList[enemySize];
 
   powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
+
+  spikesCounter = 0;
 
   frameRate(fps);
 
@@ -179,14 +184,14 @@ void setup2() {
     powerups[i] = new ArrayList<Powerup>();
   }
 
-//  for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
-//     //Chaser temp = new Chaser();
-//     //enemies[0].add(temp);
-//     BackAndForth temp2 = new BackAndForth();
-//     enemies[1].add(temp2);
-//     //Bouncer temp3 = new Bouncer();
-//     //enemies[2].add(temp3);
-//   }
+  //  for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
+  //     //Chaser temp = new Chaser();
+  //     //enemies[0].add(temp);
+  //     BackAndForth temp2 = new BackAndForth();
+  //     enemies[1].add(temp2);
+  //     //Bouncer temp3 = new Bouncer();
+  //     //enemies[2].add(temp3);
+  //   }
 
   counter = 0;
 
@@ -398,7 +403,7 @@ void countdown(int t) {
 }
 
 void mouseReleased() {
-//  boolean released = false;
+  //  boolean released = false;
   if (get(mouseX, mouseY) == #D130A4)
     state = 00;
   if (get(mouseX, mouseY) == #5BD832) {
@@ -407,7 +412,7 @@ void mouseReleased() {
     state = 10;
   }
   if (state == 20 && !(get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590))
-  released = true;
+    released = true;
   if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590) && state == 20 && released) {
     if (mouseX > displayWidth/2) {
       setup2();
@@ -494,11 +499,11 @@ boolean touchDetection() {
 }
 
 void spawnPowerups() {
-  for(int i = 0; i < numMines - powerups[1].size(); i++){
+  for (int i = 0; i < numMines - powerups[1].size (); i++) {
     Mine temp = new Mine();
     powerups[1].add(temp);
   }
-  for(int i = 0; i < numRailguns - powerups[2].size(); i++){
+  for (int i = 0; i < numRailguns - powerups[2].size (); i++) {
     Railgun temp = new Railgun();
     powerups[2].add(temp);
   }
@@ -513,7 +518,7 @@ void spawnPowerups() {
       } else if (guess > 7 && hero.shieldNum < 2) {
         Shield temp = new Shield();
         powerups[0].add(temp);
-      } else if (guess > 2 && hero.shieldNum < 1){
+      } else if (guess > 2 && hero.shieldNum < 1) {
         Shield temp = new Shield();
         powerups[0].add(temp);
       }
@@ -600,6 +605,30 @@ void checkShield() {
       hero.addShield();
       powerups[0].remove(i);
       i--;
+    }
+  }
+}
+
+void checkSpikes() {
+  for (int i = 0; i < powerups[3].size (); i ++) {
+    if (powerups[3].get(i).detect()) {
+      spikesCounter = fps*3;
+    }
+  }
+}
+
+void spikeCollision() {
+  if (spikesCounter > 0) {
+    spikesCounter--;
+    for (int i = 0; i < enemySize; i ++) {
+      for (int j = 0; j < enemies[i].size (); j ++) {
+        if (enemies[i].get(j).checkSpikeDeath()) {
+          enemies[i].get(j).dead(i, j);
+          j--;
+          if (j<0)
+            j=0;
+        }
+      }
     }
   }
 }
@@ -706,3 +735,4 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
+
