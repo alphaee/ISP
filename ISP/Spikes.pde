@@ -14,6 +14,6 @@ class Spikes implements Powerup {
   }
 
   void display() {
-    image(shield, xCor, yCor);
+    image(spikes, xCor, yCor);
   }
 }
