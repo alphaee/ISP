@@ -21,12 +21,6 @@ final int enemySize = 3;
  2: Bouncers
  */
 
-final int chaserTime = (int)fps*15;
-
-final int backAndForthTime = (int)fps*3;
-
-final int bouncerTime = (int)fps*7;
-
 //ENEMY ANIMATIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Animation chas_spawning;
 Animation chas_dying;
@@ -113,11 +107,6 @@ void setup() {
   YSIZE = (int)(displayHeight*1.2);
 
   thumbCircle = new Joystick();
-
-  percentBAF = 8;
-  numSpawn = 1;
-  intervalTime = 3000;
-  initEnemy = true;
   
   released = false;
 
@@ -198,6 +187,11 @@ void setup2() {
   prevMillisE = startMillis;
   prevMillisP = startMillis;
 
+  percentBAF = 8;
+  numSpawn = 1;
+  intervalTime = 3000;
+  initEnemy = true;
+  
   score = 0;
   numMines = 3;
   numRailguns = 2;
