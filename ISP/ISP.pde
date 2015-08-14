@@ -129,18 +129,19 @@ void setup() {
   frameRate(fps);
 
   //loading animations
-  chas_spawning = new Animation("SpawnRed", 5, 240, 200);
-  chas_dying = new Animation("DieRed", 7, 240, 200);
-  baf_spawning = new Animation("SpawnYellow", 10, 240, 200);
-  baf_dying = new Animation("DieYellow", 5, 240, 200);
-  baf_moving_hori = new Animation("MovingYellow", 13, 180, 150);
-  baf_moving_vert = new Animation("MovingYellowVert", 13, 150, 180);
-  bounce_spawning = new Animation("SpawnGreen", 10, 240, 200);
-  bounce_moving = new Animation("MovingGreen", 13, 240, 200);
-  bounce_dying = new Animation("DieGreen", 10, 240, 200);
-  baf_merge = new Animation("MergeYellow", 14, 240, 200);
+  chas_spawning = new Animation("SpawnRed", 5, displayWidth/8, displayHeight/5);
+  chas_dying = new Animation("DieRed", 7, displayWidth/8, displayHeight/5);
+  baf_spawning = new Animation("SpawnYellow", 10, displayWidth/8, displayHeight/5);
+  baf_dying = new Animation("DieYellow", 5, displayWidth/8, displayHeight/5);
+  baf_moving_hori = new Animation("MovingYellow", 13, displayWidth/10, displayWidth/13);
+  baf_moving_vert = new Animation("MovingYellowVert", 13, displayWidth/13, displayWidth/10);
+  bounce_spawning = new Animation("SpawnGreen", 10, displayWidth/8, displayHeight/5);
+  bounce_moving = new Animation("MovingGreen", 13, displayWidth/8, displayHeight/5);
+  bounce_dying = new Animation("DieGreen", 10, displayWidth/8, displayHeight/5);
+  baf_merge = new Animation("MergeYellow", 14, displayWidth/8, displayHeight/5);
   gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
   println(displayHeight);
+  println(displayWidth);
 
   //home screen
   button_play = loadImage("Button_Play.png");
