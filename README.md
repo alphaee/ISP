@@ -9,10 +9,15 @@
 - Animations: Character, Mine
 - Background screen
 - Tweak animations
-- Dan: Spawning Algorithm
+- Dan:
 - Young: Look for bugs, music, sound effects
 
 *Update Log*
+
+8/14/15
+- Tweaked spawn algorithm
+- Make player invincible when the enemy is spawning
+- Fix replay problem
 
 8/11/15
 - Changed border around game
