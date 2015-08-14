@@ -568,11 +568,12 @@ void spawnEnemies() {
     }
   }
   //need to fix this function
-  numSpawn = (int)(startMillis/15000) + 1;
-  intervalTime = -1*(int)(startMillis/40000) + 3000;
+  numSpawn = (int)((millis() - startMillis)/15000) + 1;
+  intervalTime = -1*(int)((millis() - startMillis)/40000) + 3000;
   if (millis() - startMillis >= 20000) {
     percentBAF = 6;
   }
+  println(numSpawn);
 }
 
 void displayStats() {
