@@ -63,7 +63,8 @@ float controlAngle;
 float controlDistance;
 
 //SPAWN VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-int prevMillis;
+int prevMillisE;
+int prevMillisP;
 int percentBAF;
 int numSpawn;
 int intervalTime;
@@ -113,7 +114,6 @@ void setup() {
 
   thumbCircle = new Joystick();
 
-  prevMillis = startMillis;
   percentBAF = 8;
   numSpawn = 1;
   intervalTime = 3000;
@@ -195,6 +195,9 @@ void setup2() {
   start = true;
   jCheck = true;
   startMillis = millis();
+  prevMillisE = startMillis;
+  prevMillisP = startMillis;
+
   score = 0;
   numMines = 3;
   numRailguns = 2;
@@ -505,14 +508,14 @@ void spawnPowerups() {
     powerups[2].add(temp);
   }
   //subsequent spawn
-  if (millis() >= prevMillis + 8000) {
-    prevMillis = millis();
+  if (millis() >= prevMillisP + 6000) {
+    prevMillisP = millis();
     for (int i = 0; i < 1; i++) {
       float guess = random(10);
-      if (guess > 8 && hero.shieldNum < 3) {
+      if (guess > 9 && hero.shieldNum < 3) {
         Shield temp = new Shield();
         powerups[0].add(temp);
-      } else if (guess > 7 && hero.shieldNum < 2) {
+      } else if (guess > 8 && hero.shieldNum < 2) {
         Shield temp = new Shield();
         powerups[0].add(temp);
       } else if (guess > 2 && hero.shieldNum < 1){
@@ -550,8 +553,8 @@ void spawnEnemies() {
     initEnemy = false;
   }
   //subsequent spawn
-  if (millis() >= prevMillis + intervalTime) {
-    prevMillis = millis();
+  if (millis() >= prevMillisE + intervalTime) {
+    prevMillisE = millis();
     for (int i = 0; i < numSpawn; i++) {
       if (random(10) < percentBAF) {
         BackAndForth temp0 = new BackAndForth();
