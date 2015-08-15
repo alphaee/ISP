@@ -21,12 +21,6 @@ final int enemySize = 3;
  2: Bouncers
  */
 
-final int chaserTime = (int)fps*15;
-
-final int backAndForthTime = (int)fps*3;
-
-final int bouncerTime = (int)fps*7;
-
 //ENEMY ANIMATIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Animation chas_spawning;
 Animation chas_dying;
@@ -43,25 +37,23 @@ Animation gunMoving;
 
 //POWERUP VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ArrayList<Powerup>[] powerups;
-final int powerupSize = 3;
+final int powerupSize = 4;
 
 /*
  Indices:
  0: Shield
  1: Mine
  2: Railgun
+ 3: Spikes
  */
 
-final int shieldTime = (int)fps*30;
-
-final int mineTime = (int)fps*10;
-
-final int railgunTime = (int)fps*10;
+int spikesCounter;
 
 PImage shield;
 PImage mineActive;
 PImage minePassive;
 PImage railgun;
+PImage spikes;
 
 //JOYSTICK VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Joystick thumbCircle;
@@ -69,16 +61,14 @@ float controlAngle;
 float controlDistance;
 
 //SPAWN VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-int prevMillis;
+int prevMillisE;
+int prevMillisP;
 int percentBAF;
 int numSpawn;
 int intervalTime;
-boolean init, initEnemy;
+boolean initEnemy;
 
-//HOME SCREEN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-PImage button_play;
-PImage button_instructions;
-PImage button_credits;
+int numMines, numRailguns;
 
 //HIGH SCORE SCREEN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 String scores[] = new String[3];
@@ -104,29 +94,39 @@ int startMillis;
 
 boolean jCheck;
 
+boolean released;
+
+boolean spiking;
+
 PFont font;
+PImage background;
+
+
+int borderColorR, borderColorG, borderColorB, borderStroke;
 
 void setup() {
   orientation(LANDSCAPE);
   size(displayWidth, displayHeight); //Disable for mobile
 
-  XSIZE = (int)(displayWidth*1.4); //You want the gamebox size to be larger than the size of the screen
-  YSIZE = (int)(displayHeight*1.4);
+  XSIZE = (int)(displayWidth*1.2); //You want the gamebox size to be larger than the size of the screen
+  YSIZE = (int)(displayHeight*1.2);
+
+  background = loadImage("background.png");
 
   thumbCircle = new Joystick();
 
-  prevMillis = startMillis;
-  percentBAF = 8;
-  numSpawn = 1;
-  intervalTime = 3000;
-  init = true;
-  initEnemy = true;
+  released = false;
 
   enemies = (ArrayList<Enemy>[])new ArrayList[enemySize];
 
   powerups = (ArrayList<Powerup>[])new ArrayList[powerupSize];
 
   frameRate(fps);
+
+  borderColorR = 255;
+  borderColorG = 255;
+  borderColorB = 255;
+  borderStroke = 10;
 
   //loading animations
   chas_spawning = new Animation("SpawnRed", 5, 240*displayHeight/768, 200*displayHeight/768);
@@ -141,12 +141,7 @@ void setup() {
   baf_merge = new Animation("MergeYellow", 14, 240*displayHeight/768, 200*displayHeight/768);
   gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
   println(displayHeight);
-
-  //home screen
-  button_play = loadImage("Button_Play.png");
-  button_instructions = loadImage("Button_Instructions.png");
-  button_credits = loadImage("Button_Credits.png");
-  //button_play.resize(displayWidth/4,displayHeight/7);
+  println(displayWidth);
 
   //high score screen
   reset = loadImage("Reset_Button.png");
@@ -163,6 +158,8 @@ void setup() {
   minePassive.resize(displayHeight/14, displayHeight/14);
   railgun = loadImage("Railgun.png");
   railgun.resize(displayHeight/14, displayHeight/14);
+  spikes = loadImage("Spikes.png");
+  spikes.resize(displayHeight/14, displayHeight/14);
 
   font = loadFont("Kuro-Regular-120.vlw");
   textFont(font);
@@ -181,21 +178,24 @@ void setup2() {
     powerups[i] = new ArrayList<Powerup>();
   }
 
-  // for (int i = 0; i < 10; i ++) { //FOR TESTING PURPOSES ONLY
-  //   //Chaser temp = new Chaser();
-  //   //enemies[0].add(temp);
-  //   BackAndForth temp2 = new BackAndForth();
-  //   enemies[1].add(temp2);
-  //   //Bouncer temp3 = new Bouncer();
-  //   //enemies[2].add(temp3);
-  // }
-
   counter = 0;
+  
+  spiking = false;
 
   start = true;
   jCheck = true;
   startMillis = millis();
+  prevMillisE = startMillis;
+  prevMillisP = startMillis;
+
+  percentBAF = 8;
+  numSpawn = 1;
+  intervalTime = 3000;
+  initEnemy = true;
+
   score = 0;
+  numMines = 3;
+  numRailguns = 2;
 }
 
 void draw() {
@@ -320,15 +320,24 @@ void draw() {
       countdown(startMillis);
     } else {
       if (touchDetection()) {
-        checkPowerupCounter();
-        spawn();
+
+        spawnPowerups();
+        spawnEnemies();
+
         enemiesAct();
         enemiesCollide();
+
         checkShield();
+
         mineCollision();
         mineExploding();
+
         railgunCollision();
         railgunMove();
+
+        checkSpikes();
+        spikeCollision();
+
         iCounter++;
         counter++;
       }
@@ -383,7 +392,7 @@ void keyPressed() {
 }
 
 void countdown(int t) {
-  fill(0);
+  fill(250);
   textAlign(CENTER, CENTER);
   textSize(50);
   textFont(font);
@@ -398,6 +407,7 @@ void countdown(int t) {
 }
 
 void mouseReleased() {
+  //  boolean released = false;
   if (get(mouseX, mouseY) == #D130A4)
     state = 00;
   if (get(mouseX, mouseY) == #5BD832) {
@@ -405,7 +415,9 @@ void mouseReleased() {
     startMillis = millis();
     state = 10;
   }
-  if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590) && state == 20) {
+  if (state == 20 && !(get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590))
+    released = true;
+  if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590) && state == 20 && released) {
     if (mouseX > displayWidth/2) {
       setup2();
       state = 10;
@@ -421,8 +433,8 @@ boolean sketchFullScreen() { //Necessary to start in full screen
 void updatePlayerCors() {
   pxCor = hero.xCor;
   pyCor = hero.yCor;
-  XCHANGE = XSIZE/2.8 - pxCor;
-  YCHANGE = YSIZE/2.8 - pyCor;
+  XCHANGE = XSIZE/2.4 - pxCor;
+  YCHANGE = YSIZE/2.4 - pyCor;
 }
 
 void enemiesAct() {
@@ -445,8 +457,11 @@ void enemiesDisplay() {
 void createBoundary() {
   fill(180);
   rect(0, 0, XSIZE, YSIZE);
-  stroke(255);
-  strokeWeight(10);
+  stroke(borderColorR, borderColorG, borderColorB);
+  strokeWeight(borderStroke);
+
+  image(background, XSIZE/2, YSIZE/2, XSIZE, YSIZE);
+
   line(0, -displayHeight/10, 0, YSIZE+displayHeight/10);
   line(XSIZE, -displayHeight/10, XSIZE, YSIZE+displayHeight/10);
   line(-displayHeight/10, 0, XSIZE+displayHeight/10, 0);
@@ -481,7 +496,7 @@ boolean touchDetection() {
     controlDistance = 0;
     noTint();
   } else {
-    fill(0);
+    fill(250);
     textAlign(CENTER, CENTER);
     textSize(50);
     textFont(font);
@@ -490,8 +505,79 @@ boolean touchDetection() {
   return false;
 }
 
+void spawnPowerups() {
+  for (int i = 0; i < numMines - powerups[1].size (); i++) {
+    Mine temp = new Mine();
+    powerups[1].add(temp);
+  }
+  for (int i = 0; i < numRailguns - powerups[2].size (); i++) {
+    Railgun temp = new Railgun();
+    powerups[2].add(temp);
+  }
+  //subsequent spawn
+  if ((millis() >= prevMillisP + 6000) && (powerups[0].size() <= 2)) {
+    prevMillisP = millis();
+    float guess = random(10);
+    if (guess > 9 && hero.shieldNum < 3) {
+      Shield temp = new Shield();
+      powerups[0].add(temp);
+    } else if (guess > 8 && hero.shieldNum < 2) {
+      Shield temp = new Shield();
+      powerups[0].add(temp);
+    } else if (guess > 2 && hero.shieldNum < 1) {
+      Shield temp = new Shield();
+      powerups[0].add(temp);
+    }
+    float guess2 = random(10);
+    if (guess2 > 1) {
+      Spikes temp = new Spikes();
+      powerups[3].add(temp);
+    }
+  }
+  if (millis() - startMillis >= 15000) {
+    numMines = 4;
+    numRailguns = 3;
+  }
+}
+
+void spawnEnemies() {
+  //initial spawn
+  if (initEnemy) {
+    for (int i = 0; i < 5; i++) {
+      if (random(10) < percentBAF) {
+        BackAndForth temp = new BackAndForth();
+        enemies[1].add(temp);
+      } else {
+        Bouncer temp2 = new Bouncer();
+        enemies[2].add(temp2);
+      }
+    }
+    initEnemy = false;
+  }
+  //subsequent spawn
+  if (millis() >= prevMillisE + intervalTime) {
+    prevMillisE = millis();
+    for (int i = 0; i < numSpawn; i++) {
+      if (random(10) < percentBAF) {
+        BackAndForth temp0 = new BackAndForth();
+        enemies[1].add(temp0);
+      } else {
+        Bouncer temp02 = new Bouncer();
+        enemies[2].add(temp02);
+      }
+    }
+  }
+  //need to fix this function
+  numSpawn = (int)((millis() - startMillis)/15000) + 1;
+  intervalTime = -1*(int)((millis() - startMillis)/40000) + 3000;
+  if (millis() - startMillis >= 20000) {
+    percentBAF = 6;
+  }
+  println(numSpawn);
+}
+
 void displayStats() {
-  fill(100);
+  fill(200);
   textAlign(CENTER, CENTER);
   textFont(font);
   textSize(displayHeight/15);
@@ -524,6 +610,51 @@ void checkShield() {
       i--;
     }
   }
+}
+
+void checkSpikes() {
+  for (int i = 0; i < powerups[3].size (); i ++) {
+    if (powerups[3].get(i).detect()) {
+      spikesCounter = fps*3;
+      powerups[3].remove(i);
+      i--;
+      spiking = true;
+    }
+  }
+}
+
+void spikeCollision() {
+  spikesCounter=0;
+  if (spikesCounter > 0) {
+    borderColorR = 209;
+    borderColorB = 209;
+    borderColorG = (int)(96*cos(PI/30*counter))+113;
+    borderStroke = (int)(10*sin(PI/30*counter))+10;
+    for (int i = 0; i < enemySize; i ++) {
+      for (int j = 0; j < enemies[i].size (); j ++) {
+        if (enemies[i].get(j).checkSpikeDeath()) {
+          //println(spikesCounter);
+          enemies[i].get(j).dead(i, j);
+          j--;
+          if (j<0)
+            j=0;
+        }
+      }
+    }
+  }
+  else{
+    if (spiking == true){
+      setBoundaryNormal();
+    }
+    spiking = false;
+  }
+}
+
+void setBoundaryNormal(){
+    borderColorR = 255;
+    borderColorG = 255;
+    borderColorB = 255;
+    borderStroke = 10;
 }
 
 void mineCollision() {
@@ -584,103 +715,10 @@ void mineExploding() {
   }
 }
 
-void checkPowerupCounter() {
-  // if (counter % shieldTime == 0) {
-  //   Shield temp = new Shield();
-  //   powerups[0].add(temp);
-  // }
-  // if (counter % mineTime == 0) {
-  //   Mine temp = new Mine();
-  //   powerups[1].add(temp);
-  // }
-  // if (counter % railgunTime == 0) {
-  //   Railgun temp = new Railgun();
-  //   powerups[2].add(temp);
-  // }
-  if (init) {
-    for (int i = 0; i < 5; i++) {
-      float guess = random(10);
-      if (guess < 4) {
-        Mine temp = new Mine();
-        powerups[1].add(temp);
-      } else if (guess > 8) {
-        Shield temp2 = new Shield();
-        powerups[0].add(temp2);
-      } else {
-        Railgun temp3 = new Railgun();
-          powerups[2].add(temp3);
-      }
-    }
-    init = false;
-  }
-  //subsequent spawn
-  if (millis() >= prevMillis + 5000) {
-    prevMillis = millis();
-    for (int i = 0; i < numSpawn; i++) {
-      float guess = random(10);
-      if (guess < 4) {
-        Mine temp = new Mine();
-        powerups[1].add(temp);
-      } else if (guess > 8) {
-        Shield temp2 = new Shield();
-        powerups[0].add(temp2);
-      } else {
-        Railgun temp3 = new Railgun();
-          powerups[2].add(temp3);
-      }
-    }
-  }
-  //need to fix this function
-  numSpawn = (int)(millis()/10000) + 2;
-}
-
-void spawn() {
-  // if (counter % chaserTime == 0) {
-  //   Chaser temp = new Chaser();
-  //   enemies[0].add(temp);
-  // }
-  // if (counter % backAndForthTime == 0) {
-  //   BackAndForth temp = new BackAndForth();
-  //   enemies[1].add(temp);
-  // }
-  //initial spawn
-  if (initEnemy) {
-    for (int i = 0; i < 5; i++) {
-      if (random(10) < percentBAF) {
-        BackAndForth temp = new BackAndForth();
-        enemies[1].add(temp);
-      } else {
-        Bouncer temp2 = new Bouncer();
-        enemies[2].add(temp2);
-      }
-    }
-    initEnemy = false;
-  }
-  //subsequent spawn
-  if (millis() >= prevMillis + intervalTime) {
-    prevMillis = millis();
-    for (int i = 0; i < numSpawn; i++) {
-      if (random(10) < percentBAF) {
-        BackAndForth temp0 = new BackAndForth();
-        enemies[1].add(temp0);
-      } else {
-        Bouncer temp02 = new Bouncer();
-        enemies[2].add(temp02);
-      }
-    }
-  }
-  //need to fix this function
-  numSpawn = (int)(millis()/20000) + 1;
-  intervalTime = -1*(int)(millis()/40000) + 3000;
-  if (millis() >= 20000) {
-    percentBAF = 6;
-  }
-}
-
 void checkDeath() {
   for (int i = 0; i < enemySize; i ++) { //2-D parsing
     for (Enemy e : enemies[i]) {
-      if (hero.isDead(e)) {
+      if (hero.isDead(e) && !e.spawning()) {
         try {
           checkHighScores();
           scores = highScores();

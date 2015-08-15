@@ -55,6 +55,14 @@ class BackAndForth implements Enemy {
     return invincible;
   }
 
+  boolean spawning(){
+    return spawning;
+  }
+  
+  boolean checkSpikeDeath(){
+    return xCor > XSIZE-35 || xCor < 35 || yCor < 35 || yCor > YSIZE-35;
+  }
+
   boolean detect() {
     if (xCor >= XSIZE) {
       //direction = 0;//left

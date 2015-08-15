@@ -6,16 +6,19 @@
 [Google Doc!](https://docs.google.com/document/d/1bsUmQ39Tuk8-FGRpbGtZ056lpED07QvHCmKS6JtyHVg/edit?usp=sharing)
 
 *To-Do*  
-- Fix restart
 - Animations: Character, Mine
-- Fix dying for Bouncer to make it work 100%
 - Background screen
 - Tweak animations
-- Dan: Spawning Algorithm
-- Young: Look for bugs, music, sound effects
-- Franklin: Replay
+- Fix weird background thing
+- Dan: limit enemy 
+- Young: Look for bugs, music, sound effects, highscore?
+- Franklin: SPIKES FIX THE DAMN SPIKES, replay button stuff
 
 *Update Log*
+
+8/14/15
+- Tweaked spawn algorithm
+- Make player invincible when the enemy is spawning
 
 8/11/15
 - Changed border around game

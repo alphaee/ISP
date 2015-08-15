@@ -3,7 +3,7 @@ interface Enemy {
   float yCor();
   boolean isAlive();
   boolean invincible();
-
+  boolean spawning();
   boolean detect(); //Detects borders and player
 
   void attack(); //Defines how the character attacks
@@ -11,6 +11,8 @@ interface Enemy {
   void dying(); //How the character dies ie. splitting into smaller or disappearing
 
   void dead(int i, int j);
+  
+  boolean checkSpikeDeath();
 
   void display(); //Draws the character with image import
 

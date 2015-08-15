@@ -30,6 +30,10 @@ class Chaser implements Enemy {
   boolean invincible(){
     return false;
   }
+  
+  boolean spawning(){
+    return spawning;
+  }
 
   boolean detect() {
     return dist(xCor, yCor, pxCor, pyCor) < YSIZE/5;
@@ -81,6 +85,10 @@ class Chaser implements Enemy {
         score += 15;
       }
     }
+  }
+  
+  boolean checkSpikeDeath(){
+    return xCor > XSIZE-35 || xCor < 35 || yCor < 35 || yCor > YSIZE-35;
   }
 
   void event(Enemy e, int i, int j) {
