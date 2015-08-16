@@ -11,7 +11,7 @@
 - Tweak animations
 - Fix weird background thing
 - Dan: limit enemy 
-- Young: Look for bugs, music, sound effects, highscore?
+- Young: Look for bugs, music, sound effects, highscore?, limit shield
 - Franklin: SPIKES FIX THE DAMN SPIKES, replay button stuff
 
 *Update Log*
