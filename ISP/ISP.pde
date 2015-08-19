@@ -555,15 +555,17 @@ void spawnEnemies() {
     initEnemy = false;
   }
   //subsequent spawn
-  if (millis() >= prevMillisE + intervalTime) {
-    prevMillisE = millis();
-    for (int i = 0; i < numSpawn; i++) {
-      if (random(10) < percentBAF) {
-        BackAndForth temp0 = new BackAndForth();
-        enemies[1].add(temp0);
-      } else {
-        Bouncer temp02 = new Bouncer();
-        enemies[2].add(temp02);
+  if (enemies[0].size() + enemies[1].size() + enemies[2].size() < 50){
+    if (millis() >= prevMillisE + intervalTime) {
+      prevMillisE = millis();
+      for (int i = 0; i < numSpawn; i++) {
+        if (random(10) < percentBAF) {
+          BackAndForth temp0 = new BackAndForth();
+          enemies[1].add(temp0);
+        } else {
+          Bouncer temp02 = new Bouncer();
+          enemies[2].add(temp02);
+        }
       }
     }
   }
