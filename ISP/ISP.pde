@@ -460,7 +460,7 @@ void createBoundary() {
   stroke(borderColorR, borderColorG, borderColorB);
   strokeWeight(borderStroke);
 
-  image(background, XSIZE/2, YSIZE/2, XSIZE, YSIZE);
+  //image(background, XSIZE/2, YSIZE/2, XSIZE, YSIZE);
 
   line(0, -displayHeight/10, 0, YSIZE+displayHeight/10);
   line(XSIZE, -displayHeight/10, XSIZE, YSIZE+displayHeight/10);
@@ -555,7 +555,7 @@ void spawnEnemies() {
     initEnemy = false;
   }
   //subsequent spawn
-  if (enemies[0].size() + enemies[1].size() + enemies[2].size() < 50) {
+  if (enemies[0].size() + enemies[1].size() + enemies[2].size() < 40) {
     if (millis() >= prevMillisE + intervalTime) {
       prevMillisE = millis();
       for (int i = 0; i < numSpawn; i++) {
