@@ -193,6 +193,8 @@ void setup2() {
   intervalTime = 3000;
   initEnemy = true;
 
+  setBoundaryNormal();
+
   score = 0;
   numMines = 3;
   numRailguns = 2;
@@ -406,7 +408,7 @@ void countdown(int t) {
     start = false;
 }
 
-void mouseReleased() {
+void mouseClicked() {
   //  boolean released = false;
   if (get(mouseX, mouseY) == #D130A4)
     state = 00;
@@ -415,9 +417,7 @@ void mouseReleased() {
     startMillis = millis();
     state = 10;
   }
-  if (state == 20 && !(get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590))
-    released = true;
-  if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590) && state == 20 && released) {
+  if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590) && state == 20) {
     if (mouseX > displayWidth/2) {
       setup2();
       state = 10;
@@ -555,7 +555,7 @@ void spawnEnemies() {
     initEnemy = false;
   }
   //subsequent spawn
-  if (enemies[0].size() + enemies[1].size() + enemies[2].size() < 50) {
+  if (enemies[0].size() + enemies[1].size() + enemies[2].size() < 20) {
     if (millis() >= prevMillisE + intervalTime) {
       prevMillisE = millis();
       for (int i = 0; i < numSpawn; i++) {
@@ -636,7 +636,6 @@ void spikeCollision() {
     for (int i = 0; i < enemySize; i ++) {
       for (int j = 0; j < enemies[i].size (); j ++) {
         if (enemies[i].get(j).checkSpikeDeath()) {
-          println(spikesCounter, i, j);
           enemies[i].get(j).dead(i, j);
         }
       }
