@@ -559,7 +559,7 @@ void spawnEnemies() {
     initEnemy = false;
   }
   //subsequent spawn
-  if (enemies[0].size() + enemies[1].size() + enemies[2].size() < 10) {
+  if (enemies[0].size() + enemies[1].size() + enemies[2].size() < 40) {
     if (millis() >= prevMillisE + intervalTime) {
       prevMillisE = millis();
       for (int i = 0; i < numSpawn; i++) {
