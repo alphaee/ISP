@@ -580,9 +580,9 @@ void spawnEnemies() {
 void displayStats() {
   fill(50);
   textAlign(CENTER, CENTER);
-  textSize(displayHeight/12);
-  text("Shield: " + hero.shieldNum, pxCor + 3*displayWidth/8, pyCor - 3*displayHeight/8);
-  text("Score: " + score*100, pxCor - 3*displayWidth/8, pyCor - 3*displayHeight/8);
+  textSize(displayHeight/15);
+  text("Shield: " + hero.shieldNum, pxCor + 11*displayWidth/32, pyCor - 3*displayHeight/8);
+  text("Score: " + score*100, pxCor - 11*displayWidth/32, pyCor - 3*displayHeight/8);
 }
 
 void displayAll() {    
