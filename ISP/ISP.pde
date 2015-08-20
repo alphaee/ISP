@@ -638,6 +638,9 @@ void spikeCollision() {
       for (int j = 0; j < enemies[i].size (); j ++) {
         if (enemies[i].get(j).checkSpikeDeath()) {
           enemies[i].get(j).dead(i, j);
+           j--;
+            if (j<0)
+              j=0;
         }
       }
     }
