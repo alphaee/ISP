@@ -200,6 +200,11 @@ void setup2() {
   score = 0;
   numMines = 3;
   numRailguns = 2;
+  
+//  for (int i = 0; i < 20; i++){
+//    Chaser temp= new Chaser();
+//    enemies[1].add(temp);
+//  }
 }
 
 void draw() {
@@ -554,7 +559,7 @@ void spawnEnemies() {
     initEnemy = false;
   }
   //subsequent spawn
-  if (enemies[0].size() + enemies[1].size() + enemies[2].size() < 40) {
+  if (enemies[0].size() + enemies[1].size() + enemies[2].size() < 10) {
     if (millis() >= prevMillisE + intervalTime) {
       prevMillisE = millis();
       for (int i = 0; i < numSpawn; i++) {
@@ -580,9 +585,9 @@ void spawnEnemies() {
 void displayStats() {
   fill(50);
   textAlign(CENTER, CENTER);
-  textSize(displayHeight/15);
-  text("Shield: " + hero.shieldNum, pxCor + 11*displayWidth/32, pyCor - 3*displayHeight/8);
-  text("Score: " + score*100, pxCor - 11*displayWidth/32, pyCor - 3*displayHeight/8);
+  textSize(displayHeight/12);
+  text("Shield: " + hero.shieldNum, pxCor + 3*displayWidth/8, pyCor - 3*displayHeight/8);
+  text("Score: " + score*100, pxCor - 3*displayWidth/8, pyCor - 3*displayHeight/8);
 }
 
 void displayAll() {    
