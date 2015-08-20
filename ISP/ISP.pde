@@ -177,11 +177,13 @@ void setup2() {
   for (int i = 0; i < powerupSize; i++) {
     powerups[i] = new ArrayList<Powerup>();
   }
-
+  
+  controlDistance = 0;
+  
   counter = 0;
 
   spiking = false;
-
+  
   start = true;
   jCheck = true;
   startMillis = millis();
