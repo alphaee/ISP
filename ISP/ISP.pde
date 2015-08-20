@@ -161,7 +161,7 @@ void setup() {
   spikes = loadImage("Spikes.png");
   spikes.resize(displayHeight/14, displayHeight/14);
 
-  font = loadFont("Kuro-Regular-120.vlw");
+  font = loadFont("Kuro-Regular-250.vlw");
   textFont(font);
 
   active = true;
@@ -210,9 +210,9 @@ void draw() {
 
     textAlign(CENTER, CENTER);
     fill(#32CCD8);
-    textSize(displayHeight/8);
-    text("I.S.P.", displayWidth/2, displayHeight/8);
-    textSize(displayHeight/22);
+    textSize(displayHeight/4);
+    text("I.S.P.", displayWidth/2, displayHeight/7);
+    textSize(displayHeight/12);
     imageMode(CENTER);
     text("Play", displayWidth/2, displayHeight/2 - displayHeight*2/25);
     text("Instructions", displayWidth/2, displayHeight/2 + displayHeight*3/25);
@@ -394,10 +394,9 @@ void keyPressed() {
 }
 
 void countdown(int t) {
-  fill(250);
+  fill(50);
   textAlign(CENTER, CENTER);
-  textSize(50);
-  textFont(font);
+  textSize(displayHeight/9);
   if (millis() - t < 1500)
     text("3", pxCor, pyCor-displayHeight/10);
   else if (millis() - t < 2500)
@@ -489,19 +488,17 @@ boolean touchDetection() {
     fill(0, 153, 204, 200);
     rect(-XCHANGE, -YCHANGE+displayHeight/4, displayWidth, displayHeight/2);
     fill(15);
-    textSize(displayHeight/6);
+    textSize(displayHeight/7);
     textAlign(CENTER, CENTER);
-    textFont(font);
     text("Play to Resume!", displayWidth/2-XCHANGE, displayHeight/2-YCHANGE);
     thumbCircle.pause = true;
     controlAngle = 0;
     controlDistance = 0;
     noTint();
   } else {
-    fill(250);
+    fill(50);
     textAlign(CENTER, CENTER);
-    textSize(50);
-    textFont(font);
+    textSize(displayHeight/7);
     text("GO!", pxCor, pyCor-displayHeight/10);
   }
   return false;
@@ -581,10 +578,9 @@ void spawnEnemies() {
 }
 
 void displayStats() {
-  fill(200);
+  fill(50);
   textAlign(CENTER, CENTER);
-  textFont(font);
-  textSize(displayHeight/15);
+  textSize(displayHeight/12);
   text("Shield: " + hero.shieldNum, pxCor + 3*displayWidth/8, pyCor - 3*displayHeight/8);
   text("Score: " + score*100, pxCor - 3*displayWidth/8, pyCor - 3*displayHeight/8);
 }
