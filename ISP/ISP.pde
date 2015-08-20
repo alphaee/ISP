@@ -140,8 +140,8 @@ void setup() {
   bounce_dying = new Animation("DieGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
   baf_merge = new Animation("MergeYellow", 14, 240*displayHeight/768, 200*displayHeight/768);
   gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
-  println(displayHeight);
-  println(displayWidth);
+  //  println(displayHeight);
+  //  println(displayWidth);
 
   //high score screen
   reset = loadImage("Reset_Button.png");
@@ -179,7 +179,7 @@ void setup2() {
   }
 
   counter = 0;
-  
+
   spiking = false;
 
   start = true;
@@ -555,7 +555,7 @@ void spawnEnemies() {
     initEnemy = false;
   }
   //subsequent spawn
-  if (enemies[0].size() + enemies[1].size() + enemies[2].size() < 50){
+  if (enemies[0].size() + enemies[1].size() + enemies[2].size() < 50) {
     if (millis() >= prevMillisE + intervalTime) {
       prevMillisE = millis();
       for (int i = 0; i < numSpawn; i++) {
@@ -575,7 +575,7 @@ void spawnEnemies() {
   if (millis() - startMillis >= 20000) {
     percentBAF = 6;
   }
-  println(numSpawn);
+  //  println(numSpawn);
 }
 
 void displayStats() {
@@ -626,8 +626,9 @@ void checkSpikes() {
 }
 
 void spikeCollision() {
-  spikesCounter=0;
+  //  spikesCounter=0;
   if (spikesCounter > 0) {
+    spikesCounter--;
     borderColorR = 209;
     borderColorB = 209;
     borderColorG = (int)(96*cos(PI/30*counter))+113;
@@ -635,28 +636,24 @@ void spikeCollision() {
     for (int i = 0; i < enemySize; i ++) {
       for (int j = 0; j < enemies[i].size (); j ++) {
         if (enemies[i].get(j).checkSpikeDeath()) {
-          //println(spikesCounter);
+          println(spikesCounter, i, j);
           enemies[i].get(j).dead(i, j);
-          j--;
-          if (j<0)
-            j=0;
         }
       }
     }
-  }
-  else{
-    if (spiking == true){
+  } else {
+    if (spiking == true) {
       setBoundaryNormal();
     }
     spiking = false;
   }
 }
 
-void setBoundaryNormal(){
-    borderColorR = 255;
-    borderColorG = 255;
-    borderColorB = 255;
-    borderStroke = 10;
+void setBoundaryNormal() {
+  borderColorR = 255;
+  borderColorG = 255;
+  borderColorB = 255;
+  borderStroke = 10;
 }
 
 void mineCollision() {
@@ -761,3 +758,4 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
+
