@@ -177,13 +177,13 @@ void setup2() {
   for (int i = 0; i < powerupSize; i++) {
     powerups[i] = new ArrayList<Powerup>();
   }
-  
+
   controlDistance = 0;
-  
+
   counter = 0;
 
   spiking = false;
-  
+
   start = true;
   jCheck = true;
   startMillis = millis();
@@ -200,11 +200,11 @@ void setup2() {
   score = 0;
   numMines = 3;
   numRailguns = 2;
-  
-//  for (int i = 0; i < 20; i++){
-//    Chaser temp= new Chaser();
-//    enemies[1].add(temp);
-//  }
+
+  //  for (int i = 0; i < 20; i++){
+  //    Chaser temp= new Chaser();
+  //    enemies[1].add(temp);
+  //  }
 }
 
 void draw() {
@@ -212,7 +212,7 @@ void draw() {
   switch(state) {
 
   case 00: //HOMESCREEN
-//    println("case 00");
+    //    println("case 00");
     background(0);
 
     fill(#647775);
@@ -638,12 +638,14 @@ void spikeCollision() {
     borderStroke = (int)(10*sin(PI/30*counter))+10;
     for (int i = 0; i < enemySize; i ++) {
       for (int j = 0; j < enemies[i].size (); j ++) {
+//        println(enemies[i].get(j).xCor(), enemies[i].get(j).yCor(), XSIZE - 35, YSIZE - 35);
+//        println(enemies[i].get(j).xCor(), enemies[i].get(j).yCor(), enemies[i].get(j).isAlive());
         if (enemies[i].get(j).checkSpikeDeath()) {
           println(enemies[i].get(j).xCor(), enemies[i].get(j).yCor(), XSIZE - 35, YSIZE - 35);
           enemies[i].get(j).dead(i, j);
-           j--;
-            if (j<0)
-              j=0;
+          j--;
+          if (j<0)
+            j=0;
         }
       }
     }
