@@ -464,19 +464,22 @@ void createBoundary() {
   stroke(borderColorR, borderColorG, borderColorB);
   strokeWeight(borderStroke);
 
-  //image(background, XSIZE/2, YSIZE/2, XSIZE, YSIZE);
-
   line(0, -displayHeight/10, 0, YSIZE+displayHeight/10);
   line(XSIZE, -displayHeight/10, XSIZE, YSIZE+displayHeight/10);
   line(-displayHeight/10, 0, XSIZE+displayHeight/10, 0);
   line(-displayHeight/10, YSIZE, XSIZE+displayHeight/10, YSIZE);
-
+  
   fill(0);
   strokeWeight(5);
   ellipse(-displayHeight/20, -displayHeight/20, displayHeight/50, displayHeight/50);
   ellipse(-displayHeight/20, YSIZE+displayHeight/20, displayHeight/50, displayHeight/50);
   ellipse(XSIZE+displayHeight/20, -displayHeight/20, displayHeight/50, displayHeight/50);
   ellipse(XSIZE+displayHeight/20, YSIZE+displayHeight/20, displayHeight/50, displayHeight/50);
+  
+  //stroke(255);
+  //stroke((millis()/300)%255,(((millis()/300)%255)*8)%255,(((millis()/300)%255)*4)%255);
+  //strokeWeight(2);
+  //ellipse(XSIZE/4,YSIZE/4,(millis()/100)%(XSIZE/8),(millis()/100*1.1)%(YSIZE/8));
 }
 
 boolean touchDetection() {
