@@ -211,6 +211,7 @@ void draw() {
   switch(state) {
 
   case 00: //HOMESCREEN
+    println("case 00");
     background(0);
 
     fill(#647775);
@@ -247,6 +248,7 @@ void draw() {
     break;
 
   case 01: //INSTRUCTIONS
+    println("case 01");
     fill(150);
     rectMode(CENTER);
     rect(displayWidth/2, displayHeight/2, displayWidth*9/10, displayHeight*9/10, 30);
@@ -286,6 +288,7 @@ void draw() {
     break;
 
   case 02: //CREDITS
+    println("case 02");
     fill(150);
     rectMode(CENTER);
     rect(displayWidth/2, displayHeight/2, displayWidth*9/10, displayHeight*9/10, 30);
@@ -317,6 +320,7 @@ void draw() {
     break;
 
   case 10: //MAIN GAME
+    println("case 10");
     background(0);
     updatePlayerCors(); //update coordinates before applying translations; also updates XCHANGE & YCHANGE
     translate(XCHANGE, YCHANGE);
@@ -356,6 +360,7 @@ void draw() {
     break;
 
   case 20: //GAME OVER
+    println("case 20");
     background(0);
     textFont(font);
     textSize(displayHeight/9);         
@@ -517,7 +522,7 @@ void spawnPowerups() {
     powerups[2].add(temp);
   }
   //subsequent spawn
-  if ((millis() >= prevMillisP + 6000) && (powerups[0].size() <= 2)) {
+  if ((millis() >= prevMillisP + 6000) && (powerups[0].size() < 2)) {
     prevMillisP = millis();
     float guess = random(10);
     if (guess > 9 && hero.shieldNum < 3) {
