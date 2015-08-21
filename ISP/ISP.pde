@@ -208,10 +208,11 @@ void setup2() {
 }
 
 void draw() {
+  //println(state);
   switch(state) {
 
   case 00: //HOMESCREEN
-    println("case 00");
+//    println("case 00");
     background(0);
 
     fill(#647775);
@@ -248,7 +249,6 @@ void draw() {
     break;
 
   case 01: //INSTRUCTIONS
-    println("case 01");
     fill(150);
     rectMode(CENTER);
     rect(displayWidth/2, displayHeight/2, displayWidth*9/10, displayHeight*9/10, 30);
@@ -288,7 +288,6 @@ void draw() {
     break;
 
   case 02: //CREDITS
-    println("case 02");
     fill(150);
     rectMode(CENTER);
     rect(displayWidth/2, displayHeight/2, displayWidth*9/10, displayHeight*9/10, 30);
@@ -320,7 +319,6 @@ void draw() {
     break;
 
   case 10: //MAIN GAME
-    println("case 10");
     background(0);
     updatePlayerCors(); //update coordinates before applying translations; also updates XCHANGE & YCHANGE
     translate(XCHANGE, YCHANGE);
@@ -360,7 +358,6 @@ void draw() {
     break;
 
   case 20: //GAME OVER
-    println("case 20");
     background(0);
     textFont(font);
     textSize(displayHeight/9);         
@@ -642,7 +639,7 @@ void spikeCollision() {
     for (int i = 0; i < enemySize; i ++) {
       for (int j = 0; j < enemies[i].size (); j ++) {
         if (enemies[i].get(j).checkSpikeDeath()) {
-          //println(enemies[i].get(j).xCor(), enemies[i].get(j).yCor(), XSIZE - 35, YSIZE - 35);
+          println(enemies[i].get(j).xCor(), enemies[i].get(j).yCor(), XSIZE - 35, YSIZE - 35);
           enemies[i].get(j).dead(i, j);
            j--;
             if (j<0)
