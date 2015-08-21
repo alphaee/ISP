@@ -161,7 +161,6 @@ class BackAndForth implements Enemy {
       //println("comp");
       isAlive = false;
     }
-    println(counter, inLife);
   }
 
   void dying() {
