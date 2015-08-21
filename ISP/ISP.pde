@@ -318,6 +318,7 @@ void draw() {
 
   case 10: //MAIN GAME
     background(0);
+    println(powerups[0].size());
     updatePlayerCors(); //update coordinates before applying translations; also updates XCHANGE & YCHANGE
     translate(XCHANGE, YCHANGE);
 
@@ -520,7 +521,7 @@ void spawnPowerups() {
     powerups[2].add(temp);
   }
   //subsequent spawn
-  if ((millis() >= prevMillisP + 6000) && (powerups[0].size() <= 2)) {
+  if ((millis() >= prevMillisP + 6000) && (powerups[0].size() < 2)) {
     prevMillisP = millis();
     float guess = random(10);
     if (guess > 9 && hero.shieldNum < 3) {
