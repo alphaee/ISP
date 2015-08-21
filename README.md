@@ -8,13 +8,17 @@
 *To-Do*  
 - Animations: Character, Mine
 - Background screen
-- Tweak animations
-- Fix weird background thing
-- Dan: limit enemy 
-- Young: Look for bugs, music, sound effects, highscore?, limit shield
-- Franklin: SPIKES FIX THE DAMN SPIKES, replay button stuff
+- Fix spikes
+- Dan: Make high score word size bigger
+- Young: Character death animation, instruction screen
+- Franklin: Spikes
 
 *Update Log*
+
+8/20/15
+- Implemented spike powerup
+- Fixed minor bugs
+- Made titles bigger
 
 8/14/15
 - Tweaked spawn algorithm
