@@ -111,8 +111,6 @@ void setup() {
   XSIZE = (int)(displayWidth*1.2); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.2);
 
-  background = loadImage("background.png");
-
   thumbCircle = new Joystick();
 
   released = false;
@@ -129,11 +127,11 @@ void setup() {
   borderStroke = 10;
 
   //loading animations
-  chas_spawning = new Animation("SpawnRed", 5, 240*displayHeight/768, 200*displayHeight/768);
-  chas_dying = new Animation("DieRed", 7, 240*displayHeight/768, 200*displayHeight/768);
-  baf_spawning = new Animation("SpawnYellow", 10, 240*displayHeight/768, 200*displayHeight/768);
-  baf_dying = new Animation("DieYellow", 5, 240*displayHeight/768, 200*displayHeight/768);
-  baf_moving_hori = new Animation("MovingYellow", 13, 180*displayHeight/768, 150*displayHeight/768);
+//  chas_spawning = new Animation("SpawnRed", 5, 240*displayHeight/768, 200*displayHeight/768);
+//  chas_dying = new Animation("DieRed", 7, 240*displayHeight/768, 200*displayHeight/768);
+//  baf_spawning = new Animation("SpawnYellow", 10, 240*displayHeight/768, 200*displayHeight/768);
+//  baf_dying = new Animation("DieYellow", 5, 240*displayHeight/768, 200*displayHeight/768);
+//  baf_moving_hori = new Animation("MovingYellow", 13, 180*displayHeight/768, 150*displayHeight/768);
   baf_moving_vert = new Animation("MovingYellowVert", 13, 150*displayHeight/768, 180*displayHeight/768);
   bounce_spawning = new Animation("SpawnGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
   bounce_moving = new Animation("MovingGreen", 13, 240*displayHeight/768, 200*displayHeight/768);
@@ -142,13 +140,13 @@ void setup() {
   gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
   //  println(displayHeight);
   //  println(displayWidth);
-
+  
   //high score screen
   reset = loadImage("Reset_Button.png");
   home = loadImage("Home_Button.png");
   home.resize(displayHeight/7, displayHeight/7);
   reset.resize(displayHeight/7, displayHeight/7);
-
+  
   //powerups
   shield = loadImage("Shield.png");
   shield.resize(displayHeight/14, displayHeight/14);
@@ -161,8 +159,8 @@ void setup() {
   spikes = loadImage("Spikes.png");
   spikes.resize(displayHeight/14, displayHeight/14);
 
-  font = loadFont("Kuro-Regular-250.vlw");
-  textFont(font);
+  //font = loadFont("Kuro-Regular-250.vlw");
+  //textFont(font);
 
   active = true;
 }
