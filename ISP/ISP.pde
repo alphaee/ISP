@@ -98,9 +98,10 @@ boolean released;
 
 boolean spiking;
 
+boolean init_anim;
+
 PFont font;
 PImage background;
-
 
 int borderColorR, borderColorG, borderColorB, borderStroke;
 
@@ -126,27 +127,12 @@ void setup() {
   borderColorB = 255;
   borderStroke = 10;
 
-  //loading animations
-  chas_spawning = new Animation("SpawnRed", 5, 240*displayHeight/768, 200*displayHeight/768);
-  chas_dying = new Animation("DieRed", 7, 240*displayHeight/768, 200*displayHeight/768);
-  baf_spawning = new Animation("SpawnYellow", 10, 240*displayHeight/768, 200*displayHeight/768);
-  baf_dying = new Animation("DieYellow", 5, 240*displayHeight/768, 200*displayHeight/768);
-  baf_moving_hori = new Animation("MovingYellow", 13, 180*displayHeight/768, 150*displayHeight/768);
-  baf_moving_vert = new Animation("MovingYellowVert", 13, 150*displayHeight/768, 180*displayHeight/768);
-  bounce_spawning = new Animation("SpawnGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
-  bounce_moving = new Animation("MovingGreen", 13, 240*displayHeight/768, 200*displayHeight/768);
-  bounce_dying = new Animation("DieGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
-  baf_merge = new Animation("MergeYellow", 14, 240*displayHeight/768, 200*displayHeight/768);
-  gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
-  //  println(displayHeight);
-  //  println(displayWidth);
-  
   //high score screen
   reset = loadImage("Reset_Button.png");
   home = loadImage("Home_Button.png");
   home.resize(displayHeight/7, displayHeight/7);
   reset.resize(displayHeight/7, displayHeight/7);
-  
+
   //powerups
   shield = loadImage("Shield.png");
   shield.resize(displayHeight/14, displayHeight/14);
@@ -159,10 +145,27 @@ void setup() {
   spikes = loadImage("Spikes.png");
   spikes.resize(displayHeight/14, displayHeight/14);
 
-  //font = loadFont("Kuro-Regular-250.vlw");
-  //textFont(font);
+  font = loadFont("Kuro-Regular-250.vlw");
+  textFont(font);
 
   active = true;
+
+  init_anim = true;
+}
+
+void init_animations() {
+  chas_spawning = new Animation("SpawnRed", 5, 240*displayHeight/768, 200*displayHeight/768);
+  chas_dying = new Animation("DieRed", 7, 240*displayHeight/768, 200*displayHeight/768);
+  baf_spawning = new Animation("SpawnYellow", 10, 240*displayHeight/768, 200*displayHeight/768);
+  baf_dying = new Animation("DieYellow", 5, 240*displayHeight/768, 200*displayHeight/768);
+  baf_moving_hori = new Animation("MovingYellow", 13, 180*displayHeight/768, 150*displayHeight/768);
+  baf_moving_vert = new Animation("MovingYellowVert", 13, 150*displayHeight/768, 180*displayHeight/768);
+  bounce_spawning = new Animation("SpawnGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
+  bounce_moving = new Animation("MovingGreen", 13, 240*displayHeight/768, 200*displayHeight/768);
+  bounce_dying = new Animation("DieGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
+  baf_merge = new Animation("MergeYellow", 14, 240*displayHeight/768, 200*displayHeight/768);
+
+  gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
 }
 
 void setup2() {
@@ -199,14 +202,14 @@ void setup2() {
   numMines = 3;
   numRailguns = 2;
 
-//  for (int i = 0; i < 10; i++) {
-//    Chaser temp= new Chaser();
-//    enemies[0].add(temp);
-//    BackAndForth temp2= new BackAndForth();
-//    enemies[1].add(temp2);
-//    Bouncer temp3= new Bouncer();
-//    enemies[2].add(temp3);
-//  }
+  //  for (int i = 0; i < 10; i++) {
+  //    Chaser temp= new Chaser();
+  //    enemies[0].add(temp);
+  //    BackAndForth temp2= new BackAndForth();
+  //    enemies[1].add(temp2);
+  //    Bouncer temp3= new Bouncer();
+  //    enemies[2].add(temp3);
+  //  }
 }
 
 void draw() {
@@ -215,6 +218,10 @@ void draw() {
 
   case 00: //HOMESCREEN
     //    println("case 00");
+    if (init_anim && millis() > 2000) {
+      init_anim = !init_anim;
+      init_animations();
+    }
     background(0);
 
     fill(#647775);
@@ -234,7 +241,7 @@ void draw() {
         active = !active;
     }
 
-    if (mousePressed && active) {
+    if (mousePressed && active && !init_anim) {
       active = false;
       activeMillis = millis();
       if (mouseY > displayHeight/2 - displayHeight*2/25 + displayHeight*3/10)
@@ -348,8 +355,8 @@ void draw() {
         railgunCollision();
         railgunMove();
 
-        //checkSpikes();
-        //spikeCollision();
+        checkSpikes();
+        spikeCollision();
 
         iCounter++;
         counter++;
@@ -361,7 +368,6 @@ void draw() {
 
   case 20: //GAME OVER
     background(0);
-    textFont(font);
     textSize(displayHeight/9);         
     textAlign(CENTER, CENTER);         
     fill(#32CCD8);
@@ -386,6 +392,18 @@ void draw() {
     fill(#5BD832, 0);
     image(reset, displayWidth*4/5-displayHeight/7, displayHeight*3/4);
     rect(displayWidth-displayHeight/7-displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
+
+    if (released&&mousePressed) {
+      if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590)) {
+        if (mouseX > displayWidth/2) {
+          setup2();
+          state = 10;
+        } else 
+          state = 00;
+        released = false;
+      }
+    }
+
     break;
   }
 }
@@ -418,7 +436,7 @@ void countdown(int t) {
     start = false;
 }
 
-void mouseClicked() {
+void mouseReleased() {
   //  boolean released = false;
   if (get(mouseX, mouseY) == #D130A4)
     state = 00;
@@ -427,13 +445,8 @@ void mouseClicked() {
     startMillis = millis();
     state = 10;
   }
-  if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590) && state == 20) {
-    if (mouseX > displayWidth/2) {
-      setup2();
-      state = 10;
-    } else 
-      state = 00;
-  }
+  if (state==20)
+    released = true;
 }
 
 boolean sketchFullScreen() { //Necessary to start in full screen
@@ -534,11 +547,11 @@ void spawnPowerups() {
       Shield temp = new Shield();
       powerups[0].add(temp);
     }
-    //float guess2 = random(10);
-    //if (guess2 > 1) {
-    //  Spikes temp = new Spikes();
-    //  powerups[3].add(temp);
-    //}
+    float guess2 = random(10);
+    if (guess2 > 1) {
+      Spikes temp = new Spikes();
+      powerups[3].add(temp);
+    }
   }
   if (millis() - startMillis >= 15000) {
     numMines = 4;
@@ -639,11 +652,8 @@ void spikeCollision() {
     borderColorG = (int)(96*cos(PI/30*counter))+113;
     borderStroke = (int)(10*sin(PI/30*counter))+10;
     for (int i = 0; i < enemySize; i ++) {
-      for (int j = 0; j < enemies[i].size (); j ++) {
-        //        println(enemies[i].get(j).xCor(), enemies[i].get(j).yCor(), XSIZE - 35, YSIZE - 35);
-        //        println(enemies[i].get(j).xCor(), enemies[i].get(j).yCor(), enemies[i].get(j).isAlive());
+      for (int j = 0; j < enemies[i].size (); j ++) {    
         if (enemies[i].get(j).checkSpikeDeath()) {
-         // println(enemies[i].get(j).xCor(), enemies[i].get(j).yCor(), XSIZE - 35, YSIZE - 35);
           enemies[i].get(j).dead(i, j);
           j--;
           if (j<0)
