@@ -337,7 +337,7 @@ void draw() {
       if (touchDetection()) {
 
         spawnPowerups();
-     //   spawnEnemies();
+        spawnEnemies();
 
         enemiesAct();
         enemiesCollide();
