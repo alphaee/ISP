@@ -127,11 +127,11 @@ void setup() {
   borderStroke = 10;
 
   //loading animations
-//  chas_spawning = new Animation("SpawnRed", 5, 240*displayHeight/768, 200*displayHeight/768);
-//  chas_dying = new Animation("DieRed", 7, 240*displayHeight/768, 200*displayHeight/768);
-//  baf_spawning = new Animation("SpawnYellow", 10, 240*displayHeight/768, 200*displayHeight/768);
-//  baf_dying = new Animation("DieYellow", 5, 240*displayHeight/768, 200*displayHeight/768);
-//  baf_moving_hori = new Animation("MovingYellow", 13, 180*displayHeight/768, 150*displayHeight/768);
+  chas_spawning = new Animation("SpawnRed", 5, 240*displayHeight/768, 200*displayHeight/768);
+  chas_dying = new Animation("DieRed", 7, 240*displayHeight/768, 200*displayHeight/768);
+  baf_spawning = new Animation("SpawnYellow", 10, 240*displayHeight/768, 200*displayHeight/768);
+  baf_dying = new Animation("DieYellow", 5, 240*displayHeight/768, 200*displayHeight/768);
+  baf_moving_hori = new Animation("MovingYellow", 13, 180*displayHeight/768, 150*displayHeight/768);
   baf_moving_vert = new Animation("MovingYellowVert", 13, 150*displayHeight/768, 180*displayHeight/768);
   bounce_spawning = new Animation("SpawnGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
   bounce_moving = new Animation("MovingGreen", 13, 240*displayHeight/768, 200*displayHeight/768);
@@ -348,8 +348,8 @@ void draw() {
         railgunCollision();
         railgunMove();
 
-        //checkSpikes();
-        //spikeCollision();
+        checkSpikes();
+        spikeCollision();
 
         iCounter++;
         counter++;
@@ -361,7 +361,6 @@ void draw() {
 
   case 20: //GAME OVER
     background(0);
-    textFont(font);
     textSize(displayHeight/9);         
     textAlign(CENTER, CENTER);         
     fill(#32CCD8);
@@ -534,11 +533,11 @@ void spawnPowerups() {
       Shield temp = new Shield();
       powerups[0].add(temp);
     }
-    //float guess2 = random(10);
-    //if (guess2 > 1) {
-    //  Spikes temp = new Spikes();
-    //  powerups[3].add(temp);
-    //}
+    float guess2 = random(10);
+    if (guess2 > 1) {
+      Spikes temp = new Spikes();
+      powerups[3].add(temp);
+    }
   }
   if (millis() - startMillis >= 15000) {
     numMines = 4;
