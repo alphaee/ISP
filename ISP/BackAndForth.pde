@@ -158,7 +158,7 @@ class BackAndForth implements Enemy {
     inLife = j;
     //    println(iBafCounter);
     if (isAlive) {// && iBafCounter >= fps*3) {
-      println("comp", xCor, yCor);
+      //println("comp", xCor, yCor);
       isAlive = false;
     }
   }

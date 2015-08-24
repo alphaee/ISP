@@ -645,7 +645,7 @@ void spikeCollision() {
         //        println(enemies[i].get(j).xCor(), enemies[i].get(j).yCor(), XSIZE - 35, YSIZE - 35);
         //        println(enemies[i].get(j).xCor(), enemies[i].get(j).yCor(), enemies[i].get(j).isAlive());
         if (enemies[i].get(j).checkSpikeDeath()) {
-          println(enemies[i].get(j).xCor(), enemies[i].get(j).yCor(), XSIZE - 35, YSIZE - 35);
+         // println(enemies[i].get(j).xCor(), enemies[i].get(j).yCor(), XSIZE - 35, YSIZE - 35);
           enemies[i].get(j).dead(i, j);
           j--;
           if (j<0)
