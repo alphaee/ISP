@@ -165,7 +165,7 @@ void init_animations() {
   bounce_dying = new Animation("DieGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
   baf_merge = new Animation("MergeYellow", 14, 240*displayHeight/768, 200*displayHeight/768);
 
-  gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
+  gunMoving = new Animation("Railgun", 7, 2*displayHeight/32, 2*displayHeight/32);
 }
 
 void setup2() {
@@ -644,7 +644,6 @@ void checkSpikes() {
 }
 
 void spikeCollision() {
-  //  spikesCounter=0;
   if (spikesCounter > 0) {
     spikesCounter--;
     borderColorR = 209;
