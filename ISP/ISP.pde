@@ -134,9 +134,8 @@ void setup() {
   baf_moving_hori = new Animation("MovingYellow", 13, 180*displayHeight/768, 150*displayHeight/768);
   baf_moving_vert = new Animation("MovingYellowVert", 13, 150*displayHeight/768, 180*displayHeight/768);
   bounce_spawning = new Animation("SpawnGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
-  bounce_moving = new Animation("MovingGreen", 13, 240*displayHeight/768, 200*displayHeight/768);
-  bounce_dying = new Animation("DieGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
-  baf_merge = new Animation("MergeYellow", 14, 240*displayHeight/768, 200*displayHeight/768);
+
+
   gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
   //  println(displayHeight);
   //  println(displayWidth);
@@ -167,6 +166,9 @@ void setup() {
 
 void setup2() {
   hero = new Player();
+  bounce_moving = new Animation("MovingGreen", 13, 240*displayHeight/768, 200*displayHeight/768);
+  bounce_dying = new Animation("DieGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
+  baf_merge = new Animation("MergeYellow", 14, 240*displayHeight/768, 200*displayHeight/768);
 
   for (int i = 0; i < enemySize; i++) {
     enemies[i] = new ArrayList<Enemy>();
