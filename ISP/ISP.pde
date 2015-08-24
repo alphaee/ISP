@@ -350,8 +350,8 @@ void draw() {
         railgunCollision();
         railgunMove();
 
-        checkSpikes();
-        spikeCollision();
+        //checkSpikes();
+        //spikeCollision();
 
         iCounter++;
         counter++;
@@ -536,11 +536,11 @@ void spawnPowerups() {
       Shield temp = new Shield();
       powerups[0].add(temp);
     }
-    float guess2 = random(10);
-    if (guess2 > 1) {
-      Spikes temp = new Spikes();
-      powerups[3].add(temp);
-    }
+    //float guess2 = random(10);
+    //if (guess2 > 1) {
+    //  Spikes temp = new Spikes();
+    //  powerups[3].add(temp);
+    //}
   }
   if (millis() - startMillis >= 15000) {
     numMines = 4;
