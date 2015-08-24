@@ -140,7 +140,7 @@ void setup() {
   bounce_dying = new Animation("DieGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
   baf_merge = new Animation("MergeYellow", 14, 240*displayHeight/768, 200*displayHeight/768);
   gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
-  //  println(displayHeight);
+  //  rln(displayHeight);
   //  println(displayWidth);
 
   //high score screen
