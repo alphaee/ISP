@@ -98,9 +98,10 @@ boolean released;
 
 boolean spiking;
 
+boolean init_anim;
+
 PFont font;
 PImage background;
-
 
 int borderColorR, borderColorG, borderColorB, borderStroke;
 
@@ -125,20 +126,6 @@ void setup() {
   borderColorG = 255;
   borderColorB = 255;
   borderStroke = 10;
-
-  //loading animations
-  chas_spawning = new Animation("SpawnRed", 5, 240*displayHeight/768, 200*displayHeight/768);
-  chas_dying = new Animation("DieRed", 7, 240*displayHeight/768, 200*displayHeight/768);
-  baf_spawning = new Animation("SpawnYellow", 10, 240*displayHeight/768, 200*displayHeight/768);
-  baf_dying = new Animation("DieYellow", 5, 240*displayHeight/768, 200*displayHeight/768);
-  baf_moving_hori = new Animation("MovingYellow", 13, 180*displayHeight/768, 150*displayHeight/768);
-  baf_moving_vert = new Animation("MovingYellowVert", 13, 150*displayHeight/768, 180*displayHeight/768);
-  bounce_spawning = new Animation("SpawnGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
-
-
-  gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
-  //  println(displayHeight);
-  //  println(displayWidth);
   
   //high score screen
   reset = loadImage("Reset_Button.png");
@@ -158,17 +145,31 @@ void setup() {
   spikes = loadImage("Spikes.png");
   spikes.resize(displayHeight/14, displayHeight/14);
 
-  //font = loadFont("Kuro-Regular-250.vlw");
-  //textFont(font);
+  font = loadFont("Kuro-Regular-250.vlw");
+  textFont(font);
 
   active = true;
+  
+  init_anim = true;
+}
+
+void init_animations(){
+  chas_spawning = new Animation("SpawnRed", 5, 240*displayHeight/768, 200*displayHeight/768);
+  chas_dying = new Animation("DieRed", 7, 240*displayHeight/768, 200*displayHeight/768);
+  baf_spawning = new Animation("SpawnYellow", 10, 240*displayHeight/768, 200*displayHeight/768);
+  baf_dying = new Animation("DieYellow", 5, 240*displayHeight/768, 200*displayHeight/768);
+  baf_moving_hori = new Animation("MovingYellow", 13, 180*displayHeight/768, 150*displayHeight/768);
+  baf_moving_vert = new Animation("MovingYellowVert", 13, 150*displayHeight/768, 180*displayHeight/768);
+  bounce_spawning = new Animation("SpawnGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
+  bounce_moving = new Animation("MovingGreen", 13, 240*displayHeight/768, 200*displayHeight/768);
+  bounce_dying = new Animation("DieGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
+  baf_merge = new Animation("MergeYellow", 14, 240*displayHeight/768, 200*displayHeight/768);
+
+  gunMoving = new Animation("Railgun", 7, 4*displayHeight/32, 3*displayHeight/32);
 }
 
 void setup2() {
   hero = new Player();
-  bounce_moving = new Animation("MovingGreen", 13, 240*displayHeight/768, 200*displayHeight/768);
-  bounce_dying = new Animation("DieGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
-  baf_merge = new Animation("MergeYellow", 14, 240*displayHeight/768, 200*displayHeight/768);
 
   for (int i = 0; i < enemySize; i++) {
     enemies[i] = new ArrayList<Enemy>();
@@ -217,6 +218,10 @@ void draw() {
 
   case 00: //HOMESCREEN
     //    println("case 00");
+    if(init_anim && millis() > 2000){
+      init_anim = !init_anim;
+      init_animations();
+    }
     background(0);
 
     fill(#647775);
@@ -236,7 +241,7 @@ void draw() {
         active = !active;
     }
 
-    if (mousePressed && active) {
+    if (mousePressed && active && !init_anim) {
       active = false;
       activeMillis = millis();
       if (mouseY > displayHeight/2 - displayHeight*2/25 + displayHeight*3/10)
