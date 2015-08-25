@@ -6,6 +6,9 @@ int XSIZE, YSIZE;
 float XCHANGE, YCHANGE;
 final int fps = 30;
 
+//CAMERA VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+float eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ;
+
 //PLAYER VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Player hero;
 float pxCor, pyCor; //Player x-cor and y-cor
@@ -92,6 +95,9 @@ int activeMillis;
 boolean start;
 int startMillis;
 
+boolean dead;
+int deathMillis;
+
 boolean jCheck;
 
 boolean released;
@@ -172,6 +178,17 @@ void init_animations() {
 
 void setup2() {
   hero = new Player();
+  
+  eyeX = width/2.0;
+  eyeY = height/2.0;
+  eyeZ = (height/2.0) / tan(PI*30.0/180.0);
+  centerX = width/2.0;
+  centerY = height/2.0;
+  centerZ = 0;
+  upX = 0;
+  upY = 1;
+  upZ = 0;
+  camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
 
   for (int i = 0; i < enemySize; i++) {
     enemies[i] = new ArrayList<Enemy>();
@@ -192,6 +209,8 @@ void setup2() {
   startMillis = millis();
   prevMillisE = startMillis;
   prevMillisP = startMillis;
+  
+  dead = false;
 
   percentBAF = 8;
   numSpawn = 1;
@@ -746,15 +765,33 @@ void checkDeath() {
   for (int i = 0; i < enemySize; i ++) { //2-D parsing
     for (Enemy e : enemies[i]) {
       if (hero.isDead(e) && !e.spawning()) {
-        try {
-          checkHighScores();
-          scores = highScores();
+        if (!dead){
+          deathMillis = millis();
+          dead = !dead;
         }
-        catch(Exception a) {
+        else{
+          death();
         }
-        state = 20;
       }
     }
+  }
+}
+
+void death() {
+  if (millis() - deathMillis < 30000){
+    while (eyeZ > 0){
+      eyeZ--;
+      camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
+    }
+  }
+  else{
+    try {
+      checkHighScores();
+      scores = highScores();
+    }
+    catch(Exception a) {
+    }
+    state = 20;
   }
 }
 
@@ -786,4 +823,3 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
-
