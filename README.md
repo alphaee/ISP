@@ -8,12 +8,17 @@
 *To-Do*  
 - Animations: Character, Mine
 - Background screen
-- Fix spikes
-- Dan: Make high score word size bigger
-- Young: Character death animation, instruction screen
-- Franklin: Spikes
+- Franklin: implement background
+- Dan: death thing
+- Young: Redo Spikes - > Lightning, Instructions
 
 *Update Log*
+
+8/24/15
+- Split up setup function to reduce load at beginning of game
+- Redid railgun picture
+- Added app icon
+- Fixed more bugs
 
 8/20/15
 - Implemented spike powerup
