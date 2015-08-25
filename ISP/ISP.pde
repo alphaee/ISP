@@ -179,16 +179,16 @@ void init_animations() {
 void setup2() {
   hero = new Player();
   
-  eyeX = width/2.0;
-  eyeY = height/2.0;
-  eyeZ = (height/2.0) / tan(PI*30.0/180.0);
-  centerX = width/2.0;
-  centerY = height/2.0;
-  centerZ = 0;
-  upX = 0;
-  upY = 1;
-  upZ = 0;
-  camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
+  // eyeX = width/2.0;
+  // eyeY = height/2.0;
+  // eyeZ = (height/2.0) / tan(PI*30.0/180.0);
+  // centerX = width/2.0;
+  // centerY = height/2.0;
+  // centerZ = 0;
+  // upX = 0;
+  // upY = 1;
+  // upZ = 0;
+  // camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
 
   for (int i = 0; i < enemySize; i++) {
     enemies[i] = new ArrayList<Enemy>();
@@ -778,11 +778,10 @@ void checkDeath() {
 }
 
 void death() {
-  if (millis() - deathMillis < 30000){
-    while (eyeZ > 0){
-      eyeZ--;
-      camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
-    }
+  if (millis() - deathMillis < 3000){
+    // eyeZ-=10;
+    // camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
+    scale(100);
   }
   else{
     try {
