@@ -105,6 +105,8 @@ PImage background;
 
 int borderColorR, borderColorG, borderColorB, borderStroke;
 
+ArrayList<String> wtf;
+
 void setup() {
   orientation(LANDSCAPE);
   size(displayWidth, displayHeight); //Disable for mobile
@@ -202,14 +204,11 @@ void setup2() {
   numMines = 3;
   numRailguns = 2;
 
-  //  for (int i = 0; i < 10; i++) {
-  //    Chaser temp= new Chaser();
-  //    enemies[0].add(temp);
-  //    BackAndForth temp2= new BackAndForth();
-  //    enemies[1].add(temp2);
-  //    Bouncer temp3= new Bouncer();
-  //    enemies[2].add(temp3);
-  //  }
+//  for (int i = 0; i < 2; i++) {
+//      BackAndForth temp2= new BackAndForth();
+//      enemies[1].add(temp2);
+//  }
+  wtf = new ArrayList<String>();
 }
 
 void draw() {
@@ -355,11 +354,12 @@ void draw() {
         railgunCollision();
         railgunMove();
 
+        iCounter++;
+        counter++; 
+        
         checkSpikes();
         spikeCollision();
-
-        iCounter++;
-        counter++;
+        spikeDeath();
       }
       hero.move();
       checkDeath();
@@ -548,7 +548,7 @@ void spawnPowerups() {
       powerups[0].add(temp);
     }
     float guess2 = random(10);
-    if (guess2 > 1) {
+    if (guess2 > 1 && (powerups[3].size() == 0)) {
       Spikes temp = new Spikes();
       powerups[3].add(temp);
     }
@@ -651,13 +651,16 @@ void spikeCollision() {
     borderColorG = (int)(96*cos(PI/30*counter))+113;
     borderStroke = (int)(10*sin(PI/30*counter))+10;
     for (int i = 0; i < enemySize; i ++) {
-      for (int j = 0; j < enemies[i].size (); j ++) {    
-        if (enemies[i].get(j).checkSpikeDeath()) {
-          enemies[i].get(j).dead(i, j);
-          j--;
-          if (j<0)
-            j=0;
-        }
+      for (int j = 0; j < enemies[i].size (); j ++) {  
+        if(enemies[i].size() > 0)  
+          if (enemies[i].get(j).checkSpikeDeath()) {
+            println(i + " " + j + enemies[i].get(j).isAlive());
+            enemies[i].get(j).dead(i, j);
+            println(i + " " + j + enemies[i].get(j).isAlive());
+            j--;
+            if (j<0)
+              j=0;
+          }
       }
     }
   } else {
@@ -665,6 +668,12 @@ void spikeCollision() {
       setBoundaryNormal();
     }
     spiking = false;
+  }
+}
+
+void spikeDeath(){
+  for(int i = 0; i < wtf.size(); i++){
+    
   }
 }
 
@@ -678,7 +687,7 @@ void setBoundaryNormal() {
 void mineCollision() {
   for (int i = 0; i < enemySize; i ++) {
     for (int j = 0; j < enemies[i].size (); j ++) {
-      for (int k = 0; k < powerups[1].size (); k ++) {
+      for (int k = 0; k < powerups[1].size(); k ++) {
         Mine curr = (Mine)powerups[1].get(k);
         if (enemies[i].size()>0)
           if (curr.event(enemies[i].get(j))) {
