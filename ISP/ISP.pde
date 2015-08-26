@@ -6,6 +6,14 @@ int XSIZE, YSIZE;
 float XCHANGE, YCHANGE;
 final int fps = 30;
 
+//BACKGROUND VARIABLES~~~~~~~~~~~~~~~~~~~~~~~~~~~
+float  INNERHUE;
+float  OUTERHUE;
+final int INNERRADIUS = 700;
+final int INNERSIZE = 40;
+final int OUTERSIZE = 40;
+final int OUTERRADIUS = INNERRADIUS+INNERSIZE;
+
 //PLAYER VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Player hero;
 float pxCor, pyCor; //Player x-cor and y-cor
@@ -202,10 +210,10 @@ void setup2() {
   numMines = 3;
   numRailguns = 2;
 
-//  for (int i = 0; i < 2; i++) {
-//      BackAndForth temp2= new BackAndForth();
-//      enemies[1].add(temp2);
-//  }
+  //  for (int i = 0; i < 2; i++) {
+  //      BackAndForth temp2= new BackAndForth();
+  //      enemies[1].add(temp2);
+  //  }
 }
 
 void draw() {
@@ -271,11 +279,11 @@ void draw() {
     text("Mine:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*5/20);
     text("Shield:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*7/20);
     text("Railgun:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*9/20);
-    
+
     text("The mine blows up enemies in its proximity.", 11*displayWidth/28, displayHeight/6 + displayHeight/30 + displayHeight*5/20);
     text("The shield gives you another layer of defense.", 11*displayWidth/28, displayHeight/6 + displayHeight/30 + displayHeight*7/20);
     text("The railgun clears any enemies in its path.", 11*displayWidth/28, displayHeight/6 + displayHeight/30 + displayHeight*9/20);
-    
+
     imageMode(CENTER);
     image(minePassive, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*5/20);
     image(shield, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*7/20);
@@ -329,6 +337,7 @@ void draw() {
 
   case 10: //MAIN GAME
     background(0);
+    drawGradient();
     updatePlayerCors(); //update coordinates before applying translations; also updates XCHANGE & YCHANGE
     translate(XCHANGE, YCHANGE);
 
@@ -354,12 +363,12 @@ void draw() {
 
         railgunCollision();
         railgunMove();
-        
+
         checkSpikes();
         spikeCollision();
 
         iCounter++;
-        counter++; 
+        counter++;
       }
       hero.move();
       checkDeath();
@@ -652,7 +661,7 @@ void spikeCollision() {
     borderStroke = (int)(10*sin(PI/30*counter))+10;
     for (int i = 0; i < enemySize; i ++) {
       for (int j = 0; j < enemies[i].size (); j ++) {  
-        if(enemies[i].size() > 0)  
+        if (enemies[i].size() > 0)  
           if (enemies[i].get(j).checkSpikeDeath()) {
             println(i + " " + j + enemies[i].get(j).isAlive());
             enemies[i].get(j).dead(i, j);
@@ -681,7 +690,7 @@ void setBoundaryNormal() {
 void mineCollision() {
   for (int i = 0; i < enemySize; i ++) {
     for (int j = 0; j < enemies[i].size (); j ++) {
-      for (int k = 0; k < powerups[1].size(); k ++) {
+      for (int k = 0; k < powerups[1].size (); k ++) {
         Mine curr = (Mine)powerups[1].get(k);
         if (enemies[i].size()>0)
           if (curr.event(enemies[i].get(j))) {
@@ -750,6 +759,38 @@ void checkDeath() {
       }
     }
   }
+}
+
+void drawGradient() {
+  colorMode(HSB, 360, 100, 100);
+  INNERHUE = millis()/100%360;
+  OUTERHUE = (millis()+180)/50%360;
+  noStroke();
+  drawGradientOuter(OUTERHUE, displayWidth/2, displayHeight/2, OUTERRADIUS, OUTERSIZE);
+  drawGradientInner(INNERHUE, displayWidth/2, displayHeight/2, INNERRADIUS, INNERSIZE);
+  colorMode(RGB);
+}
+
+void drawGradientOuter(float h, float x, float y, int radius, int size) {
+  float brightness = 0;
+  for (int i = radius+size; i > radius; i--) {
+    brightness += 60.0/(i-radius);
+    fill(h, 90, brightness);
+    ellipse(x, y, i, i);
+  }
+  fill(255);
+  ellipse(x, y, radius, radius);
+}
+
+void drawGradientInner(float h, float x, float y, int radius, int size) {
+  float brightness = 60;
+  for (int i = radius+size; i > radius; i--) {
+    brightness -= 60.0/(i-radius);
+    fill(h, 90, brightness);
+    ellipse(x, y, i, i);
+  }
+  fill(0);
+  ellipse(x, y, radius, radius);
 }
 
 void checkHighScores() throws IOException {
