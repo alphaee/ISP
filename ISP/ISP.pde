@@ -7,7 +7,7 @@ float XCHANGE, YCHANGE;
 final int fps = 30;
 
 //CAMERA VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-float eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ;
+float inc, scaleFactor, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ;
 
 //PLAYER VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Player hero;
@@ -23,7 +23,7 @@ final int enemySize = 3;
  1: Back&Forth-s
  2: Bouncers
  */
-
+//
 //ENEMY ANIMATIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Animation chas_spawning;
 Animation chas_dying;
@@ -768,6 +768,8 @@ void checkDeath() {
         if (!dead){
           deathMillis = millis();
           dead = !dead;
+          inc = 0.0;
+          scaleFactor = 0.0;
         }
         else{
           death();
@@ -781,7 +783,10 @@ void death() {
   if (millis() - deathMillis < 3000){
     // eyeZ-=10;
     // camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
-    scale(100);
+    inc += 0.4;
+    scaleFactor = cos(inc)*2;
+    translate(width/2, height/2);
+    scale(scaleFactor);
   }
   else{
     try {
