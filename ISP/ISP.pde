@@ -630,7 +630,9 @@ void displayAll() {
       p.display();
 
   thumbCircle.display();
-  hero.display();
+  if(!dead){
+    hero.display();
+  }
   displayStats();
 }
 
@@ -783,10 +785,7 @@ void death() {
   if (millis() - deathMillis < 3000){
     // eyeZ-=10;
     // camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
-    inc += 0.4;
-    scaleFactor = cos(inc)*2;
-    translate(width/2, height/2);
-    scale(scaleFactor);
+    hero.zoomDeath();
   }
   else{
     try {

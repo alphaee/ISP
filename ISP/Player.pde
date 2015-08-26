@@ -118,5 +118,19 @@ class Player {
     }
     popMatrix();
   }
+  
+  void zoomDeath() {
+    // inc += 0.4;
+    // scaleFactor = cos(inc)*100;
+    //translate(width/2, height/2);
+    //scale(scaleFactor);
+    inc += 10;
+    
+    float fov = PI/inc+0.01;
+    float cameraZ = (height/2.0) / tan(fov/2.0);
+    
+    img.resize(55, 65);
+    image(img, 0, 0);
+    perspective(fov, float(width)/float(height), cameraZ/100.0, cameraZ*100.0);
+  }
 }
-
