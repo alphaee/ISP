@@ -105,8 +105,6 @@ PImage background;
 
 int borderColorR, borderColorG, borderColorB, borderStroke;
 
-ArrayList<String> wtf;
-
 void setup() {
   orientation(LANDSCAPE);
   size(displayWidth, displayHeight); //Disable for mobile
@@ -208,7 +206,6 @@ void setup2() {
 //      BackAndForth temp2= new BackAndForth();
 //      enemies[1].add(temp2);
 //  }
-  wtf = new ArrayList<String>();
 }
 
 void draw() {
@@ -274,7 +271,11 @@ void draw() {
     text("Mine:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*5/20);
     text("Shield:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*7/20);
     text("Railgun:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*9/20);
-
+    
+    text("The mine blows up enemies in its proximity.", 11*displayWidth/28, displayHeight/6 + displayHeight/30 + displayHeight*5/20);
+    text("The shield gives you another layer of defense.", 11*displayWidth/28, displayHeight/6 + displayHeight/30 + displayHeight*7/20);
+    text("The railgun clears any enemies in its path.", 11*displayWidth/28, displayHeight/6 + displayHeight/30 + displayHeight*9/20);
+    
     imageMode(CENTER);
     image(minePassive, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*5/20);
     image(shield, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*7/20);
@@ -353,13 +354,12 @@ void draw() {
 
         railgunCollision();
         railgunMove();
-
-        iCounter++;
-        counter++; 
         
         checkSpikes();
         spikeCollision();
-        spikeDeath();
+
+        iCounter++;
+        counter++; 
       }
       hero.move();
       checkDeath();
@@ -668,12 +668,6 @@ void spikeCollision() {
       setBoundaryNormal();
     }
     spiking = false;
-  }
-}
-
-void spikeDeath(){
-  for(int i = 0; i < wtf.size(); i++){
-    
   }
 }
 
