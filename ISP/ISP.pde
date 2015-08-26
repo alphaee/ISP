@@ -9,7 +9,7 @@ final int fps = 30;
 //BACKGROUND VARIABLES~~~~~~~~~~~~~~~~~~~~~~~~~~~
 float  INNERHUE;
 float  OUTERHUE;
-final int INNERRADIUS = 700;
+final int INNERRADIUS = 200;
 final int INNERSIZE = 40;
 final int OUTERSIZE = 40;
 final int OUTERRADIUS = INNERRADIUS+INNERSIZE;
@@ -417,47 +417,9 @@ void draw() {
   }
 }
 
-void keyPressed() {
-  if (key == 'm') {
-    Mine m = new Mine(1);
-    powerups[1].add(m);
-  }
-  if (key == 'r') {
-    setup2();
-  }
-  if (key == ' ') {
-    Railgun r = new Railgun(1);
-    powerups[2].add(r);
-  }
-}
+//=============================================================================================
 
-void countdown(int t) {
-  fill(180);
-  textAlign(CENTER, CENTER);
-  textSize(displayHeight/9);
-  if (millis() - t < 1500)
-    text("3", pxCor, pyCor-displayHeight/10);
-  else if (millis() - t < 2500)
-    text("2", pxCor, pyCor-displayHeight/10);
-  else if (millis() - t < 3500)
-    text("1", pxCor, pyCor-displayHeight/10);
-  else
-    start = false;
-}
-
-void mouseReleased() {
-  //  boolean released = false;
-  if (get(mouseX, mouseY) == #D130A4)
-    state = 00;
-  if (get(mouseX, mouseY) == #5BD832) {
-    start = true;
-    startMillis = millis();
-    state = 10;
-  }
-  if (state==20)
-    released = true;
-}
-
+//SCREEN STUFF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 boolean sketchFullScreen() { //Necessary to start in full screen
   return true;
 }
@@ -468,23 +430,6 @@ void updatePlayerCors() {
   XCHANGE = XSIZE/2.4 - pxCor;
   YCHANGE = YSIZE/2.4 - pyCor;
 }
-
-void enemiesAct() {
-  for (int i = 0; i < enemySize; i ++) //2-D parsing
-    for (int j = 0; j < enemies[i].size (); j++) {
-      Enemy e = enemies[i].get(j);
-      e.act();
-    }
-}
-
-void enemiesDisplay() {
-  for (int i = 0; i < enemySize; i ++) //2-D parsing
-    for (int j = 0; j < enemies[i].size (); j++) {
-      Enemy e = enemies[i].get(j);
-      e.display();
-    }
-}
-
 
 void createBoundary() {
   stroke(borderColorR, borderColorG, borderColorB);
@@ -533,39 +478,90 @@ boolean touchDetection() {
   return false;
 }
 
-void spawnPowerups() {
-  for (int i = 0; i < numMines - powerups[1].size (); i++) {
-    Mine temp = new Mine();
-    powerups[1].add(temp);
+void displayStats() {
+  fill(180);
+  textAlign(CENTER, CENTER);
+  textSize(displayHeight/12);
+  text("Shield: " + hero.shieldNum, pxCor + 11*displayWidth/32, pyCor - 3*displayHeight/8);
+  text("Score: " + score*100, pxCor - 11*displayWidth/32, pyCor - 3*displayHeight/8);
+}
+
+void displayAll() {    
+  for (int i = 0; i < powerupSize; i ++) //2-D parsing
+    for (Powerup p : powerups[i])
+      p.display();
+
+  thumbCircle.display();
+  hero.display();
+  displayStats();
+}
+
+void setBoundaryNormal() {
+  borderColorR = 255;
+  borderColorG = 255;
+  borderColorB = 255;
+  borderStroke = 10;
+}
+
+//TESTING ONLY~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void keyPressed() {
+  if (key == 'm') {
+    Mine m = new Mine(1);
+    powerups[1].add(m);
   }
-  for (int i = 0; i < numRailguns - powerups[2].size (); i++) {
-    Railgun temp = new Railgun();
-    powerups[2].add(temp);
+  if (key == 'r') {
+    setup2();
   }
-  //subsequent spawn
-  if ((millis() >= prevMillisP + 6000) && (powerups[0].size() < 2)) {
-    prevMillisP = millis();
-    float guess = random(10);
-    if (guess > 9 && hero.shieldNum < 3) {
-      Shield temp = new Shield();
-      powerups[0].add(temp);
-    } else if (guess > 8 && hero.shieldNum < 2) {
-      Shield temp = new Shield();
-      powerups[0].add(temp);
-    } else if (guess > 2 && hero.shieldNum < 1) {
-      Shield temp = new Shield();
-      powerups[0].add(temp);
+  if (key == ' ') {
+    Railgun r = new Railgun(1);
+    powerups[2].add(r);
+  }
+}
+
+//STARTING COUNTDOWN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void countdown(int t) {
+  fill(180);
+  textAlign(CENTER, CENTER);
+  textSize(displayHeight/9);
+  if (millis() - t < 1500)
+    text("3", pxCor, pyCor-displayHeight/10);
+  else if (millis() - t < 2500)
+    text("2", pxCor, pyCor-displayHeight/10);
+  else if (millis() - t < 3500)
+    text("1", pxCor, pyCor-displayHeight/10);
+  else
+    start = false;
+}
+
+//RESET AND HOME BUTTONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void mouseReleased() {
+  //  boolean released = false;
+  if (get(mouseX, mouseY) == #D130A4)
+    state = 00;
+  if (get(mouseX, mouseY) == #5BD832) {
+    start = true;
+    startMillis = millis();
+    state = 10;
+  }
+  if (state==20)
+    released = true;
+}
+
+//ENEMIES FXNS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void enemiesAct() {
+  for (int i = 0; i < enemySize; i ++) //2-D parsing
+    for (int j = 0; j < enemies[i].size (); j++) {
+      Enemy e = enemies[i].get(j);
+      e.act();
     }
-    float guess2 = random(10);
-    if (guess2 > 1 && (powerups[3].size() == 0)) {
-      Spikes temp = new Spikes();
-      powerups[3].add(temp);
+}
+
+void enemiesDisplay() {
+  for (int i = 0; i < enemySize; i ++) //2-D parsing
+    for (int j = 0; j < enemies[i].size (); j++) {
+      Enemy e = enemies[i].get(j);
+      e.display();
     }
-  }
-  if (millis() - startMillis >= 15000) {
-    numMines = 4;
-    numRailguns = 3;
-  }
 }
 
 void spawnEnemies() {
@@ -606,31 +602,46 @@ void spawnEnemies() {
   //  println(numSpawn);
 }
 
-void displayStats() {
-  fill(180);
-  textAlign(CENTER, CENTER);
-  textSize(displayHeight/12);
-  text("Shield: " + hero.shieldNum, pxCor + 11*displayWidth/32, pyCor - 3*displayHeight/8);
-  text("Score: " + score*100, pxCor - 11*displayWidth/32, pyCor - 3*displayHeight/8);
-}
-
-void displayAll() {    
-  for (int i = 0; i < powerupSize; i ++) //2-D parsing
-    for (Powerup p : powerups[i])
-      p.display();
-
-  thumbCircle.display();
-  hero.display();
-  displayStats();
-}
-
-
 void enemiesCollide() {
   for (int i = 0; i < enemies[1].size (); i ++)
     for (int j = i+1; j < enemies[1].size (); j ++)
       enemies[1].get(i).event(enemies[1].get(j), i, j);
 }
-
+//POWERUP FXNS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void spawnPowerups() {
+  for (int i = 0; i < numMines - powerups[1].size (); i++) {
+    Mine temp = new Mine();
+    powerups[1].add(temp);
+  }
+  for (int i = 0; i < numRailguns - powerups[2].size (); i++) {
+    Railgun temp = new Railgun();
+    powerups[2].add(temp);
+  }
+  //subsequent spawn
+  if ((millis() >= prevMillisP + 6000) && (powerups[0].size() < 2)) {
+    prevMillisP = millis();
+    float guess = random(10);
+    if (guess > 9 && hero.shieldNum < 3) {
+      Shield temp = new Shield();
+      powerups[0].add(temp);
+    } else if (guess > 8 && hero.shieldNum < 2) {
+      Shield temp = new Shield();
+      powerups[0].add(temp);
+    } else if (guess > 2 && hero.shieldNum < 1) {
+      Shield temp = new Shield();
+      powerups[0].add(temp);
+    }
+    float guess2 = random(10);
+    if (guess2 > 1 && (powerups[3].size() == 0)) {
+      Spikes temp = new Spikes();
+      powerups[3].add(temp);
+    }
+  }
+  if (millis() - startMillis >= 15000) {
+    numMines = 4;
+    numRailguns = 3;
+  }
+}
 void checkShield() {
   for (int i = 0; i < powerups[0].size (); i ++) {
     if (powerups[0].get(i).detect()) {
@@ -678,13 +689,6 @@ void spikeCollision() {
     }
     spiking = false;
   }
-}
-
-void setBoundaryNormal() {
-  borderColorR = 255;
-  borderColorG = 255;
-  borderColorB = 255;
-  borderStroke = 10;
 }
 
 void mineCollision() {
@@ -744,7 +748,7 @@ void mineExploding() {
       curr.exploding += 2;
   }
 }
-
+//PLAYER FXNS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void checkDeath() {
   for (int i = 0; i < enemySize; i ++) { //2-D parsing
     for (Enemy e : enemies[i]) {
@@ -760,7 +764,7 @@ void checkDeath() {
     }
   }
 }
-
+//BACKGROUND~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void drawGradient() {
   colorMode(HSB, 360, 100, 100);
   INNERHUE = millis()/100%360;
@@ -792,7 +796,7 @@ void drawGradientInner(float h, float x, float y, int radius, int size) {
   fill(0);
   ellipse(x, y, radius, radius);
 }
-
+//HIGHSCORES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void checkHighScores() throws IOException {
   String[] res = highScores();
   int i = 2;
