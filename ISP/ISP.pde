@@ -8,6 +8,7 @@ final int fps = 30;
 
 //CAMERA VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 float inc, scaleFactor, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ;
+float deathRad;
 
 //PLAYER VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Player hero;
@@ -227,7 +228,7 @@ void setup2() {
 //      BackAndForth temp2= new BackAndForth();
 //      enemies[1].add(temp2);
 //  }
-  wtf = new ArrayList<String>();
+  //wtf = new ArrayList<String>();
 }
 
 void draw() {
@@ -630,8 +631,9 @@ void displayAll() {
       p.display();
 
   thumbCircle.display();
-  if(!dead){
-    hero.display();
+  hero.display();
+  if(dead){
+    deathCircle();
   }
   displayStats();
 }
@@ -772,6 +774,7 @@ void checkDeath() {
           dead = !dead;
           inc = 0.0;
           scaleFactor = 0.0;
+          deathRad = sqrt(XSIZE*XSIZE + YSIZE*YSIZE);
         }
         else{
           death();
@@ -779,6 +782,17 @@ void checkDeath() {
       }
     }
   }
+}
+
+void deathCircle() {
+  deathRad--;
+  fill(#40D4FF); //<>//
+  noStroke();
+  ellipse(XSIZE/2, YSIZE/2, deathRad, deathRad);
+  fill(#F22E32, 50);
+  noStroke();
+  ellipse(XSIZE/2, YSIZE/2, deathRad-2, deathRad-2);
+  
 }
 
 void death() {
