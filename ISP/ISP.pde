@@ -8,7 +8,7 @@ final int fps = 30;
 
 //CAMERA VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 float inc, scaleFactor, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ;
-float deathRad;
+float deathRad, targetRad;
 
 //PLAYER VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Player hero;
@@ -775,6 +775,7 @@ void checkDeath() {
           inc = 0.0;
           scaleFactor = 0.0;
           deathRad = sqrt(XSIZE*XSIZE + YSIZE*YSIZE);
+          targetRad = deathRad - 2;
         }
         else{
           death();
@@ -785,13 +786,13 @@ void checkDeath() {
 }
 
 void deathCircle() {
-  deathRad--;
-  fill(#40D4FF); //<>//
-  noStroke();
-  ellipse(XSIZE/2, YSIZE/2, deathRad, deathRad);
-  fill(#F22E32, 50);
-  noStroke();
-  ellipse(XSIZE/2, YSIZE/2, deathRad-2, deathRad-2);
+  for(float i = deathRad; i > targetRad; i--){
+    noFill();
+    stroke(#40D4FF);
+    strokeWeight(2);
+    ellipse(XSIZE/2, YSIZE/2, i, i);
+  }
+  targetRad--; //<>//
   
 }
 
@@ -799,7 +800,7 @@ void death() {
   if (millis() - deathMillis < 3000){
     // eyeZ-=10;
     // camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
-    hero.zoomDeath();
+    //hero.zoomDeath();
   }
   else{
     try {
