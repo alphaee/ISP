@@ -14,6 +14,10 @@ final int INNERSIZE = 40;
 final int OUTERSIZE = 40;
 final int OUTERRADIUS = INNERRADIUS+INNERSIZE;
 
+//CAMERA VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+float inc, scaleFactor, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ;
+float deathRad, targetRad;
+
 //PLAYER VARS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Player hero;
 float pxCor, pyCor; //Player x-cor and y-cor
@@ -28,7 +32,7 @@ final int enemySize = 3;
  1: Back&Forth-s
  2: Bouncers
  */
-
+//
 //ENEMY ANIMATIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Animation chas_spawning;
 Animation chas_dying;
@@ -99,6 +103,9 @@ int activeMillis;
 
 boolean start;
 int startMillis;
+
+boolean dead;
+int deathMillis;
 
 boolean jCheck;
 
@@ -178,6 +185,17 @@ void init_animations() {
 
 void setup2() {
   hero = new Player();
+  
+  // eyeX = width/2.0;
+  // eyeY = height/2.0;
+  // eyeZ = (height/2.0) / tan(PI*30.0/180.0);
+  // centerX = width/2.0;
+  // centerY = height/2.0;
+  // centerZ = 0;
+  // upX = 0;
+  // upY = 1;
+  // upZ = 0;
+  // camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
 
   for (int i = 0; i < enemySize; i++) {
     enemies[i] = new ArrayList<Enemy>();
@@ -198,6 +216,8 @@ void setup2() {
   startMillis = millis();
   prevMillisE = startMillis;
   prevMillisP = startMillis;
+  
+  dead = false;
 
   percentBAF = 8;
   numSpawn = 1;
@@ -493,6 +513,9 @@ void displayAll() {
 
   thumbCircle.display();
   hero.display();
+  if(dead){
+    deathCircle();
+  }
   displayStats();
 }
 
@@ -753,15 +776,47 @@ void checkDeath() {
   for (int i = 0; i < enemySize; i ++) { //2-D parsing
     for (Enemy e : enemies[i]) {
       if (hero.isDead(e) && !e.spawning()) {
-        try {
-          checkHighScores();
-          scores = highScores();
+        if (!dead){
+          deathMillis = millis();
+          dead = !dead;
+          inc = 0.0;
+          scaleFactor = 0.0;
+          deathRad = sqrt(XSIZE*XSIZE + YSIZE*YSIZE);
+          targetRad = deathRad - 2;
         }
-        catch(Exception a) {
+        else{
+          death();
         }
-        state = 20;
       }
     }
+  }
+}
+
+void deathCircle() {
+  for(float i = deathRad; i > targetRad; i--){
+    noFill();
+    stroke(#40D4FF);
+    strokeWeight(2);
+    ellipse(XSIZE/2, YSIZE/2, i, i);
+  }
+  targetRad--;
+  
+}
+
+void death() {
+  if (millis() - deathMillis < 3000){
+    // eyeZ-=10;
+    // camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
+    //hero.zoomDeath();
+  }
+  else{
+    try {
+      checkHighScores();
+      scores = highScores();
+    }
+    catch(Exception a) {
+    }
+    state = 20;
   }
 }
 //BACKGROUND~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -796,7 +851,8 @@ void drawGradientInner(float h, float x, float y, int radius, int size) {
   fill(0);
   ellipse(x, y, radius, radius);
 }
-//HIGHSCORES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+//HIGHSCORES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //<>//
 void checkHighScores() throws IOException {
   String[] res = highScores();
   int i = 2;
@@ -825,4 +881,3 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
-
