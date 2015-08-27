@@ -412,22 +412,22 @@ void draw() {
 
   case 20: //GAME OVER
     background(0);
-    textSize(displayHeight/9);         
+    textSize(displayHeight/8);         
     textAlign(CENTER, CENTER);         
     fill(#32CCD8);
-    text("High Scores", displayWidth/2, displayHeight/11);
+    text("High Scores", displayWidth/2, displayHeight/10);
 
-    textSize(displayHeight/20);      
+    textSize(displayHeight/18);      
     textAlign(LEFT);
-    text("1st: ", displayWidth/3, displayHeight/4);
-    text("2nd: ", displayWidth/3, displayHeight/4+ displayHeight/10);
-    text("3rd: ", displayWidth/3, displayHeight/4+ 2*displayHeight/10);
-    text("You: ", displayWidth/3, displayHeight/4 + 3*displayHeight/9);
+    text("1st: ", displayWidth/3, displayHeight/4 + displayHeight/20);
+    text("2nd: ", displayWidth/3, displayHeight/4+ displayHeight/20+ displayHeight/10);
+    text("3rd: ", displayWidth/3, displayHeight/4+ 2*displayHeight/10+ displayHeight/20);
+    text("You: ", displayWidth/3, displayHeight/4 + 3*displayHeight/9+ displayHeight/20);
     textAlign(RIGHT);
-    text(scores[0], 2*displayWidth/3, displayHeight/4);
-    text(scores[1], 2*displayWidth/3, displayHeight/4+ displayHeight/10);
-    text(scores[2], 2*displayWidth/3, displayHeight/4+ 2*displayHeight/10);
-    text(score*100, 2*displayWidth/3, displayHeight/4 + 3*displayHeight/9);
+    text(scores[0], 2*displayWidth/3, displayHeight/4+ displayHeight/20);
+    text(scores[1], 2*displayWidth/3, displayHeight/4+ displayHeight/10+ displayHeight/20);
+    text(scores[2], 2*displayWidth/3, displayHeight/4+ 2*displayHeight/10+ displayHeight/20);
+    text(score*100, 2*displayWidth/3, displayHeight/4 + 3*displayHeight/9+ displayHeight/20);
 
     imageMode(CORNER);
 //    fill(#D130A4, 0);
