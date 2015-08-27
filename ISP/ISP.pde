@@ -184,18 +184,6 @@ void init_animations() {
 
 void setup2() {
   hero = new Player();
-
-  // eyeX = width/2.0;
-  // eyeY = height/2.0;
-  // eyeZ = (height/2.0) / tan(PI*30.0/180.0);
-  // centerX = width/2.0;
-  // centerY = height/2.0;
-  // centerZ = 0;
-  // upX = 0;
-  // upY = 1;
-  // upZ = 0;
-  // camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
-
   for (int i = 0; i < enemySize; i++) {
     enemies[i] = new ArrayList<Enemy>();
   }
@@ -208,6 +196,7 @@ void setup2() {
 
   counter = 0;
 
+  spikesCounter=0;
   spiking = false;
 
   start = true;
@@ -427,12 +416,12 @@ void draw() {
     text(score*100, 2*displayWidth/3, displayHeight/4 + 3*displayHeight/9);
 
     imageMode(CORNER);
-//    fill(#D130A4, 0);
-   image(home, displayWidth/5, displayHeight*3/4);
-//    rect(displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
-//    fill(#5BD832, 0);
+    //    fill(#D130A4, 0);
+    image(home, displayWidth/5, displayHeight*3/4);
+    //    rect(displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
+    //    fill(#5BD832, 0);
     image(reset, displayWidth*4/5-displayHeight/7, displayHeight*3/4);
-//    rect(displayWidth-displayHeight/7-displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
+    //    rect(displayWidth-displayHeight/7-displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
 
     if (released&&mousePressed) {
       if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590)) {
@@ -642,6 +631,7 @@ void enemiesCollide() {
     for (int j = i+1; j < enemies[1].size (); j ++)
       enemies[1].get(i).event(enemies[1].get(j), i, j);
 }
+
 //POWERUP FXNS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void spawnPowerups() {
   for (int i = 0; i < numMines - powerups[1].size (); i++) {
@@ -783,6 +773,7 @@ void mineExploding() {
       curr.exploding += 2;
   }
 }
+
 //PLAYER FXNS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void checkDeath() {
   for (int i = 0; i < enemySize; i ++) { //2-D parsing
@@ -813,14 +804,16 @@ void deathCircle() {
   strokeWeight(targetRad);
   targetRad += 30;
   noFill();
-  ellipse(pxCor, pyCor, deathRad, deathRad);
+  ellipse(hero.xCor, hero.yCor, deathRad, deathRad);
 }
 
 void death() {
-  if (targetRad>=1800) {
+  if (targetRad<1800) {
     // eyeZ-=10;
     // camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
-    //hero.zoomDeath();
+    hero.rotateDeath();
+  }
+  else{
     try {
       checkHighScores();
       scores = highScores();
