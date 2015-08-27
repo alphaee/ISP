@@ -337,11 +337,11 @@ void draw() {
 
   case 10: //MAIN GAME
     background(0);
-    drawGradient();
     updatePlayerCors(); //update coordinates before applying translations; also updates XCHANGE & YCHANGE
     translate(XCHANGE, YCHANGE);
 
     createBoundary();
+    drawGradient();
 
     displayAll();
 
@@ -770,8 +770,8 @@ void drawGradient() {
   INNERHUE = millis()/100%360;
   OUTERHUE = (millis()+180)/50%360;
   noStroke();
-  drawGradientOuter(OUTERHUE, displayWidth/2, displayHeight/2, OUTERRADIUS, OUTERSIZE);
-  drawGradientInner(INNERHUE, displayWidth/2, displayHeight/2, INNERRADIUS, INNERSIZE);
+  drawGradientOuter(OUTERHUE, XSIZE/2, YSIZE/2, OUTERRADIUS, OUTERSIZE);
+  drawGradientInner(INNERHUE, XSIZE/2, YSIZE/2, INNERRADIUS, INNERSIZE);
   colorMode(RGB);
 }
 
