@@ -105,7 +105,6 @@ boolean start;
 int startMillis;
 
 boolean dead;
-int deathMillis;
 
 boolean jCheck;
 
@@ -185,7 +184,7 @@ void init_animations() {
 
 void setup2() {
   hero = new Player();
-  
+
   // eyeX = width/2.0;
   // eyeY = height/2.0;
   // eyeZ = (height/2.0) / tan(PI*30.0/180.0);
@@ -216,7 +215,7 @@ void setup2() {
   startMillis = millis();
   prevMillisE = startMillis;
   prevMillisP = startMillis;
-  
+
   dead = false;
 
   percentBAF = 8;
@@ -395,6 +394,19 @@ void draw() {
     }
     break;
 
+  case 11://DYING
+    background(0);
+    updatePlayerCors(); //update coordinates before applying translations; also updates XCHANGE & YCHANGE
+    translate(XCHANGE, YCHANGE);
+
+    createBoundary();
+    drawGradient();
+
+    displayAll();
+
+    death();
+    break;
+
   case 20: //GAME OVER
     background(0);
     textSize(displayHeight/9);         
@@ -415,12 +427,12 @@ void draw() {
     text(score*100, 2*displayWidth/3, displayHeight/4 + 3*displayHeight/9);
 
     imageMode(CORNER);
-    fill(#D130A4, 0);
-    image(home, displayWidth/5, displayHeight*3/4);
-    rect(displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
-    fill(#5BD832, 0);
+//    fill(#D130A4, 0);
+   image(home, displayWidth/5, displayHeight*3/4);
+//    rect(displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
+//    fill(#5BD832, 0);
     image(reset, displayWidth*4/5-displayHeight/7, displayHeight*3/4);
-    rect(displayWidth-displayHeight/7-displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
+//    rect(displayWidth-displayHeight/7-displayHeight/20, displayHeight/20, displayHeight/7, displayHeight/7);
 
     if (released&&mousePressed) {
       if ((get(mouseX, mouseY) == -15091541 || get(mouseX, mouseY) == -1118590)) {
@@ -513,7 +525,7 @@ void displayAll() {
 
   thumbCircle.display();
   hero.display();
-  if(dead){
+  if (dead) {
     deathCircle();
   }
   displayStats();
@@ -776,16 +788,13 @@ void checkDeath() {
   for (int i = 0; i < enemySize; i ++) { //2-D parsing
     for (Enemy e : enemies[i]) {
       if (hero.isDead(e) && !e.spawning()) {
-        if (!dead){
-          deathMillis = millis();
+        if (!dead) {
           dead = !dead;
           inc = 0.0;
           scaleFactor = 0.0;
           deathRad = sqrt(XSIZE*XSIZE + YSIZE*YSIZE);
-          targetRad = deathRad - 2;
-        }
-        else{
-          death();
+          targetRad = 10;
+          state = 11;
         }
       }
     }
@@ -793,23 +802,25 @@ void checkDeath() {
 }
 
 void deathCircle() {
-  for(float i = deathRad; i > targetRad; i--){
-    noFill();
-    stroke(#40D4FF);
-    strokeWeight(2);
-    ellipse(XSIZE/2, YSIZE/2, i, i);
-  }
-  targetRad--;
-  
+  //  for (float i = deathRad; i > targetRad; i-=) {
+  //    noFill();
+  //    stroke(#40D4FF);
+  //    strokeWeight(120);
+  //    ellipse(pxCor, pyCor, i, i);
+  //  }
+  //  targetRad-=20;
+  stroke(0);
+  strokeWeight(targetRad);
+  targetRad += 30;
+  noFill();
+  ellipse(pxCor, pyCor, deathRad, deathRad);
 }
 
 void death() {
-  if (millis() - deathMillis < 3000){
+  if (targetRad>=1800) {
     // eyeZ-=10;
     // camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
     //hero.zoomDeath();
-  }
-  else{
     try {
       checkHighScores();
       scores = highScores();
@@ -881,3 +892,4 @@ void checkHighScores() throws IOException {
 String[] highScores() throws FileNotFoundException {
   return loadStrings("highScores.txt");
 }
+
