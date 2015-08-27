@@ -122,10 +122,32 @@ int borderColorR, borderColorG, borderColorB, borderStroke;
 void setup() {
   orientation(LANDSCAPE);
   size(displayWidth, displayHeight); //Disable for mobile
+  
+  chas_spawning = new Animation("SpawnRed", 5, 240*displayHeight/768, 200*displayHeight/768);
+  chas_dying = new Animation("DieRed", 7, 240*displayHeight/768, 200*displayHeight/768);
+  baf_spawning = new Animation("SpawnYellow", 10, 240*displayHeight/768, 200*displayHeight/768);
+  baf_dying = new Animation("DieYellow", 5, 240*displayHeight/768, 200*displayHeight/768);
+  baf_moving_hori = new Animation("MovingYellow", 13, 180*displayHeight/768, 150*displayHeight/768);
+  baf_moving_vert = new Animation("MovingYellowVert", 13, 150*displayHeight/768, 180*displayHeight/768);
+  bounce_spawning = new Animation("SpawnGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
+  bounce_moving = new Animation("MovingGreen", 13, 240*displayHeight/768, 200*displayHeight/768);
+  bounce_dying = new Animation("DieGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
+  baf_merge = new Animation("MergeYellow", 14, 240*displayHeight/768, 200*displayHeight/768);
 
+  gunMoving = new Animation("Railgun", 7, 2*displayHeight/32, 2*displayHeight/32);
+  
+  font = loadFont("Kuro-Regular-250.vlw");
+  textFont(font);
+  
+  active = true;
+
+  init_anim = true;
+}
+
+void init_animations() {
   XSIZE = (int)(displayWidth*1.2); //You want the gamebox size to be larger than the size of the screen
   YSIZE = (int)(displayHeight*1.2);
-
+  
   thumbCircle = new Joystick();
 
   released = false;
@@ -158,28 +180,6 @@ void setup() {
   railgun.resize(displayHeight/14, displayHeight/14);
   spikes = loadImage("Spikes.png");
   spikes.resize(displayHeight/14, displayHeight/14);
-
-  font = loadFont("Kuro-Regular-250.vlw");
-  textFont(font);
-
-  active = true;
-
-  init_anim = true;
-}
-
-void init_animations() {
-  chas_spawning = new Animation("SpawnRed", 5, 240*displayHeight/768, 200*displayHeight/768);
-  chas_dying = new Animation("DieRed", 7, 240*displayHeight/768, 200*displayHeight/768);
-  baf_spawning = new Animation("SpawnYellow", 10, 240*displayHeight/768, 200*displayHeight/768);
-  baf_dying = new Animation("DieYellow", 5, 240*displayHeight/768, 200*displayHeight/768);
-  baf_moving_hori = new Animation("MovingYellow", 13, 180*displayHeight/768, 150*displayHeight/768);
-  baf_moving_vert = new Animation("MovingYellowVert", 13, 150*displayHeight/768, 180*displayHeight/768);
-  bounce_spawning = new Animation("SpawnGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
-  bounce_moving = new Animation("MovingGreen", 13, 240*displayHeight/768, 200*displayHeight/768);
-  bounce_dying = new Animation("DieGreen", 10, 240*displayHeight/768, 200*displayHeight/768);
-  baf_merge = new Animation("MergeYellow", 14, 240*displayHeight/768, 200*displayHeight/768);
-
-  gunMoving = new Animation("Railgun", 7, 2*displayHeight/32, 2*displayHeight/32);
 }
 
 void setup2() {
@@ -287,15 +287,18 @@ void draw() {
     text("Mine:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*5/20);
     text("Shield:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*7/20);
     text("Railgun:", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*9/20);
+    text("Lightning: ", displayWidth/5, displayHeight/6 + displayHeight/30 + displayHeight*11/20);
 
     text("The mine blows up enemies in its proximity.", 11*displayWidth/28, displayHeight/6 + displayHeight/30 + displayHeight*5/20);
     text("The shield gives you another layer of defense.", 11*displayWidth/28, displayHeight/6 + displayHeight/30 + displayHeight*7/20);
     text("The railgun clears any enemies in its path.", 11*displayWidth/28, displayHeight/6 + displayHeight/30 + displayHeight*9/20);
+    text("Lightning electrifies the boundaries.", 11*displayWidth/28, displayHeight/6 + displayHeight/30 + displayHeight*11/20);
 
     imageMode(CENTER);
     image(minePassive, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*5/20);
     image(shield, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*7/20);
     image(railgun, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*9/20);
+    image(spikes, displayWidth/3, displayHeight/6 + displayHeight/50 + displayHeight*11/20);
 
     textAlign(CENTER, CENTER);
     text("Tap Anywhere To Return!", displayWidth/2, displayHeight*6/7);
@@ -398,22 +401,22 @@ void draw() {
 
   case 20: //GAME OVER
     background(0);
-    textSize(displayHeight/9);         
+    textSize(displayHeight/8);         
     textAlign(CENTER, CENTER);         
     fill(#32CCD8);
-    text("High Scores", displayWidth/2, displayHeight/11);
+    text("High Scores", displayWidth/2, displayHeight/10);
 
-    textSize(displayHeight/20);      
+    textSize(displayHeight/18);      
     textAlign(LEFT);
-    text("1st: ", displayWidth/3, displayHeight/4);
-    text("2nd: ", displayWidth/3, displayHeight/4+ displayHeight/10);
-    text("3rd: ", displayWidth/3, displayHeight/4+ 2*displayHeight/10);
-    text("You: ", displayWidth/3, displayHeight/4 + 3*displayHeight/9);
+    text("1st: ", displayWidth/3, displayHeight/4 + displayHeight/20);
+    text("2nd: ", displayWidth/3, displayHeight/4+ displayHeight/20+ displayHeight/10);
+    text("3rd: ", displayWidth/3, displayHeight/4+ 2*displayHeight/10+ displayHeight/20);
+    text("You: ", displayWidth/3, displayHeight/4 + 3*displayHeight/9+ displayHeight/20);
     textAlign(RIGHT);
-    text(scores[0], 2*displayWidth/3, displayHeight/4);
-    text(scores[1], 2*displayWidth/3, displayHeight/4+ displayHeight/10);
-    text(scores[2], 2*displayWidth/3, displayHeight/4+ 2*displayHeight/10);
-    text(score*100, 2*displayWidth/3, displayHeight/4 + 3*displayHeight/9);
+    text(scores[0], 2*displayWidth/3, displayHeight/4+ displayHeight/20);
+    text(scores[1], 2*displayWidth/3, displayHeight/4+ displayHeight/10+ displayHeight/20);
+    text(scores[2], 2*displayWidth/3, displayHeight/4+ 2*displayHeight/10+ displayHeight/20);
+    text(score*100, 2*displayWidth/3, displayHeight/4 + 3*displayHeight/9+ displayHeight/20);
 
     imageMode(CORNER);
     //    fill(#D130A4, 0);
