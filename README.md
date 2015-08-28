@@ -14,6 +14,12 @@
 
 *Update Log*
 
+8/27/15
+- Changed Spikes to Lightening
+- Added dying screen
+- Reduce delay in menu screen
+- Successfully implemented the background
+
 8/24/15
 - Split up setup function to reduce load at beginning of game
 - Redid railgun picture
