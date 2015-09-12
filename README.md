@@ -1,5 +1,5 @@
 # ISP
-**Developed by Young Kim, Dan Kim, Franklin Wang over Summer 2015**
+**Developed by Young Kim, Dan Kim, Franklin Wang over Summer 2015** 
 
 First full-scale Processing Game we created. Primarily designed for Android using the Android Mode in Processing; fully tested on both Android and the Desktop mode. 
 
