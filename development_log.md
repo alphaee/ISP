@@ -1,4 +1,4 @@
-*Development Log*
+**Development Log**
 
 8/27/15
 - Changed Spikes to Lightening
