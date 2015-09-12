@@ -1,18 +1,4 @@
-# ISP
-**Developed by Young Kim, Dan Kim, Franklin Wang**
-
-[Kuro](http://www.dafont.com/kuro.font)
-
-[Google Doc!](https://docs.google.com/document/d/1bsUmQ39Tuk8-FGRpbGtZ056lpED07QvHCmKS6JtyHVg/edit?usp=sharing)
-
-*To-Do*  
-- Animations: Character, Mine
-- Background screen
-- Franklin: implement background
-- Dan: death thing
-- Young: Redo Spikes - > Lightning, Instructions
-
-*Update Log*
+*Development Log*
 
 8/27/15
 - Changed Spikes to Lightening
