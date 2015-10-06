@@ -88,14 +88,25 @@ class Player {
       }
     }
   }
-  
+
   void display() {
-    fill(255);
-    pushMatrix();
-    translate(xCor, yCor);
-    rotate(controlAngle + PI/2); //rotations are always done over the origin
-    if((iCounter < frameRate/2)&&(counter > frameRate/2)){
-      if(iCounter % 2 == 0){
+    if (!dead) {
+      fill(255);
+      pushMatrix();
+      translate(xCor, yCor);
+      rotate(controlAngle + PI/2); //rotations are always done over the origin
+      if ((iCounter < frameRate/2)&&(counter > frameRate/2)) {
+        if (iCounter % 2 == 0) {
+          if (shieldNum == 0)
+            image(img, 0, 0);
+          else if (shieldNum == 1)
+            image(img2, 0, 0);
+          else if (shieldNum == 2)
+            image(img3, 0, 0);
+          else 
+            image(img4, 0, 0);
+        }
+      } else {
         if (shieldNum == 0)
           image(img, 0, 0);
         else if (shieldNum == 1)
@@ -105,17 +116,15 @@ class Player {
         else 
           image(img4, 0, 0);
       }
+      popMatrix();
     }
-    else{
-      if (shieldNum == 0)
-        image(img, 0, 0);
-      else if (shieldNum == 1)
-        image(img2, 0, 0);
-      else if (shieldNum == 2)
-        image(img3, 0, 0);
-      else 
-        image(img4, 0, 0);
-    }
+  }
+
+  void rotateDeath() {
+    pushMatrix();
+    translate(xCor, yCor);
+    rotate(millis()/120.0 + PI/2); //rotations are always done over the origin
+    image(img, 0, 0);
     popMatrix();
   }
 }

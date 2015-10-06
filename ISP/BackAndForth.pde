@@ -60,7 +60,7 @@ class BackAndForth implements Enemy {
   }
   
   boolean checkSpikeDeath(){
-    return (xCor > XSIZE-35 || xCor < 35 || yCor < 35 || yCor > YSIZE-35) && isAlive;
+    return isAlive && (xCor > XSIZE-35 || xCor < 35 || yCor < 35 || yCor > YSIZE-35);
   }
 
   boolean detect() {
@@ -164,7 +164,6 @@ class BackAndForth implements Enemy {
   }
 
   void dying() {
-
     if (!isAlive) {
       baf_dying.show(xCor, yCor, 4);
       deathCounter--;

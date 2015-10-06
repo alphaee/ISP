@@ -57,7 +57,7 @@ class Bouncer implements Enemy {
   }
   
   boolean checkSpikeDeath(){
-    return (xCor > XSIZE-35 || xCor < 35 || yCor < 35 || yCor > YSIZE-35) && isAlive;
+    return (isAlive && (xCor > XSIZE-35 || xCor < 35 || yCor < 35 || yCor > YSIZE-35));
   }
 
   void attack() { 
